@@ -1,0 +1,26 @@
+@charset "UTF-8";
+*{
+	margin: 0px;
+	padding: 0px;
+}
+#wrap{
+    width: 1024px;
+	margin: auto;
+}
+.header{
+    width: 100%;
+    height: 180px;
+    background-color: orange;
+}
+
+.footer{
+    width: 100%;
+    height: 200px;
+    background-color: #aaaaaa;
+}
+
+.main{
+    width: 100%;
+    height: 500px;
+    background-color: #ff8080;
+}
