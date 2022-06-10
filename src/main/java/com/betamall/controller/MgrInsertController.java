@@ -17,13 +17,13 @@ import com.betamall.dto.ManagerDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@WebServlet("/mgrinsert")
+@WebServlet("/admin/mgrinsert")
 @SuppressWarnings("serial")
 public class MgrInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BranchDao brDao = BranchDao.getInstance();
-		ArrayList<BranchDto> brDtos = brDao.selectWoMgr();
+		ArrayList<BranchDto> brDtos = brDao.selectWoMgr();	
 		req.setAttribute("brDtos", brDtos);
 		req.getRequestDispatcher("/views/admin/manager/mgrInsertForm.jsp").forward(req, resp);
 	}
@@ -59,7 +59,8 @@ public class MgrInsertController extends HttpServlet{
 							)
 						);
 		if(n>0) {
-			System.out.println("성공");
+			System.out.println(saveDir+"에 저장 성공");
+			resp.sendRedirect(req.getContextPath() + "/admin/mgrlist");
 		}else {
 			System.out.println("실패");
 		}
