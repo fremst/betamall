@@ -25,9 +25,10 @@ public class MgrInsertController extends HttpServlet{
 		BranchDao brDao = BranchDao.getInstance();
 		ArrayList<BranchDto> brDtos = brDao.selectWoMgr();	
 		req.setAttribute("brDtos", brDtos);
-		req.getRequestDispatcher("/views/admin/manager/mgrInsertForm.jsp").forward(req, resp);
+		
+		req.setAttribute("mainPage", "/views/admin/manager/mgrInsertForm.jsp");
+		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
