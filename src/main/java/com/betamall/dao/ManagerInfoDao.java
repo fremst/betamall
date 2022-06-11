@@ -42,13 +42,85 @@ private static ManagerInfoDao instance = new ManagerInfoDao();
 			}
 	}
 	
+	public ManagerInfoDto select(int mgrNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT MGRNO, MGRID, MGRIMG, BRNAME, BRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
+					   + "FROM MGR INNER JOIN BRANCH BR "
+					   + "ON (BR.BRNO = MGR.BRNO)"
+					   + "WHERE MGRNO = ?";
+			pstmt =con.prepareStatement(sql);
+			pstmt.setInt(1, mgrNo);
+			rs = pstmt.executeQuery();
+			ManagerInfoDto mgrInfoDto = null;
+			if(rs.next()) {
+				mgrInfoDto = new ManagerInfoDto(
+							rs.getInt("MGRNO"),
+							rs.getString("MGRID"),
+							rs.getString("MGRIMG"),
+							rs.getString("BRNAME"),
+							rs.getString("BRTEL"),
+							rs.getString("BRADDR"),
+							rs.getString("MGRNAME"),
+							rs.getString("MGRTEL"),
+							rs.getString("MGREMAIL")
+						);
+			}
+			return mgrInfoDto;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} finally {
+				JdbcUtil.close(con, pstmt, rs);
+			}
+	}
+	
+	public ManagerInfoDto selectById(String mgrId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT MGRNO, MGRID, MGRIMG, BRNAME, BRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
+					   + "FROM MGR INNER JOIN BRANCH BR "
+					   + "ON (BR.BRNO = MGR.BRNO)"
+					   + "WHERE MGRID = ?";
+			pstmt =con.prepareStatement(sql);
+			pstmt.setString(1, mgrId);
+			rs = pstmt.executeQuery();
+			ManagerInfoDto mgrInfoDto = null;
+			if(rs.next()) {
+				mgrInfoDto = new ManagerInfoDto(
+							rs.getInt("MGRNO"),
+							rs.getString("MGRID"),
+							rs.getString("MGRIMG"),
+							rs.getString("BRNAME"),
+							rs.getString("BRTEL"),
+							rs.getString("BRADDR"),
+							rs.getString("MGRNAME"),
+							rs.getString("MGRTEL"),
+							rs.getString("MGREMAIL")
+						);
+			}
+			return mgrInfoDto;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} finally {
+				JdbcUtil.close(con, pstmt, rs);
+			}
+	}
+	
 	public ArrayList<ManagerInfoDto> selectAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "SELECT MGRNO, MGRIMG, BRNAME, MGRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
+			String sql = "SELECT MGRNO, MGRID, MGRIMG, BRNAME, BRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
 					   + "FROM MGR INNER JOIN BRANCH BR "
 					   + " ON (BR.BRNO = MGR.BRNO)"
 					   + "ORDER BY MGRNO";
@@ -59,6 +131,7 @@ private static ManagerInfoDao instance = new ManagerInfoDao();
 				mgrDtos.add(
 						new ManagerInfoDto(
 								rs.getInt("MGRNO"),
+								rs.getString("MGRID"),
 								rs.getString("MGRIMG"),
 								rs.getString("BRNAME"),
 								rs.getString("BRTEL"),
@@ -84,7 +157,7 @@ private static ManagerInfoDao instance = new ManagerInfoDao();
 		ResultSet rs = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "SELECT MGRNO, MGRIMG, BRNAME, BRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
+			String sql = "SELECT MGRNO, MGRID, MGRIMG, BRNAME, BRTEL, BRADDR, MGRNAME, MGRTEL, MGREMAIL "
 					   + "FROM(SELECT MGRBR.*, ROW_NUMBER() OVER (ORDER BY MGRNO) AS ROW_NUM "
 					   + 	  "FROM (SELECT * "
 					   + 	  "FROM MGR INNER JOIN BRANCH BR "
@@ -99,6 +172,7 @@ private static ManagerInfoDao instance = new ManagerInfoDao();
 				mgrDtos.add(
 						new ManagerInfoDto(
 								rs.getInt("MGRNO"),
+								rs.getString("MGRID"),
 								rs.getString("MGRIMG"),
 								rs.getString("BRNAME"),
 								rs.getString("BRTEL"),

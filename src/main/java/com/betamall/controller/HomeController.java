@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns={"/home"})
 @SuppressWarnings("serial")
 public class HomeController extends HttpServlet{
 	@Override

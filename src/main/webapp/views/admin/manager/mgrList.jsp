@@ -7,8 +7,23 @@
 <meta charset="UTF-8">
 <title>점장 조회/수정/삭제</title>
 <style type="text/css">
-	table, tr, td {
+	table {
+		width: 940px;
+		height: 420px;
+		margin: auto;
+	}
+	table, th, tr, td {
 		border: solid 1px
+	}
+	th {
+		height: 20px;
+	}
+	td {
+		height: 120px;
+	}
+	p {
+		padding-bottom: 10px;
+		box-sizing: border-box;
 	}
 	#pageNav{
 		width: 100px;
@@ -47,7 +62,7 @@
 							+"<td>"+mgrData[i].mgrName+"</td>"
 							+"<td>"+mgrData[i].mgrTel+"</td>"
 							+"<td>"+mgrData[i].mgrEmail+"</td>"
-							+"<td><a href ='${cp}/mgrlist'>수정</a></td>"
+							+"<td><a href ='${cp}/admin/manager/update?mgrNo="+mgrData[i].mgrNo+"''>관리</a></td>"
 					}
 					
 					let pageNav = document.getElementById("pageNav");
@@ -67,28 +82,31 @@
 					pageNav.appendChild(div);
 				}
 			}
-			xhr.open('post','${cp }/admin/mgrlist?pageNum='+pageNum,true);
+			xhr.open('post','${cp }/admin/manager/list?pageNum='+pageNum,true);
 			xhr.send();
 	}
 
 </script>
 </head>
 <body>
-    <h1>점장 조회/수정/삭제</h1>
+	<p><h2>점장 조회/수정/삭제</h2></p>
     <div>
 		<table align="center" style="text-align: center">
 			<tbody id = "tbody">
 				<tr>
-					<td>점장 번호</td>
-					<td>대표 사진</td>
-					<td>지점명</td>
-					<td>지점 전화번호</td>
-					<td>지점 주소</td>
-					<td>점장명</td>
-					<td>점장 전화번호</td>
-					<td>점장 이메일</td>
-					<td>관리</td>
+					<th>점장 번호</th>
+					<th>대표 사진</th>
+					<th>지점명</th>
+					<th>지점 전화번호</th>
+					<th>지점 주소</th>
+					<th>점장명</th>
+					<th>점장 전화번호</th>
+					<th>점장 이메일</th>
+					<th>관리</th>
 				</tr>
+				<c:forEach var="i" begin="1" end="3">
+					<tr><c:forEach var="j" begin="1" end="9"><td></td></c:forEach></tr>
+				</c:forEach>
 			</tbody>
 		</table>
     </div>

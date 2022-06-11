@@ -16,10 +16,10 @@ import org.json.JSONObject;
 import com.betamall.dao.ManagerInfoDao;
 import com.betamall.dto.ManagerInfoDto;
 
-@WebServlet("/admin/mgrlist")
+@WebServlet(urlPatterns = {"/admin/manager/list", "/admin/manager/"})
 @SuppressWarnings("serial")
 public class MgrListController extends HttpServlet{
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mainPage", "/views/admin/manager/mgrList.jsp");
@@ -28,9 +28,6 @@ public class MgrListController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		BranchDao brDao = BranchDao.getInstance();
-//		ArrayList<BranchDto> brDtos = brDao.selectWoMgr();
-//		req.setAttribute("brDtos", brDtos);
 		
 		int currPageNum = 1;
 		if(req.getParameter("pageNum")!=null) {

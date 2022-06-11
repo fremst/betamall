@@ -2,6 +2,7 @@ package com.betamall.dto;
 
 public class ManagerInfoDto {
 	private int mgrNo;
+	private String mgrId;
 	private String mgrImg;
 	private String brName;
 	private String brTel;
@@ -12,10 +13,10 @@ public class ManagerInfoDto {
 	
 	public ManagerInfoDto() {}
 
-	public ManagerInfoDto(int mgrNo, String mgrImg, String brName, String brTel, String brAddr, String mgrName,
+	public ManagerInfoDto(int mgrNo, String mgrId, String mgrImg, String brName, String brTel, String brAddr, String mgrName,
 			String mgrTel, String mgrEmail) {
-		super();
 		this.mgrNo = mgrNo;
+		this.mgrId = mgrId;
 		this.mgrImg = mgrImg;
 		this.brName = brName;
 		this.brTel = brTel;
@@ -31,6 +32,14 @@ public class ManagerInfoDto {
 
 	public void setMgrNo(int mgrNo) {
 		this.mgrNo = mgrNo;
+	}
+
+	public String getMgrId() {
+		return mgrId;
+	}
+
+	public void setMgrId(String mgrId) {
+		this.mgrId = mgrId;
 	}
 
 	public String getMgrImg() {
@@ -91,10 +100,9 @@ public class ManagerInfoDto {
 
 	@Override
 	public String toString() {
-		return "ManagerInfoDto [mgrNo=" + mgrNo + ", mgrImg=" + mgrImg + ", brName=" + brName + ", brTel=" + brTel
-				+ ", brAddr=" + brAddr + ", mgrName=" + mgrName + ", mgrTel=" + mgrTel + ", mgrEmail=" + mgrEmail + "]\n";
+		return "ManagerInfoDto [mgrNo=" + mgrNo + ", mgrId=" + mgrId + ", mgrImg=" + mgrImg + ", brName=" + brName
+				+ ", brTel=" + brTel + ", brAddr=" + brAddr + ", mgrName=" + mgrName + ", mgrTel=" + mgrTel
+				+ ", mgrEmail=" + mgrEmail + "]\n";
 	}
-
-	
 	
 }

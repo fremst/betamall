@@ -27,8 +27,12 @@
 </head>
 <body>
     <div>
-    	<h2 id = "subtitle">점장 등록</h2>
-   	    <form method="post" enctype="multipart/form-data">
+	    <c:if test="${role == 'master'}">
+	    	<c:set var="isDel" value="true"></c:set>
+	    </c:if>
+    	<h2 id = "subtitle"></h2>
+   	    <form method="post" enctype="multipart/form-data"
+   	    onsubmit = "if(${isDel=='true'}){if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')){return false;}}">
         	<input type = "text" value = "${mgrInfoDto.mgrNo}" hidden="hidden">
         	<fieldset id = "fieldset">
         		<c:if test="${not empty mgrInfoDto.mgrNo}">
@@ -41,20 +45,14 @@
 	            <input type= "text" name = "mgrTel" value = "${mgrInfoDto.mgrTel}" placeholder = "01012345678"><br>
 	            <label for = "mgrEmail">이메일</label><br>
 	            <input type= "text" name= "mgrEmail" value ="${mgrInfoDto.mgrEmail}" placeholder = "example@mail.com"><br>
-           		<!-- 유효성 검증/중복 검사 추가 예정 -->
-	            <label for = "mgrId">아이디</label><br>
-	            <input type= "text" name= "mgrId" value = "${mgrInfoDto.mgrId}" id ="mgrId" placeholder = "6~12자 영어 소문자"><br>
-	            <!-- 유효성 검증 추가 예정 -->
-            	<label for = "mgrPwd">비밀번호</label><br>
-	            <input type= "password" name = "mgrPwd" placeholder = "8~12자 영문/숫자/특수 문자"><br>
+           		<!-- 유효성 검증 추가 예정 -->
+	            <c:if test="${relation == 'self'}">
+	            	<label for = "mgrPwd">비밀번호</label><br>
+		            <input type= "password" name = "mgrPwd" placeholder = "8~12자 영문/숫자/특수 문자"><br>
+	            </c:if>
             	<label for = "brName">담당지점</label><br>
 	            <select name = 'brName' id = "brName">
-            	<c:if test="${not empty mgrInfoDto.brName}">
             		<option>${mgrInfoDto.brName}</option>
-            	</c:if>
-            	<c:forEach var="b" items="${brDtos}">
-	            	<option>${b.brName}</option>
-            	</c:forEach>
 	            </select><br>
 	            <label for = "uploadedFile">증명사진</label>
 	            <input type = "file" name = "uploadFile" accept="image/jpeg, image/png"><br>
@@ -65,10 +63,26 @@
 	            </c:if>
             </fieldset>
             <div id = "btns">
-		    	<input type="submit" value="등록" formaction="${cp }/admin/manager/insert">
-		    	<button onclick = "history.back(); return false;">취소</button>
+	            <c:if test="${role == 'master' && relation != 'self'}">
+			        <input type="submit" value="삭제" formaction="${cp }/admin/manager/delete?mgrNo=${mgrInfoDto.mgrNo}">
+	           	</c:if>
+	           	<c:if test="${relation == 'self'}">
+		            <input type="submit" value="수정" formaction="${cp }/admin/manager/update?mgrNo=${mgrInfoDto.mgrNo}">
+	           	</c:if>
+	           	<button onclick = "history.back(); return false;">취소</button>
            	</div>
         </form>
     </div>
 </body>
+<script type="text/javascript">
+	let h2 = document.getElementById("subtitle");
+	if(${relation == 'self'}){
+		h2.innerHTML = '정보 수정';
+		document.getElementById("mgrId").disabled = true;
+		document.getElementById("brName").disabled = true;
+	}else{
+		h2.innerHTML = '조회/삭제';
+		document.getElementById("fieldset").disabled = true;
+	}
+</script>
 </html>

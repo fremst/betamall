@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebInitParam;
 		})
 public class EncodingFilter implements Filter{
 	String encoding = null;
-	
 	// 요청시마다 실행
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
