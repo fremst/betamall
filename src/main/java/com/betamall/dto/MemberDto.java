@@ -15,9 +15,11 @@ public class MemberDto {
     private String mbrGrade;
     private int totAmt;
 
-    public MemberDto() {}
+    public MemberDto() {
+    }
 
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
+    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId,
+            String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
         this.mbrNo = mbrNo;
         this.mbrName = mbrName;
         this.mbrTel = mbrTel;
@@ -30,7 +32,6 @@ public class MemberDto {
         this.mbrGrade = mbrGrade;
         this.totAmt = totAmt;
     }
-
 
     public int getMbrNo() {
         return mbrNo;
