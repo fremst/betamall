@@ -11,16 +11,23 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class JdbcUtil {
+	
+	private static DataSource ds;
+	static {
+		try {
+			ds = (DataSource)((Context)new InitialContext().lookup("java:/comp/env")).lookup("jdbc/myoracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static Connection getCon() {
+		
 		Connection con = null;
 		try {
-			DataSource ds = (DataSource)((Context)new InitialContext().lookup("java:/comp/env")).lookup("jdbc/myoracle");
 			con = ds.getConnection();
-			
 			return con;
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 		return null;
