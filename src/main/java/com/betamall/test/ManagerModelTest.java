@@ -1,14 +1,6 @@
 package com.betamall.test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.betamall.dao.ManagerDao;
-import com.betamall.dao.ManagerInfoDao;
-import com.betamall.dto.ManagerDto;
-import com.betamall.util.JdbcUtil;
 
 public class ManagerModelTest {
 	public static void main(String[] args) {
@@ -29,7 +21,5 @@ public class ManagerModelTest {
 //		System.out.println(mgrInfoDao.getCount());
 //		System.out.println(mgrInfoDao.selectAll());
 //		System.out.println(mgrInfoDao.selectFromTo(3,6));
-		
-		
 	}
 }
