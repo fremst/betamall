@@ -21,6 +21,5 @@ public class ManagerModelTest {
 //		System.out.println(mgrInfoDao.getCount());
 //		System.out.println(mgrInfoDao.selectAll());
 //		System.out.println(mgrInfoDao.selectFromTo(3,6));
-		
 	}
 }
