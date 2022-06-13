@@ -10,6 +10,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
+
 public class JdbcUtil {
 	
 	private static DataSource ds;
@@ -26,6 +28,7 @@ public class JdbcUtil {
 		Connection con = null;
 		try {
 			con = ds.getConnection();
+
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
