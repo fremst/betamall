@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+
+
 public class JdbcUtil {
 	public static Connection getCon() {
 		Connection con = null;
@@ -17,9 +19,8 @@ public class JdbcUtil {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			props = new Properties();
-			props.load(new FileReader("C:/Users/dju20/Desktop/betamall/src/main/resources/jdbc.properties"));
-			// "C:/Users/dju20/Desktop/betamall/src/main/resources/jdbc.properties"
-			// "src/main/resources/jdbc.properties"
+			props.load(new FileReader("C:\\semiproject\\workspace\\betamall\\src\\main\\resources\\jdbc.properties"));
+      
 			String url = props.getProperty("url")+props.getProperty("path");
 			String user = props.getProperty("user");
 			String password = props.getProperty("password");
