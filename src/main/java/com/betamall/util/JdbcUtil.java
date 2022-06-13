@@ -17,7 +17,7 @@ public class JdbcUtil {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			props = new Properties();
-			props.load(new FileReader("src/main/resources/jdbc.properties"));
+			props.load(new FileReader("C:\\2203\\web\\workspace\\betamall\\src\\main\\resources\\jdbc.properties"));
 			
 			String url = props.getProperty("url")+props.getProperty("path");
 			String user = props.getProperty("user");
