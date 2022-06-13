@@ -13,6 +13,7 @@ import com.betamall.dao.NoticeDao;
 import com.betamall.dto.NoticeDto;
 
 @WebServlet("/board/list")
+@SuppressWarnings("serial")
 public class NoticeListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

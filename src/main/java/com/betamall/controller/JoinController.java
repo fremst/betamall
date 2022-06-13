@@ -13,6 +13,7 @@ import com.betamall.dao.MemberDao;
 import com.betamall.dto.MemberDto;
 
 @WebServlet("/join")
+@SuppressWarnings("serial")
 public class JoinController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);

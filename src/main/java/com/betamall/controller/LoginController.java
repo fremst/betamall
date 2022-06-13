@@ -10,17 +10,19 @@ import javax.servlet.http.HttpSession;
 import com.betamall.dao.MemberDao;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet {     @Override 
-                                                                                                            // 
-                                                                                                            // 
-                                                                                                            // 
-                                                                                                            // 
-proteted  void doGet(HttpServletRequest req
-getRequestDispatcher("/views/home/login.jsp").forverridee         String pwd=req.getParameter("pwd");
+@SuppressWarnings("serial")
+public class LoginController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/views/home/login.jsp").forward(req, resp);
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id=req.getParameter("id");
+        String pwd=req.getParameter("pwd");
         //db에 해당 회원이 존재하는지 검사
         MemberDao dao=MemberDao.getInstance();
         if(dao.isMember(id,pwd)!=null) { //아이디와 비밀번호가 맞는 경우 - 로그인하기(세션에 아이디저장)

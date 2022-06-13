@@ -54,7 +54,7 @@
 			<input type="submit" value="검색">
 		</form>
 	</div>
-	<a href="${pageContext.request.contextPath }/board/insert">게시글 작성</a>
+	<a href="${cp }/board/insert">게시글 작성</a>
 	<a href="${cp }/board/list">전체글보기</a> | <a href="${cp }/home">home</a>
 </body>
 </html>
