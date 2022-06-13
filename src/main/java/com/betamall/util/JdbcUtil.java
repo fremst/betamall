@@ -1,40 +1,35 @@
 package com.betamall.util;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 
 
 public class JdbcUtil {
-	public static Connection getCon() {
-		Connection con = null;
-		Properties props = null;
+	
+	private static DataSource ds;
+	static {
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			props = new Properties();
-			props.load(new FileReader("C:\\semiproject\\workspace\\betamall\\src\\main\\resources\\jdbc.properties"));
-      
-			String url = props.getProperty("url")+props.getProperty("path");
-			String user = props.getProperty("user");
-			String password = props.getProperty("password");
-			
-			con = DriverManager.getConnection(url, user, password);
-//			con.setAutoCommit(false);
-			
+			ds = (DataSource)((Context)new InitialContext().lookup("java:/comp/env")).lookup("jdbc/myoracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Connection getCon() {
+		
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+
 			return con;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
