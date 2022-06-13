@@ -31,7 +31,6 @@ public class MemberDto {
         this.totAmt = totAmt;
     }
 
-
     public int getMbrNo() {
         return mbrNo;
     }

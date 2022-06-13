@@ -2,17 +2,9 @@ package com.betamall.dao;
 
 import com.betamall.dto.MemberDto;
 import com.betamall.util.JdbcUtil;
-
-import java.nio.channels.SelectableChannel;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
-
-import javax.swing.text.html.HTMLDocument.RunElement;
-
-import java.sql.ResultSet;
 
 public class MemberDao {
     public static MemberDao instance = new MemberDao();
@@ -47,7 +39,7 @@ public class MemberDao {
             JdbcUtil.close(con, pstmt, null);
         }
     }
-
+}
     public MemberDto isMember(String id, String pwd) {
         Connection con = null;
         PreparedStatement pstmt = null;
