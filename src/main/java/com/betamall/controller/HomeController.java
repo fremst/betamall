@@ -16,6 +16,7 @@ public class HomeController extends HttpServlet{
 		
 		// main에 보여질 페이지를 requestScope에 담기
 		req.setAttribute("mainPage", "/views/common/main.jsp");
+		
 		// layout.jsp (header + main + footer) 호출
 		req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
 	}

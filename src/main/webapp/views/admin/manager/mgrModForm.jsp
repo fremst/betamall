@@ -15,22 +15,26 @@
 	    </c:if>
     	<h2 id = "subtitle"></h2>
    	    <form method="post" enctype="multipart/form-data"
-   	    onsubmit = "if(${isDel=='true'}){if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')){return false;}}">
+   	    onsubmit = "if(${isDel=='true'}){
+   	    				if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}
+   	    			} else {
+   	    			return validate()}">
         	<input type = "text" value = "${mgrInfoDto.mgrNo}" hidden="hidden">
         	<fieldset id = "fieldset">
         		<div>
 	        		<label for = "mgrNo">점장번호</label><br>
 		            <input type = "text" name = "mgrNo" value="${mgrInfoDto.mgrNo}" disabled="disabled" class = "inputText"><br>
 		            <label for = "mgrName">성명</label><br>
-		            <input type= "text" name = "mgrName" value = "${mgrInfoDto.mgrName}" class = "inputText"><br>
+		            <input type= "text" name = "mgrName" id = "mgrName" value = "${mgrInfoDto.mgrName}" class = "inputText"><br>
 		            <label for = "mgrTel">전화번호</label><br>
-		            <input type= "text" name = "mgrTel" value = "${mgrInfoDto.mgrTel}" placeholder = "01012345678" class = "inputText"><br>
+		            <input type= "text" name = "mgrTel" id = "mgrTel" value = "${mgrInfoDto.mgrTel}" placeholder = "01012345678" class = "inputText"><br>
 		            <label for = "mgrEmail">이메일</label><br>
-		            <input type= "text" name= "mgrEmail" value ="${mgrInfoDto.mgrEmail}" placeholder = "example@mail.com" class = "inputText"><br>
-	           		<!-- 유효성 검증 추가 예정 -->
+		            <input type= "email" name= "mgrEmail" id = "mgrEmail" value ="${mgrInfoDto.mgrEmail}" placeholder = "example@mail.com" class = "inputText"><br>
+	           		<label for = "mgrId">아이디</label><br>
+	            	<input type= "text" name= "mgrId" value = "${mgrInfoDto.mgrId}" id ="mgrId" class = "inputText"><br>
 		            <c:if test="${relation == 'self'}">
 		            	<label for = "mgrPwd">비밀번호</label><br>
-			            <input type= "password" name = "mgrPwd" placeholder = "8~12자 영문/숫자/특수 문자" class = "inputText"><br>
+			            <input type= "password" name = "mgrPwd" id = "mgrPwd" placeholder = "8~12자 영문/숫자/특수 문자 조합" class = "inputText"><br>
 		            </c:if>
 	            	<label for = "brName">담당지점</label><br>
 		            <select name = 'brName' id = "brName" class = "inputText">
@@ -82,5 +86,28 @@
         };
         reader.readAsDataURL(event.target.files[0]);
       }
+    
+    function validate(){
+    	let name = document.getElementById('mgrName').value;
+    	let tel = document.getElementById('mgrTel').value;
+    	let email = document.getElementById('mgrEmail').value;
+    	let id = document.getElementById('mgrId').value;
+		let pwd = document.getElementById('mgrPwd').value;
+    	
+    	if(name == ''){
+			alert('이름을 입력해주세요.');
+    		return false;
+		}else if(tel == ''){
+			alert('전화번호를 입력해주세요.');
+    		return false;
+		}else if(email == ''){
+			alert('이메일을 입력해주세요.');
+    		return false;
+    	}else if(!((/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/).test(pwd))){
+    		alert('비밀번호는 영어/숫자/특수문자를 조합해 8-12자로 이루어져야 합니다.');
+    	}else{
+    		return true;
+    	}
+    }
 </script>
 </html>
