@@ -1,5 +1,5 @@
 @charset "UTF-8";
-*{
+ *{
 		list-style: none; /*목록에 점 없애는 기능*/
 		text-decoration: none; /*밑줄 색깔 없애는 기능*/
 		border-collapse: collapse; /*테이블이 선이 다따로 떨어저 있는걸 없애주는 기능*/
@@ -10,14 +10,14 @@
 		
 	}
 	
-	.header{
+	.headers{
 		display: flex;
 		width: 100%;
 		height: 204px;
 		margin: auto;
 		height: 40px;
 	}
-	.header .searchArea{
+	.headers .searchArea{
 		float: left;
 	}
 	.search_area{
@@ -84,7 +84,7 @@
 	.nav2 li{
 		margin-left: 50px;
 	}
-	.footer{
+	footer{
 		background-color: #aaaaaa;
 		height: 250px;
 		display: flex;
@@ -108,3 +108,116 @@
 		margin-left: 100px;
 		height:100px;
 	}
+	/*main*/
+	.slider{
+		position: relative;
+		height: 500px;
+	}
+	.slider ul li{
+		height: 400px;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: absolute;
+		top: 100px;left: calc(50% - 300px);
+		width: 600px;
+	}
+	.slider input,
+	.slider label{
+		position: relative;	
+		top: 420px;
+	}
+	/*인디케이터-레이블 디자인*/
+	.slider label{
+		width: 20px;
+		height: 20px;
+		background-color: #ddd;
+		background: rgba(0,0,0,0.5);
+		display: inline-block;
+		border-radius: 10px;
+		cursor: pointer;
+	}
+	/*input태그 날리기*/
+	.slider input[type="radio"]{
+		display: none;
+	}
+	/*모든 슬라이드 이미지 숨기기*/
+	.slider ul li{display: none;}
+	/*인디케이터 선택시 이미지 보이기*/
+	#btn1:checked ~ .slide li:nth-child(1){display: block;}
+	#btn2:checked ~ .slide li:nth-child(2){display: block;}
+	#btn3:checked ~ .slide li:nth-child(3){display: block;}
+	#btn4:checked ~ .slide li:nth-child(4){display: block;}
+	/*선택된 인디케이터 스타일링*/
+	#btn1:checked ~ #in1 {background-color: white;}
+	#btn2:checked ~ #in2 {background-color: white;}
+	#btn3:checked ~ #in3 {background-color: white;}
+	#btn4:checked ~ #in4 {background-color: white;}
+	/*인디케이터 템플릿 (.wide)*/
+	#btn1:checked ~ #in1.wide{width:40px;}
+	#btn2:checked ~ #in2.wide{width:40px;}
+	#btn3:checked ~ #in3.wide{width:40px;}
+	#btn4:checked ~ #in4.wide{width:40px;}
+	/*모션*/
+	.slider label{transition: all 0.6s;}
+
+	#btn1 ~ ul li.fade,
+	#btn2 ~ ul li.fade
+	#btn3 ~ ul li.fade
+	#btn4 ~ ul li.fade{
+		display: block;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.6s;
+	}
+	#btn1:checked ~ ul li.fade:nth-child(1),
+	#btn2:checked ~ ul li.fade:nth-child(2),
+	#btn3:checked ~ ul li.fade:nth-child(3),
+	#btn4:checked ~ ul li.fade:nth-child(4){
+		opacity: 1;
+		visibility: visible;
+	}
+	.slide-img1{
+		background-image: url(../images/slider01.jpg);
+	}
+	.slide-img2{
+		background-image: url(../images/slider02.jpg);
+	}
+	.slide-img3{
+		background-image: url(../images/slider03.jpg);
+	}
+	.slide-img4{
+		background-image: url(../images/slider04.jpg);
+	}
+	.slider label{
+		top: 470px;z-index: 99990;
+		left: calc(50% - 50px);
+	}
+	.banner{
+		height: 500px;
+	}
+	#banner_img{
+		display: block;margin-left: auto; margin-right: auto; padding-top: 10%;
+	}
+	.cardbox{
+		display: flex;
+		height: 600px;
+	}
+	.card{
+		padding-top: 10%;
+		margin-left: 50px;
+	}
+	h4{
+		text-align: center;
+	}
+	#cardlist{
+		display:flex; margin-left: auto; margin-right: auto;
+	}
+	#new_item{
+		border: 1px solid black;
+	}
+	.card > p{
+		text-align: center;
+	}
+	
+	
+	
