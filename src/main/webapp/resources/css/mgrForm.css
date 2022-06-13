@@ -1,0 +1,36 @@
+@charset "UTF-8";
+fieldset {
+	width: 620px;
+	margin: auto;
+	padding: 10px;
+	display: flex;
+}
+
+.inputText {
+	width: 200px;
+	height: 20px;
+}
+
+.fileField{
+	margin-top: 10px;
+	margin-left: 30px;
+}
+#btns {
+	width: 100px;
+	margin: auto;
+	padding: 10px;
+}
+.notice {
+	color: gray;
+	font-size: 10pt;
+}
+.thumbNailMsg{
+	font-size: 10pt;
+	margin-left: 10px;
+}
+img {
+	margin-top: 5px;
+	margin-left: 20px;
+	width: 150px;
+	height: 150px;
+}
