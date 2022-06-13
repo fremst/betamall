@@ -18,6 +18,6 @@ public class HomeController extends HttpServlet{
 		req.setAttribute("mainPage", "/views/common/main.jsp");
 		
 		// layout.jsp (header + main + footer) 호출
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
 	}
 }
