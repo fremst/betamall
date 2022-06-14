@@ -186,4 +186,27 @@ private static ManagerDao instance = new ManagerDao();
 			}
 	}
 	
+//    public int checkId(String id) {
+//        Connection con = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        try {
+//            con = JdbcUtil.getCon();
+//            String sql = "SELECT * FROM MGR WHERE MGRID = ?";
+//            pstmt = con.prepareStatement(sql);
+//            pstmt.setString(1, id);
+//            rs = pstmt.executeQuery();
+//            if (rs.next()) {
+//                return 1;
+//            } else {
+//                return 0;
+//            }
+//        } catch (SQLException se) {
+//            se.printStackTrace();
+//        } finally {
+//            JdbcUtil.close(con, pstmt, rs);
+//        }
+//        return -1;
+//    }
+	
 }
