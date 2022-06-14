@@ -52,7 +52,6 @@
              window.name = "parentForm";
              window.open("termsOfUse.jsp","checkForm","width=500, height=800, resizable=no, scrollbars=yes");
  -->
- 
 </head>
 <body>
 <h2>기본 정보 입력</h2>

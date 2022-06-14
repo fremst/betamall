@@ -8,33 +8,31 @@
 <title>약관동의</title>
 <script type="text/javascript">
 function chk(){
- var req = document.form.req.checked;
+ var req = document.getElementById("req").checked;
  var num = 0;
  if(req == true){
   num = 1;
  }
  if(num==1){
-  document.form.submit();
-  window.close();
+  location.href="${cp}/join"
  }else{
   alert("개인정보 약관에 동의하셔야 합니다.");
  }
 }
 function nochk(){
  alert("동의하지 않으면 가입하실 수 없습니다");
-location.href="${cp}/join"}
+location.href="${cp}/home"
+}
 </script>
-<form action="${cp }/join" name="form" method="post">
-<table width="850" height="500">
+<table width="850" height="500" style="padding-left: 100px">
   <tr>
-   </span>&nbsp; <b>회원가입</b><br>
+   </span>&nbsp;&nbsp; <b><h2>회원가입</h2></b><br>
     <hr>
   </tr>
   <tr>
    <td width="100%" height="50%" align="center">
    <p align="left">
-   <span style="padding-left: 30px">
-   BETAMALL 약관동의</span>
+   <span>BETAMALL 약관동의</span>
    </p>
    <br>
    <textarea rows="20" cols="100">
@@ -62,7 +60,7 @@ location.href="${cp}/join"}
 - 생성정보 수집 툴을 통한 수집
    </textarea>
    <br>
-   <input type="checkbox" name="req"> 개인정보 수집 및 이용에 동의합니다. 
+   <input type="checkbox" id="req"> 개인정보 수집 및 이용에 동의합니다. 
    </td>
   </tr>
   <tr>
@@ -72,6 +70,5 @@ location.href="${cp}/join"}
    </td>
   </tr>
  </table>
- </form>
 </body>
 </html>
