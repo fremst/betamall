@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>공지사항 등록</h1>
-	<form method="post" action="${pageContext.request.contextPath }/boar/insert">
+	<form method="post" action="${cp }/board/insert">
 		카테고리 <select name="brdCat" id="category" onchange="changeSelect()">
 			<option value="공지">공지</option>
 			<option value="이벤트">이벤트</option>

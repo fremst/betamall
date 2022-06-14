@@ -1,10 +1,6 @@
 package com.betamall.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.betamall.dao.NoticeDao;
 import com.betamall.dto.NoticeDto;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/insert")
 public class NoticeInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect(req.getContextPath() +"/board/noticeForm.jsp");
+		
+		req.setAttribute("mainPage", "/views/board/noticeForm.jsp");
+		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
 	@Override

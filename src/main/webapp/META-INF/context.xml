@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<Resource name="jdbc/myoracle" auth="Container"
+              type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@betamalladmin_medium?TNS_ADMIN=C://2203//SemiProject//Wallet_betamalladmin"
+              username="admin" password="Betamall1234!" maxTotal="20" maxIdle="10" initialSize="1"
+              maxWaitMillis="-1"/>
+</Context>
+<!-- Resource name: 변수명 -->
+<!-- maxTotal: 이보다 더 많은 요청이 들어오면 대기 상태가 됨-->
+<!-- maxIdle: 현재 사용중이지 않은 Connection을 최대 10개까지 대기시킴. 더 많아지면 닫음 -->
+<!-- maxWaitMillis: -1이면 Connection 접속까지 무한 대기 -->

@@ -3,14 +3,15 @@ package com.betamall.dao;
 import com.betamall.dto.MemberDto;
 import com.betamall.util.JdbcUtil;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MemberDao {
     public static MemberDao instance = new MemberDao();
 
-    private MemberDao() {
-    }
+    private MemberDao() {}
 
     public static MemberDao getInstance() {
         return instance;
@@ -39,7 +40,7 @@ public class MemberDao {
             JdbcUtil.close(con, pstmt, null);
         }
     }
-}
+    
     public MemberDto isMember(String id, String pwd) {
         Connection con = null;
         PreparedStatement pstmt = null;

@@ -1,7 +1,5 @@
 package com.betamall.dao;
 
-import com.betamall.dto.NoticeDto;
-
 public class DaoTest {
 	public static void main(String[] args) {
 		NoticeDao dao=NoticeDao.getInstance();
