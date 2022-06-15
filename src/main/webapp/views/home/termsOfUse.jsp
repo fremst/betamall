@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>약관동의</title>
+<link rel="stylesheet" href="${cp}/resources/css/layout.css">
 <script type="text/javascript">
 function chk(){
  var req = document.getElementById("req").checked;
@@ -24,18 +25,18 @@ function nochk(){
 location.href="${cp}/home"
 }
 </script>
-<table width="850" height="500" style="padding-left: 100px">
+<table width="850" height="500" style="margin: auto;">
   <tr>
-   </span>&nbsp;&nbsp; <b><h2>회원가입</h2></b><br>
+   <span style="margin-left: 20px;"><h1>&nbsp;&nbsp;회원가입</h1></span><br>
     <hr>
   </tr>
   <tr>
    <td width="100%" height="50%" align="center">
    <p align="left">
-   <span>BETAMALL 약관동의</span>
+   <br><span>BETAMALL 약관동의</span>
    </p>
    <br>
-   <textarea rows="20" cols="100">
+   <textarea rows="20" cols="160">
 가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
 회원가입
 - 이름, 생년월일, 성별, 아이디, 비밀번호, 별명, 연락처(메일주소, 휴대폰 번호 중 선택), 가입인증정보
