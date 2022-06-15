@@ -76,4 +76,32 @@ public class ScatDao {
 				JdbcUtil.close(con, pstmt, rs);
 			}
 		}
+	
+	public ScatDto selectByName(String scatName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT MCATNO, SCATNO, SCATNAME, SCATDEL FROM SCAT WHERE SCATNAME = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, scatName);
+			rs = pstmt.executeQuery();
+			ScatDto scatDto = null;
+			if(rs.next()) {
+				scatDto = new ScatDto(
+							rs.getInt("MCATNO"),
+							rs.getInt("SCATNO"),
+							rs.getString("SCATNAME"),
+							rs.getBoolean("SCATDEL")
+					);
+				}
+			return scatDto;
+			}catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				JdbcUtil.close(con, pstmt, rs);
+			}
+		}
 }
