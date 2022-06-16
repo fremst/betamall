@@ -1,0 +1,50 @@
+@charset "UTF-8";
+#userInfo {
+    margin-top: 50px;
+}
+
+#setForm {
+    font: gray;
+    font-size: 12px;
+}
+
+#setForm1 {
+    font: gray;
+    font-size: 10px;
+}
+#setForm2 {
+    font: gray;
+    font-size: 10px;
+}
+
+#form {
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    width: 650px;
+    height: auto;
+}
+
+#btnField {
+    margin-right: 100px;
+	float: right;
+    margin-right: 100px;
+    margin-bottom: 20px;
+}
+
+#joinBtn {
+    background-color: hsl(209, 84%, 55%);
+    border-radius: 3px;
+    color: aliceblue;
+    width: 100px;
+
+}
+
+#backBtn {
+    background-color: hsla(0, 2%, 29%, 0.226);
+    border-radius: 3px;
+    color: black;
+    width: 50px;
+}

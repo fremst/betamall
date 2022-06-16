@@ -22,7 +22,7 @@ public class NoticeDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="insert into board values(seq_board.nextval,?,?,?,?,?,sysdate,?,?,?,?)";
+			String sql="insert into board values(seq_board.nextval,?,?,?,?,?,current_date,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,dto.getMgrNo());
 			pstmt.setString(2,dto.getBrdCat());
@@ -123,5 +123,77 @@ public class NoticeDao {
 		}		
 	}
 	
+	public NoticeDto select(int brdNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select * from board where brdno=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, brdNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int mgrNo=rs.getInt("mgrNo");
+				String brdCat=rs.getString("brdCat");
+				String brdTitle=rs.getString("brdTitle");
+				String brdCon=rs.getString("brdCon");
+				String brdImg=rs.getString("brdImg");
+				Date brdWdate=rs.getDate("brdWdate");
+				Date brdMdate=rs.getDate("brdMdate");
+				Date brdSdate=rs.getDate("brdSdate");
+				Date brdFdate=rs.getDate("brdFdate");
+				boolean popUp=rs.getBoolean("popUp");
+				NoticeDto dto=new NoticeDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp);
+				return dto;
+			}
+			return null;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
 	
+	public int update(NoticeDto dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="update board set brdCat=?, brdTitle=?, brdCon=?, brdImg=?, brdMdate=current_date, brdSdate=?, brdFdate=?, popUp=? where brdno=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, dto.getBrdCat());
+			pstmt.setString(2, dto.getBrdTitle());
+			pstmt.setString(3, dto.getBrdCon());
+			pstmt.setString(4, dto.getBrdImg());
+			pstmt.setDate(5, dto.getBrdSdate());
+			pstmt.setDate(6, dto.getBrdFdate());
+			pstmt.setBoolean(7, dto.isPopUp());
+			pstmt.setInt(8, dto.getBrdNo());
+			return pstmt.executeUpdate();
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, null);
+		}		
+	}
+	
+	public int delete(int brdNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="delete from board where brdno=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, brdNo);
+			return pstmt.executeUpdate();
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, null);
+		}		
+	}
 }

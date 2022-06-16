@@ -11,31 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import com.betamall.dao.ManagerDao;
-import com.betamall.dao.MemberDao;
+import com.betamall.dao.BranchDao;
 
-@WebServlet("/idcheck")
+@WebServlet("/brnamecheck")
 @SuppressWarnings("serial")
-public class IdCheckController extends HttpServlet{
+public class BrNameCheckController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    
+		
 		int exist = 0;
-		String id =	req.getParameter("id");
-		if(id == null){
+		String brName = req.getParameter("brName");
+		
+		if(brName == null){
 			exist = -1;
-		}else if(MemberDao.getInstance().checkId(id) == 1) {
-			exist = 1;
-		}else if(ManagerDao.getInstance().selectById(id) != null){
+		}else if(BranchDao.getInstance().selectByBrName(brName) != null) {
 			exist = 1;
 		}
-    
+		
 		JSONObject result = new JSONObject();
 		result.put("exist", exist);
 
 		PrintWriter pw = resp.getWriter();
 		pw.print(result);
 		pw.close();
+		
 	}
 }
-

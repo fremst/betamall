@@ -23,7 +23,6 @@ public class JoinController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String mbrId = req.getParameter("id");
         String mbrPwd = req.getParameter("pwd");
-        //String pwdCheck = req.getParameter("pwdCheck");
         String mbrName = req.getParameter("name");
         Date mbrBd = Date.valueOf(req.getParameter("bd"));
         String mbrTel = req.getParameter("tel");
@@ -33,10 +32,10 @@ public class JoinController extends HttpServlet {
         MemberDao dao = MemberDao.getInstance();
         int n = dao.insert(dto);
         if (n > 0) {
-            //req.setAttribute("result", "success");
-        	req.setAttribute("mainPage", "/views/home/main.jsp");
+            // req.setAttribute("result", "success");
+            req.setAttribute("mainPage", "/views/home/main.jsp");
         } else {
-        	// 결과값 확인을 위해 임의로 설정.
+            // 결과값 확인을 위해 임의로 설정.
             req.setAttribute("result", "fail");
             req.setAttribute("mainPage", "/views/home/result.jsp");
         }

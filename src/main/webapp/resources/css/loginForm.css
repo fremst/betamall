@@ -1,0 +1,38 @@
+@charset "UTF-8";
+#title {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+#errBox {
+    color: red;
+    font-size: 12px;
+}
+
+#loginField {
+    width: 500px;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#loginBtn {
+    background-color: hsl(209, 84%, 55%);
+    border-radius: 3px;
+    color: aliceblue;
+}
+
+#idBtn {
+    border-radius: 3px;
+}
+
+#pwdBtn {
+    border-radius: 3px;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-left:10px;
+    width:100px;
+}
