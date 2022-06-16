@@ -22,10 +22,10 @@
 			</p>
 			<p style="font-size: 12px; color:white">
 			주소 : 우편번호 (06297) 서울특별시 강남구 남부순환로 2748 한웰빌딩 베타문구  이메일 : betamall0000@gmail.com
-			개인정보관리책임자 : 정웅식  TEL : 00-111-2222  <br>FAX : 00-111-2222  고객만족실 : 00-111-2222 멤버십 문의 : 00-111-2222 
+			개인정보관리책임자 : 김베타  TEL : 00-111-2222  <br>FAX : 00-111-2222  고객만족실 : 00-111-2222 멤버십 문의 : 00-111-2222 
 			<br>
 			<br>	
-			Copyright &copy 2020 ASUNGDAISO. All Rights Reserved.
+			Copyright &copy 2022 BETAMALL. All Rights Reserved.
 			</p>
 		</div>
 		<div class="customer_center">
