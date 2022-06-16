@@ -6,38 +6,37 @@
 <head>
 <meta charset="UTF-8">
 <title>약관동의</title>
+<link rel="stylesheet" href="${cp}/resources/css/layout.css">
 <script type="text/javascript">
 function chk(){
- var req = document.form.req.checked;
+ var req = document.getElementById("req").checked;
  var num = 0;
  if(req == true){
   num = 1;
  }
  if(num==1){
-  document.form.submit();
-  window.close();
+  location.href="${cp}/join"
  }else{
   alert("개인정보 약관에 동의하셔야 합니다.");
  }
 }
 function nochk(){
  alert("동의하지 않으면 가입하실 수 없습니다");
-location.href="${cp}/join"}
+location.href="${cp}/home"
+}
 </script>
-<form action="${cp }/join" name="form" method="post">
-<table width="850" height="500">
+<table width="850" height="500" style="margin: auto;">
   <tr>
-   </span>&nbsp; <b>회원가입</b><br>
+   <span style="margin-left: 20px;"><h1>&nbsp;&nbsp;회원가입</h1></span><br>
     <hr>
   </tr>
   <tr>
    <td width="100%" height="50%" align="center">
    <p align="left">
-   <span style="padding-left: 30px">
-   BETAMALL 약관동의</span>
+   <br><span>BETAMALL 약관동의</span>
    </p>
    <br>
-   <textarea rows="20" cols="100">
+   <textarea rows="20" cols="160">
 가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
 회원가입
 - 이름, 생년월일, 성별, 아이디, 비밀번호, 별명, 연락처(메일주소, 휴대폰 번호 중 선택), 가입인증정보
@@ -62,7 +61,7 @@ location.href="${cp}/join"}
 - 생성정보 수집 툴을 통한 수집
    </textarea>
    <br>
-   <input type="checkbox" name="req"> 개인정보 수집 및 이용에 동의합니다. 
+   <input type="checkbox" id="req"> 개인정보 수집 및 이용에 동의합니다. 
    </td>
   </tr>
   <tr>
@@ -72,6 +71,5 @@ location.href="${cp}/join"}
    </td>
   </tr>
  </table>
- </form>
 </body>
 </html>
