@@ -20,32 +20,61 @@ public class ItemDao {
 		return instance;
 	}
 	
-	public ArrayList<ItemDto> selectAll(){
+	public ArrayList<ItemDto> selectAll(int startRow,int endRow){
+		String sql="select * from"
+				+ "("
+				+"		select aa.*, rownum rnum from"
+				+"		("
+				+"			select * from item"
+				+"			order by mcatno asc, scatno asc "
+				+"		) aa"
+				+"	)where rnum>=? and rnum<=?";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="select * from item";
 			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
 			ArrayList<ItemDto> list=new ArrayList<ItemDto>();
 			while(rs.next()) {
-				int itemNo=rs.getInt("itemNo");
-				int mcatNo=rs.getInt("mcatNo");
-				int scatNo=rs.getInt("scatNo");
-				String itemName=rs.getString("itemName");
-				String tImg=rs.getString("itemname");
-				String detImg=rs.getString("detImg");
-				String hash=rs.getString("hash");
-				boolean itemDel=rs.getBoolean("itemDel");
-				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, scatNo, itemDel);
+				int itemNo=rs.getInt("ITEMNO");
+				int mcatNo=rs.getInt("MCATNO");
+				int scatNo=rs.getInt("SCATNO");
+				String itemName=rs.getString("ITEMNAME");
+				String tImg=rs.getString("TIMG");
+				String detImg=rs.getString("DETIMG");
+				String hash=rs.getString("HASH");
+				int price = rs.getInt("PRICE");
+				boolean itemDel=rs.getBoolean("ITEMDEL");
+				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
 				list.add(dto);
 			}
 			return list;
 		}catch(SQLException s) {
 			s.printStackTrace();
 			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
+	public int getCount() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="select count(*) from item";
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			rs.next();
+			int cnt=rs.getInt(1); //1번째 칼럼값 얻어오기
+			return cnt;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
 		}finally {
 			JdbcUtil.close(con,pstmt,rs);
 		}
@@ -76,6 +105,25 @@ public class ItemDao {
 		}finally {
 			JdbcUtil.close(pstmt);
 			JdbcUtil.close(con);
+		}
+	}
+	
+	public int updateItem(ItemDto dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="update item set itemdel=? where itemname=?";
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setBoolean(1, dto.isItemDel());
+			pstmt.setString(2, dto.getItemName());
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con,pstmt,null);
 		}
 	}
 }
