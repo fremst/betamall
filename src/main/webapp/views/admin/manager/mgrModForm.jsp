@@ -19,10 +19,10 @@
    	    				if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}
    	    			} else {
    	    			return validate()}">
-        	<input type = "text" value = "${mgrInfoDto.mgrNo}" hidden="hidden">
         	<fieldset id = "fieldset">
         		<div>
 	        		<label for = "mgrNo">점장번호</label><br>
+		        	<input type = "text" value = "${mgrInfoDto.mgrNo}" hidden="hidden">
 		            <input type = "text" name = "mgrNo" value="${mgrInfoDto.mgrNo}" disabled="disabled" class = "inputText"><br>
 		            <label for = "mgrName">성명</label><br>
 		            <input type= "text" name = "mgrName" id = "mgrName" value = "${mgrInfoDto.mgrName}" class = "inputText"><br>
