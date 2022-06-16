@@ -31,25 +31,23 @@ public class MbrUpdateController extends HttpServlet {
 	        int mbrNo = Integer.parseInt(req.getParameter("mbrNo"));
 	        String mbrName = req.getParameter("mbrName");
 	        String mbrTel = req.getParameter("mbrTel");
-	        String mbrAdr = req.getParameter("mbrAdr");
-	        String addr1 = req.getParameter("addr1");
-	        String addr2 = req.getParameter("addr2");
+	        String mbrAdr =  "("+req.getParameter("postno")+")"+req.getParameter("addr")+"/"+req.getParameter("addr1")+"/"+req.getParameter("addr2");
 	        String mbrEmail = req.getParameter("mbrEmail");
 	        String mbrId = req.getParameter("mbrId");
 	        String mbrPwd = req.getParameter("mbrPwd");
-	        System.out.println(req.getParameter("mbrBd"));
 	        Date mbrBd = Date.valueOf(req.getParameter("mbrBd"));
 	        
 	        int totAmt = Integer.parseInt(req.getParameter("totAmt"));
-	        MemberDto dto = new MemberDto(mbrNo, mbrName, mbrTel, mbrAdr+addr1+addr2, mbrEmail, mbrId, mbrPwd, mbrBd, null,null,totAmt);
+	        MemberDto dto = new MemberDto(mbrNo, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null,null,totAmt);
 	        MemberDao dao = MemberDao.getInstance();
 	        int n = dao.update(dto);
-	        if (n < 1) {
-	        	req.setAttribute("errMsg", "작업에 실패했습니다. 다시 실행해 주세요.");
+	        if (n > 0) {
+	        	req.setAttribute("errMsg", "정보수정이 완료되었습니다.");
 	        	req.setAttribute("mainPage", "/views/member/mypage/mypageMain.jsp");
 	   		 	req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
-	        } else {
 	        	
+	        } else {
+	        	req.setAttribute("errMsg", "작업에 실패했습니다. 다시 실행해 주세요.");
 	        	req.setAttribute("mainPage", "/views/member/mypage/mypageMain.jsp");
 	   		 	req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	        }

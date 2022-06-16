@@ -10,16 +10,8 @@
     <%-- <link rel="stylesheet" href="${cp}/resources/css/myPage.css"> --%>
 </head>
 <script type="text/javascript">
-    /* function modMember(){
-        location.href="${cp}/member/update"
-}
-function delMember(){
-	location.href="${cp}/member/delete"
-}
- */
-
 function checkValue() {
-/*    let mbrPwd = document.getElementById("mbrPwd").value;
+	let mbrPwd = document.getElementById("mbrPwd").value;
     let pwd = document.getElementById("pwd").value;
     let mbrTel = document.getElementById("mbrTel").value;
     let mbrAdr = document.getElementById("mbrAdr").value;
@@ -43,12 +35,11 @@ function checkValue() {
         return false;
     } else {
         return true;
-    } */
-    return true;
+    }
 } 
 </script>
 <body>
-<div id="wrap">
+<div id="myPageWrap">
     <div id="side">
         <h3>마이 페이지</h3>
         <ul>
@@ -63,6 +54,8 @@ function checkValue() {
     <div style="color: red; font-size: 12px;">${errMsg}</div>
     <div id="center">
         <form method="post" name="modForm" onsubmit="return checkValue()">
+         <fieldset id=form>
+        <legend>회원 정보 수정양식</legend>
             <input type="hidden" name="mbrNo" value="${mbrDto.mbrNo}"><br>
             아이디 <input type="text"  value="${mbrDto.mbrId}" disabled=disabled><br>
             <input type="hidden" name="mbrId" value="${mbrDto.mbrId}">
@@ -73,20 +66,24 @@ function checkValue() {
             생년월일<input type="date" value="${mbrDto.mbrBd}" disabled=disabled><br>
             <input type="date" name="mbrBd" value="${mbrDto.mbrBd}" hidden="hidden"><br>
             전화번호<input type="text" name="mbrTel" id="mbrTel" value="${mbrDto.mbrTel}" placeholder="'-'하이픈 없이 숫자만 입력"><br>
-            주소<input type="text" id="sample6_postcode" name="addr" placeholder="우편번호">&nbsp;&nbsp;
+            주소<input type="text" id="sample6_postcode" name="postno" value="${mbrDto.mbrAdr}">&nbsp;&nbsp;
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" name="mbrAdr" id="mbrAdr" value="${mbrDto.mbrAdr}"><br>
-            <input type="text" id="sample6_detailAddress" name="addr1" placeholder="상세주소"><br>
-            <input type="text" id="sample6_extraAddress" name="addr2" placeholder="참고항목"><br>
+            <input type="text" id="sample6_address" name="addr" id="mbrAdr" value="${mbrDto.mbrAdr}"><br>
+            <input type="text" id="sample6_detailAddress" name="addr1"  value="${mbrDto.mbrAdr}"><br>
+            <input type="text" id="sample6_extraAddress" name="addr2"  value="${mbrDto.mbrAdr}"><br>
             이메일<input type="email" name="mbrEmail" id="mbrEmail" value="${mbrDto.mbrEmail}"><br>
             가입일<input type="text" name="mbrRegdate" value="${mbrDto.mbrRegdate}" disabled=disabled><br>
             <input type="hidden" name="mbrRegdate" value="${mbrDto.mbrRegdate}">
             총 결제금액 <input type="text" name="totAmt" value="${mbrDto.totAmt}" disabled=disabled><br>
             <input type="hidden" name="totAmt" value="${mbrDto.totAmt}">
-		        <input type="submit" value="삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/member/delete">&nbsp;&nbsp;
-		        <input type="submit" value="수정" formaction="${cp }/member/update" id="modBtn">&nbsp;&nbsp;
-		        <input type="button" value="취소" id="backBtn" onclick="history.back(); return false;">
+	           <div id=btnField>
+			        <input type="submit" value="삭제" id="delBtn" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/member/delete">&nbsp;&nbsp;
+			        <input type="submit" value="수정" id="modBtn">&nbsp;&nbsp;
+			        <input type="button" value="취소" id="backBtn" onclick="history.back(); return false;">
+		        </div>
+	        </fieldset>
         </form>
+    </div>
     </div>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
