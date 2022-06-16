@@ -8,6 +8,15 @@
     font-size: 12px;
 }
 
+#setForm1 {
+    font: gray;
+    font-size: 10px;
+}
+#setForm2 {
+    font: gray;
+    font-size: 10px;
+}
+
 #form {
     margin: auto;
     padding-left: 15px;
@@ -20,7 +29,9 @@
 
 #btnField {
     margin-right: 100px;
-    float: right;
+	float: right;
+    margin-right: 100px;
+    margin-bottom: 20px;
 }
 
 #joinBtn {

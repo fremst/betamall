@@ -64,10 +64,6 @@ function checkId(){
 	let id = document.getElementById("id").value;
 	let xhr = new XMLHttpRequest();
 	
-   /*  if(!(/^[a-z0-9]{4,12}$/g).test(id)){
-		alert('아이디는 영어 소문자로 시작하며, 소문자 및 숫자를 포함해 4-12자로 이루어져야 합니다.');
-	}
-	 */
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			exists = JSON.parse(xhr.responseText).exist;
