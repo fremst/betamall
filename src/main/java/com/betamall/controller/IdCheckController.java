@@ -19,7 +19,7 @@ import com.betamall.dao.MemberDao;
 public class IdCheckController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    
 		int exist = 0;
 		String id =	req.getParameter("id");
 		if(id == null){
@@ -29,13 +29,13 @@ public class IdCheckController extends HttpServlet{
 		}else if(ManagerDao.getInstance().selectById(id) != null){
 			exist = 1;
 		}
-
+    
 		JSONObject result = new JSONObject();
 		result.put("exist", exist);
 
 		PrintWriter pw = resp.getWriter();
 		pw.print(result);
 		pw.close();
-
 	}
 }
+

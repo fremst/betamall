@@ -213,5 +213,3 @@ public class ManagerDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}
 	}
-
-}
