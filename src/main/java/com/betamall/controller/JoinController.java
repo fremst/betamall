@@ -26,17 +26,20 @@ public class JoinController extends HttpServlet {
         String mbrName = req.getParameter("name");
         Date mbrBd = Date.valueOf(req.getParameter("bd"));
         String mbrTel = req.getParameter("tel");
-        String mbrAdr = req.getParameter("addr");
+        String mbrAdr = "(" + req.getParameter("postno") + ")" + req.getParameter("addr") + "/"
+                + req.getParameter("addr1") + "/" + req.getParameter("addr2");
         String mbrEmail = req.getParameter("email");
         MemberDto dto = new MemberDto(0, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, null, 0);
         MemberDao dao = MemberDao.getInstance();
         int n = dao.insert(dto);
-        req.setAttribute("mainPageTitle", "Betamall - 회원 가입");
         if (n > 0) {
-            req.setAttribute("mainPage", "/views/common/main.jsp");
-        	req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
+        	req.setAttribute("mainPage", "/views/common/main.jsp");
+            req.setAttribute("mainPageTitle", "Betamall에 오신 것을 환영합니다!");
         } else {
-        	req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);
+            req.setAttribute("errMsg", "가입에 실패하였습니다. 다시 작성해주세요");
+            req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);
         }
+        req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
     }
+
 }

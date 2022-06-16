@@ -12,6 +12,7 @@ let exists = -1;
 function resetCheck(){
 	exists = -1;
 }
+
 function checkValue() { //회원가입 화면의 입력값들을 검사한다.
 //const form  = document.userInfo;
 let id = document.getElementById('id').value;
@@ -20,12 +21,12 @@ let pwdCheck = document.getElementById('pwdCheck').value;
 let name = document.getElementById('name').value;
 let bd = document.getElementById('bd').value;
 let tel = document.getElementById('tel').value;
-let addr = document.getElementById('addr').value;
+let addr = document.getElementById('sample6_address').value;
 let email = document.getElementById('email').value;
-    
+
     if(!id){ //아이디 폼 체크
         alert("아이디를 입력하세요.");
-        id.focus();
+        return false;
     }else if(exists == -1){ //아이디 중복체크 여부 확인
         alert("아이디 중복체크를 하세요.");
         return false;
@@ -34,11 +35,11 @@ let email = document.getElementById('email').value;
 		return false;
 	}else if(!pwd){
         alert("비밀번호를 입력하세요.");
-        pwd.focus();
+        return false;
     }else if(!((/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/).test(pwd))){
 		alert('비밀번호는 영어/숫자/특수문자를 조합해 8-12자로 이루어져야 합니다.');
 		return false;
-    }else if(!(pwd.equal(pwdCheck))){ // 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인 
+    }else if(pwd != pwdCheck){ // 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인 
         alert("비밀번호를 동일하게 입력하세요.");
         return false;
     }else if(!name){
@@ -46,6 +47,9 @@ let email = document.getElementById('email').value;
         return false;
     }else if(!bd){
         alert("생년월일을 입력하세요.");
+        return false;
+    }else if(!tel){
+        alert("전화번호를 입력하세요.");
         return false;
     }else if(isNaN(tel)){
         alert("전화번호는 숫자만 입력가능 합니다.");
@@ -56,10 +60,11 @@ let email = document.getElementById('email').value;
     }else if(!email){
         alert("이메일을 입력하세요.");
         return false;
-    } else{
+    } else {
     return true;
     }
 }
+
 function checkId(){
 	let id = document.getElementById("id").value;
 	let xhr = new XMLHttpRequest();
@@ -81,11 +86,12 @@ function checkId(){
 }
 </script>
 <body>
-<form action="${cp }/join" method="post" name = "userInfo" id="userInfo" onsubmit="return checkValue()"> 
+<form method="post" name = "userInfo" id="userInfo" onsubmit="return checkValue()"> 
 <span style="margin-left: 20px;"><h1>&nbsp;&nbsp;회원가입</h1></span><br>
     <hr>
 <fieldset id=form>
 <legend>회원 가입양식</legend>
+<div style="color: red; font-size: 12px;">${errMsg}</div>
     <br>아이디&nbsp;&nbsp;&nbsp;<input type="text" name="id" id ="id" onkeypress="resetCheck()">&nbsp;&nbsp;
    <input type="button" onclick="checkId()" value=중복확인><span id= "setForm"> 4자~12자리 영문자,숫자/특수기호 제외</span><br><br>
     비밀번호&nbsp;&nbsp;<input type="password" name="pwd" id="pwd" >
@@ -93,16 +99,16 @@ function checkId(){
     비밀번호 확인 <input type="password" name="pwdCheck" id="pwdCheck"><br><br>
     이름&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="name"><br><br>
     생년월일&nbsp;&nbsp;&nbsp;<input type="date" name="bd" id="bd"><br><br>
-    전화번호&nbsp;&nbsp;&nbsp;<input type="text" name="tel" id="tel" placeholder = "010000000000"><br><br>
-    주소 &nbsp;&nbsp;<input type="text" id="sample6_postcode"  placeholder="우편번호">&nbsp;&nbsp;
+    전화번호&nbsp;&nbsp;&nbsp;<input type="text" name="tel" id="tel" placeholder = "숫자만 입력해주세요."><br><br>
+    주소 &nbsp;&nbsp;<input type="text" id="sample6_postcode"  name =postno placeholder="우편번호">&nbsp;&nbsp;
     <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="sample6_address" name="addr" id="addr" placeholder="주소"><br>
+    <input type="text" id="sample6_address" name="addr" placeholder="주소"><br>
     <input type="text" id="sample6_detailAddress" name="addr1" placeholder="상세주소"><br>
     <input type="text" id="sample6_extraAddress" name="addr2" placeholder="참고항목"><br><br>
     이메일&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email"><br><br>
     <div id=btnField>
     <input type="submit" value="회원가입" id=joinBtn>&nbsp;&nbsp;
-    <input type="submit" value="취소" id="backBtn" onclick = "history.back(); return false;">
+    <input type="button" value="취소" id="backBtn" onclick = "history.back(); return false;">
     </div>
 </fieldset>
 </form>
