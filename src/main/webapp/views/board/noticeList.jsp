@@ -11,7 +11,6 @@
 	<c:set var="cp" value="${pageContext.request.contextPath }"/>
 	<table border="1" width="750">
 		<tr>
-			<th>글번호</th>
 			<th>카테고리</th>
 			<th>제목</th>
 			<th>작성자</th>
@@ -20,9 +19,8 @@
 		
 		<c:forEach var="dto" items="${list }">
 			<tr>
-				<td>${dto.getBrdNo() }</td>
 				<td>${dto.brdCat }</td>
-				<td>${dto.brdTitle }</td>
+				<td><a href="${cp}/board/detail?brdNo=${dto.brdNo}">${dto.brdTitle }</a></td>
 				<td>임시</td><%-- managerDao merge 후 수정--%>
 				<td>${dto.brdWdate }</td>
 			</tr>
@@ -54,7 +52,8 @@
 			<input type="submit" value="검색">
 		</form>
 	</div>
-	<a href="${cp }/board/insert">게시글 작성</a>
-	<a href="${cp }/board/list">전체글보기</a> | <a href="${cp }/home">home</a>
+	<button onclick="location.href='${cp }/board/insert'">게시글 작성</button>
+	<button onclick="location.href='${cp }/board/list'">전체글 보기</button>
+	<button onclick="location.href='${cp }/home'">Home</button>
 </body>
 </html>

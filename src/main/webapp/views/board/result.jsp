@@ -16,6 +16,6 @@
 		<h1>요청작업 실패</h1>
 	</c:otherwise>
 </c:choose>
-<a href="${pageContext.request.contextPath }/home">home</a>
+<a href="${cp }/board/list">목록으로</a>
 </body>
 </html>
