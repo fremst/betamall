@@ -32,12 +32,11 @@ public class ItemInsertController extends HttpServlet{
 		ScatDao scatDao=ScatDao.getInstance();
 		ArrayList<ScatDto> scatDtos = scatDao.selectNDel();
 		
-		System.out.println(mcatDtos);
-		System.out.println(scatDtos);
 		req.setAttribute("mDtos", mcatDtos);
 		req.setAttribute("sDtos", scatDtos);
 		req.setAttribute("mainPage", "/views/admin/item/itemInsertForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		
 	}
 	
 	@Override
@@ -65,8 +64,11 @@ public class ItemInsertController extends HttpServlet{
 		String saveFileName = mr.getFilesystemName("tImg");
 		String saveFileName2 = mr.getFilesystemName("detImg");
 		
-		int mcatNo = Integer.parseInt(mr.getParameter("mcatNo"));
-		int scatNo = Integer.parseInt(mr.getParameter("scatNo"));
+		ScatDao scatDao = ScatDao.getInstance();
+		ScatDto scatDto = scatDao.selectByName(mr.getParameter("cats"));
+		
+		int mcatNo = scatDto.getMcatNo();
+		int scatNo = scatDto.getScatNo();
 		String itemName = mr.getParameter("itemName");
 		String tImg = saveFileName;
 		String detImg = saveFileName2;
@@ -94,8 +96,8 @@ public class ItemInsertController extends HttpServlet{
 			req.setAttribute("msg", "삽입 실패!");
 			System.out.println("실패");
 		}
-		req.setAttribute("mainPage", "/views/admin/item/itemInsertResult.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		// req.setAttribute("mainPage", "/views/admin/item/itemInsertResult.jsp");
+		// req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		resp.sendRedirect(req.getContextPath() + "/admin/item/list");
 	}
 }
