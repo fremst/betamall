@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>게시글 등록</h1>
-	<form method="post" action="${cp }/board/insert" enctype="multipart/form-data">
+	<h1>게시글 수정</h1>
+	<form method="post" action="${cp }/board/update" name="uadateForm">
+		<input type="text" name="brdNo" value="${dto.brdNo }" style="display: none">
 		카테고리 <select name="brdCat" id="category" onchange="changeSelect()">
 			<option value="공지">공지</option>
 			<option value="이벤트">이벤트</option>
@@ -21,19 +22,13 @@
 		</div>
 		팝업여부 <input type="checkbox" name="popUp"><br>
 		제목<br>
-		<input type="text" name="brdTitle"><br>
+		<input type="text" name="brdTitle" value="${dto.brdTitle }"><br>
 		내용<br>
-		<textarea rows="10" cols="100" name="brdCon"></textarea><br>
+		<textarea rows="10" cols="100" name="brdCon">${dto.brdCon }</textarea><br>
 		첨부파일<br>
-		<div class = "fileField">
-	    	<label for = "uploadedFile">첨부파일</label>
-	    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
-	       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
-	        <div id = "thumbNailImg">
-	        </div>
-        </div>    
+		<input type="file" name="brdImg"><br>
 		<input type="button" value="취소" onclick="window.history.back()">
-		<input type="submit" value="등록">
+		<input type="button" value="수정" id="update" onclick="updateCheck()">
 	</form>
 </body>
 	<script type="text/javascript">
@@ -47,16 +42,12 @@
 			}
 		}
 		
-		function setThumbnail(event) {
-	        var reader = new FileReader();
-
-	        reader.onload = function(event) {
-	          var img = document.createElement("img");
-	          img.setAttribute("src", event.target.result);
-	          document.querySelector("div#thumbNailImg").innerHTML = "<p class = 'thumbNailMsg'>[미리 보기]</p>";
-	          document.querySelector("div#thumbNailImg").appendChild(img);
-	        };
-	        reader.readAsDataURL(event.target.files[0]);
-	      }
+		function updateCheck() {
+			if(confirm("정말 수정하시겠습니까?")==true) {
+				document.uadateForm.submit();
+			}else {
+				return false;
+			}
+		}
 	</script>
 </html>
