@@ -38,7 +38,12 @@
 	}
 </style>
 <script type="text/javascript">
-	window.onlaod = getInfo(1)
+	window.onload = function(){
+		getInfo(1);
+		if(${res=='success'}){
+			alert('성공적으로 처리되었습니다.');
+		}
+	}
 
 	function getInfo(pageNum){
 			let xhr = new XMLHttpRequest();

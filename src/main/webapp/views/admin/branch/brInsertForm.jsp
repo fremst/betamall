@@ -42,6 +42,12 @@
 <script type="text/javascript">
 	let exists = -1;
 	
+	window.onload = function(){
+		if(${res=='fail'}){
+			alert('등록에 실패하였습니다.');
+		}
+	}
+	
 	function setThumbnail(event) {
 	    let reader = new FileReader();
 	    reader.onload = function(event) {

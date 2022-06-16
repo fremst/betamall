@@ -39,15 +39,23 @@
             </div>
             </fieldset>
             <div id = "btns">
-		    	<input type="submit" value="수정" formaction="${cp }/admin/branch/update?brNo=${brDto.brNo}">
-		    	<button onclick = "history.back(); return false;">취소</button>
-		    	<input type="submit" value="삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
+		    	<input type = "submit" value= "수정" formaction="${cp }/admin/branch/update?brNo=${brDto.brNo}">
+		    	<input type = "button" value = "취소" onclick = "location.href='${cp }/admin/branch/list'">
+		    	<input type = "submit" value= "삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
            	</div>
         </form>
     </div>
 </body>
 <script type="text/javascript">
 	let exists = -1;
+	
+	window.onload = function(){
+		if(${res=='success'}){
+			alert('성공적으로 처리되었습니다.');
+		}else if(${res=='fail'}){
+			alert('요청 처리에 실패하였습니다.');
+		}
+	}
 	
 	function setThumbnail(event) {
 	    let reader = new FileReader();
