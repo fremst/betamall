@@ -17,13 +17,13 @@
 	<!--header-->
 		<div class="headers">
 			<div class="search_area">
-				<form>
-					<input type="search" placeholder="Search" id="search">
+				<form action = "${cp}/item/search">
+					<input type="search" name=itemName placeholder="상품명 입력" id="search">
 					<input type="submit" value="검색" id="search_btn">
 				</form>
 			</div>
 			<div class="logo">
-				<a href="#"><img src="${cp }/resources/images/betamall.png"></a>
+				<a href="${cp }/home"><img src="${cp }/resources/images/betamall.png" ></a>
 			</div>
 			<ul class="nav">
 				<c:if test="${not empty role}">
