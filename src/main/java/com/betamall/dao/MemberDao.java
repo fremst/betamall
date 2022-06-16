@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.betamall.dto.ManagerInfoDto;
 import com.betamall.dto.MemberDto;
 import com.betamall.util.JdbcUtil;
 
@@ -72,7 +71,6 @@ public class MemberDao {
         try {
             con = JdbcUtil.getCon();
             String sql = "DELETE FROM MEMBER WHERE MBRID=?";
-            System.out.println("d"+mbrId);
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mbrId);
             int n = pstmt.executeUpdate();
@@ -91,7 +89,6 @@ public class MemberDao {
         try {
             con = JdbcUtil.getCon();
             String sql = "UPDATE MEMBER SET MBRPWD=?,MBRTEL=?,MBRADR=?,MBREMAIL=? WHERE MBRID=?";
-            System.out.println(mbrDto);
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mbrDto.getMbrPwd());
             pstmt.setString(2, mbrDto.getMbrTel());
