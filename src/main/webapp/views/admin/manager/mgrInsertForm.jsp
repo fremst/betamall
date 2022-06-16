@@ -53,6 +53,12 @@
 <script type="text/javascript">
 	let exists = -1;
 	
+	window.onload = function(){
+		if(${res=='fail'}){
+			alert('처리 실패하였습니다.');
+		}
+	}
+	
 	function setThumbnail(event) {
 	    let reader = new FileReader();
 	

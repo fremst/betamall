@@ -21,7 +21,12 @@ import com.oreilly.servlet.MultipartRequest;
 public class MgrUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		String res = req.getParameter("res");
+		if(res != null) {
+			req.setAttribute("res", res);
+		}
+		
 		ManagerDao mgrDao = ManagerDao.getInstance();
 		HttpSession session = req.getSession();
 		
@@ -51,8 +56,9 @@ public class MgrUpdateController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ManagerDao mgrDao = ManagerDao.getInstance();
-		HttpSession session = req.getSession();
+		int selectedMgrNo = Integer.parseInt(req.getParameter("mgrNo"));
 		
+		HttpSession session = req.getSession();
 		String loginId = (String) session.getAttribute("id");
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/manager");
@@ -90,11 +96,10 @@ public class MgrUpdateController extends HttpServlet{
 							)
 						);
 		if(n>0) {
-			System.out.println(saveDir+"에 저장 성공");
-			resp.sendRedirect(req.getContextPath() + "/admin/manager/list");
-		}else {
-			System.out.println("실패");
-			resp.sendRedirect(req.getContextPath() + "/admin/manager/list");
+//			resp.sendRedirect(req.getContextPath() + "/admin/manager/list?&res=success");
+			resp.sendRedirect(req.getContextPath() + "/admin/manager/update?mgrNo="+selectedMgrNo+"&res=success");
+		}else{
+			resp.sendRedirect(req.getContextPath() + "/admin/manager/update?mgrNo="+selectedMgrNo+"&res=fail");
 		}
 	}
 }
