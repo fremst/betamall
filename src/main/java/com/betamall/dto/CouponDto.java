@@ -1,7 +1,6 @@
 package com.betamall.dto;
 
 import java.sql.Date;
-import java.util.concurrent.CountDownLatch;
 
 public class CouponDto {
     private int cpnNo;

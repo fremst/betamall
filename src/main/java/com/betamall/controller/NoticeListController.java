@@ -46,6 +46,7 @@ public class NoticeListController extends HttpServlet{
 		req.setAttribute("field", field);
 		req.setAttribute("keyword", keyword);
 
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 목록");
 		req.setAttribute("mainPage", "/views/board/noticeList.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

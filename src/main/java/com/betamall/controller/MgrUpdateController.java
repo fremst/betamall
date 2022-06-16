@@ -25,15 +25,11 @@ public class MgrUpdateController extends HttpServlet{
 		ManagerDao mgrDao = ManagerDao.getInstance();
 		HttpSession session = req.getSession();
 		
-		/* ----------------로그인 구현 전 임시------------------- */
-		session.setAttribute("id","admin0");
-		/* ------------------------------------------------------ */
-		
 		String loginId = (String) session.getAttribute("id");
 		int selectedMgrNo = Integer.parseInt(req.getParameter("mgrNo"));
 		
 		ManagerDto loginMgrDto = mgrDao.selectById(loginId);
-		// filter에서 처리하는 걸로 수정
+		
 		if(loginMgrDto == null) {
 			req.setAttribute("role", "member");
 		}
@@ -47,6 +43,7 @@ public class MgrUpdateController extends HttpServlet{
 			req.setAttribute("role", "master");
 		}
 		
+		req.setAttribute("mainPageTitle", "Betamall - 점장 정보 수정");
 		req.setAttribute("mainPage", "/views/admin/manager/mgrModForm.jsp?");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

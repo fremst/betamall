@@ -3,7 +3,6 @@ package com.betamall.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +41,7 @@ public class ItemListController extends HttpServlet{
 		req.setAttribute("endPageNum", endPageNum);
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("mainPage","/views/admin/item/itemList.jsp");
+		req.setAttribute("mainPageTitle", "Betamall - 상품 목록");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);		
 	}
 }

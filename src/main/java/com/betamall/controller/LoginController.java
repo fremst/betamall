@@ -17,6 +17,7 @@ import com.betamall.dao.MemberDao;
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	req.setAttribute("mainPageTitle", "Betamall - 회원 가입");
         req.getRequestDispatcher("/views/home/login.jsp").forward(req, resp);
     }
 
@@ -45,6 +46,7 @@ public class LoginController extends HttpServlet {
         } else { // 아이디 또는 비밀번호가 틀린 경우 - 로그인페이지로 이동하기
             req.setAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않아요");
             //req.setAttribute("mainPage", "/views/home/login.jsp");
+            req.setAttribute("mainPageTitle", "Betamall - 로그인");
             req.getRequestDispatcher("views/home/login.jsp").forward(req, resp);
         }
     }

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.betamall.dto.ManagerDto;
 import com.betamall.dto.McatDto;
 import com.betamall.util.JdbcUtil;
 

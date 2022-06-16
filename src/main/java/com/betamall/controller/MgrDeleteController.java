@@ -23,10 +23,6 @@ public class MgrDeleteController extends HttpServlet{
 		ManagerDao mgrDao = ManagerDao.getInstance();
 		
 		HttpSession session = req.getSession();
-		//임시. 아이디 admin0로 시작하는지 확인 필요 (회원/미가입)
-		/* ------------------------------------------------------ */
-		session.setAttribute("id","admin0");
-		/* ------------------------------------------------------ */
 		String loginId = (String) session.getAttribute("id");
 		int selectedMgrNo = Integer.parseInt(req.getParameter("mgrNo"));
 		

@@ -48,7 +48,6 @@
 				</c:if>
 				<c:if test="${role == 'admin0' || role == 'admin'}">
 					<li><a href="${cp }/admin/main">관리자페이지</a></li>
-					<li><a href="${cp }/admin/main">고객관리</a></li>
 				</c:if>
 			</ul>
 		</div>

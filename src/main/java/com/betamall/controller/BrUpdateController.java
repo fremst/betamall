@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.BranchDao;
 import com.betamall.dao.ManagerDao;
@@ -23,25 +22,15 @@ public class BrUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		ManagerDao mgrDao = ManagerDao.getInstance();
-		HttpSession session = req.getSession();
-		
-		/* ----------------로그인 구현 전 임시------------------- */
-		session.setAttribute("id","admin0");
-		/* ------------------------------------------------------ */
-		
-		String loginId = (String) session.getAttribute("id");
-		int selectedbrNo = Integer.parseInt(req.getParameter("brNo"));
-		
-		ManagerDto loginMgrDto = mgrDao.selectById(loginId);
-		
-		// filter에서 처리하는 걸로 수정
-		if (loginMgrDto.getMgrNo() == 0) { // 총관리자
-			req.setAttribute("role", "master");
+		ManagerDto loginMgrDto = ManagerDao.getInstance().selectById((String)req.getSession().getAttribute("id"));
+		if(loginMgrDto == null || loginMgrDto.getMgrNo() != 0) {
+			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
+			return;
 		}
 		
-		req.setAttribute("brDto", BranchDao.getInstance().select(selectedbrNo));
+		int selectedbrNo = Integer.parseInt(req.getParameter("brNo"));
 		
+		req.setAttribute("brDto", BranchDao.getInstance().select(selectedbrNo));
 		req.setAttribute("mainPage", "/views/admin/branch/brModForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

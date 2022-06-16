@@ -21,6 +21,7 @@ public class NoticeDetailController extends HttpServlet{
 		NoticeDto dto = dao.select(brdNo);
 		req.setAttribute("dto", dto);
 		
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 보기");
 		req.setAttribute("mainPage", "/views/board/noticeDetail.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

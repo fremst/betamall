@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("mainPage", "/views/home/main.jsp");
-		// 임의의 결과페이지->추후 수정
-		// main에 보여질 페이지를 requestScope에 담기
+		
 		req.setAttribute("mainPage", "/views/common/main.jsp");
-	
-		// layout.jsp (header + main + footer) 호출
+		req.setAttribute("mainPageTitle", "Betamall에 오신 것을 환영합니다!");
 		req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
+		
 	}
 }

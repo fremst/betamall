@@ -31,15 +31,12 @@ public class JoinController extends HttpServlet {
         MemberDto dto = new MemberDto(0, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, null, 0);
         MemberDao dao = MemberDao.getInstance();
         int n = dao.insert(dto);
+        req.setAttribute("mainPageTitle", "Betamall - 회원 가입");
         if (n > 0) {
-            // req.setAttribute("result", "success");
-            req.setAttribute("mainPage", "/views/home/main.jsp");
+            req.setAttribute("mainPage", "/views/common/main.jsp");
+        	req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
         } else {
-            // 결과값 확인을 위해 임의로 설정.
-            req.setAttribute("result", "fail");
-            req.setAttribute("mainPage", "/views/home/result.jsp");
+        	req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
     }
-
 }

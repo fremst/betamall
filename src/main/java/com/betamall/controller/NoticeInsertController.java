@@ -3,11 +3,6 @@ package com.betamall.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.naming.java.javaURLContextFactory;
 
 import com.betamall.dao.ManagerDao;
 import com.betamall.dao.NoticeDao;
@@ -31,18 +24,22 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 public class NoticeInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
 		req.setAttribute("mainPage", "/views/board/noticeForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		HttpSession session = req.getSession();
-//		String mgrId=(String)session.getAttribute("id");
-//		ManagerDao mdao=ManagerDao.getInstance();
-//		ManagerDto mdto=mdao.selectById(mgrId);
-//		int mgrNo=mdto.getMgrNo();
-		// 매니저 로그인 구현되고 풀기(+업데이트에 추가)
+		
+		HttpSession session = req.getSession();
+		String mgrId = (String)session.getAttribute("id");
+		
+		ManagerDao mdao = ManagerDao.getInstance();
+		ManagerDto mdto = mdao.selectById(mgrId);
+		int mgrNo = mdto.getMgrNo();
+		// 접속자가 회원인 경우 예외 처리
+		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/board");
 		
@@ -53,9 +50,9 @@ public class NoticeInsertController extends HttpServlet{
 			"utf-8",
 			new DefaultFileRenamePolicy()
 		);
-		String brdCat=mr.getParameter("brdCat");
-		String brdTitle=mr.getParameter("brdTitle");
-		String brdCon=mr.getParameter("brdCon");
+		String brdCat = mr.getParameter("brdCat");
+		String brdTitle = mr.getParameter("brdTitle");
+		String brdCon = mr.getParameter("brdCon");
 		
 		String systemFileName = mr.getFilesystemName("uploadFile");
 		String fileExt = systemFileName.substring(systemFileName.lastIndexOf(".")+1);
@@ -64,15 +61,20 @@ public class NoticeInsertController extends HttpServlet{
 
 		Date brdSdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdSdate")) : null;
 		Date brdFdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdFdate")) : null;
-		Boolean popUp = (mr.getParameter("popUp")==null) ? false : true;
-		NoticeDto dto=new NoticeDto(0, 1, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
-		NoticeDao dao=NoticeDao.getInstance();
-		int n=dao.insert(dto);
+		Boolean popUp = (mr.getParameter("popUp") == null) ? false : true;
+		
+		NoticeDto dto = new NoticeDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
+		NoticeDao dao = NoticeDao.getInstance();
+		
+		int n = dao.insert(dto);
+		
 		if(n>0) {
 			req.setAttribute("code","success");
 		}else {
 			req.setAttribute("code","fail");
 		}
+		
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
 		req.setAttribute("mainPage", "/views/board/result.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
 	}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.betamall.dao.NoticeDao;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/delete")
 public class NoticeDeleteController extends HttpServlet{
 	@Override
@@ -22,6 +23,7 @@ public class NoticeDeleteController extends HttpServlet{
 		}else {
 			req.setAttribute("code","fail");
 		}
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 삭제");
 		req.setAttribute("mainPage", "/views/board/result.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>layout</title>
+<title>${mainPageTitle}</title>
+ <link rel="shortcut icon" type="image/x-icon" href="${cp}/resources/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="${cp}/resources/css/layout.css">
 </head>
 <body>

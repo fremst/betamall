@@ -22,6 +22,7 @@ public class MbrUpdateController extends HttpServlet {
 		 MemberDao mbrDao = MemberDao.getInstance();
 		 MemberDto mbrDto = mbrDao.select(mbrId);
 		 req.setAttribute("mbrDto", mbrDto);
+		 req.setAttribute("mainPageTitle", "Betamall - 마이 페이지");
  		 req.setAttribute("mainPage", "/views/member/mypage/mypageMain.jsp");
 		 req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	    }
@@ -44,10 +45,11 @@ public class MbrUpdateController extends HttpServlet {
 	        if (n > 0) {
 	        	req.setAttribute("errMsg", "정보수정이 완료되었습니다.");
 	        	req.setAttribute("mainPage", "/views/member/mypage/mypageMain.jsp");
+	        	req.setAttribute("mainPageTitle", "Betamall - 마이 페이지");
 	   		 	req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
-	        	
 	        } else {
 	        	req.setAttribute("errMsg", "작업에 실패했습니다. 다시 실행해 주세요.");
+	        	req.setAttribute("mainPageTitle", "Betamall - 마이 페이지");
 	        	req.setAttribute("mainPage", "/views/member/mypage/mypageMain.jsp");
 	   		 	req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	        }

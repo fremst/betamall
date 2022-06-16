@@ -22,6 +22,7 @@ public class MgrListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("mainPageTitle", "Betamall - 점장 목록");
 		req.setAttribute("mainPage", "/views/admin/manager/mgrList.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}

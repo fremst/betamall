@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.betamall.dao.NoticeDao;
 import com.betamall.dto.NoticeDto;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/update")
 public class NoticeUpdateController extends HttpServlet{
 	@Override
@@ -20,6 +21,7 @@ public class NoticeUpdateController extends HttpServlet{
 		NoticeDao dao=NoticeDao.getInstance();
 		NoticeDto dto = dao.select(brdNo);
 		req.setAttribute("dto", dto);
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 수정");
 		req.setAttribute("mainPage", "/views/board/noticeModForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
@@ -41,10 +43,12 @@ public class NoticeUpdateController extends HttpServlet{
 		int n=dao.update(dto);
 		if(n>0) {
 			req.setAttribute("dto", dto);
+			req.setAttribute("mainPageTitle", "Betamall - 게시글 상세 보기");
 			req.setAttribute("mainPage", "/views/board/noticeDetail.jsp?brdNo="+brdNo);
 			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}else {
 			req.setAttribute("dto", dto);
+			req.setAttribute("mainPageTitle", "Betamall - 게시글 상세 보기");
 			req.setAttribute("mainPage", "/views/board/noticeDetail.jsp?brdNo="+brdNo);
 			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}

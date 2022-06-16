@@ -16,6 +16,7 @@ public class SearchPwdController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mainPage", "/views/home/searchPwd.jsp");
+		req.setAttribute("mainPageTitle", "Betamall - 비밀 번호 찾기");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 
@@ -29,11 +30,11 @@ public class SearchPwdController extends HttpServlet {
 		if (pwd != null) {
 			req.setAttribute("mainPage", "/views/home/searchPwd.jsp");
 			req.setAttribute("pwd", "비밀번호는" + pwd + "입니다.");
-			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		} else {
 			req.setAttribute("mainPage", "/views/home/searchPwd.jsp");
 			req.setAttribute("pwd", "다시 입력해 주세요.");
-			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}
+		req.setAttribute("mainPageTitle", "Betamall - 비밀 번호 찾기");
+		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 }

@@ -23,6 +23,7 @@ public class BrListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mainPage", "/views/admin/branch/brList.jsp");
+		req.setAttribute("mainPageTitle", "Betamall - 지점 목록");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	

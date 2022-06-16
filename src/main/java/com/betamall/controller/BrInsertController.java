@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.BranchDao;
 import com.betamall.dao.ManagerDao;
@@ -25,13 +24,8 @@ public class BrInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		/* ----------------로그인 구현 전 임시------------------- */
-		HttpSession session = req.getSession();
-		session.setAttribute("id","admin0");
-		/* ------------------------------------------------------ */
-		
 		ManagerDto loginMgrDto = ManagerDao.getInstance().selectById((String)req.getSession().getAttribute("id"));
-		if(loginMgrDto == null || loginMgrDto.getMgrNo() != 0) { // 총관리자 (MgrNo == 0)가 아니면 list로 redirect
+		if(loginMgrDto == null || loginMgrDto.getMgrNo() != 0) {
 			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
 			return;
 		}
@@ -41,6 +35,7 @@ public class BrInsertController extends HttpServlet{
 		req.setAttribute("brDtos", brDtos);
 		
 		req.setAttribute("mainPage", "/views/admin/branch/brInsertForm.jsp");
+		req.setAttribute("mainPageTitle", "Betamall - 점장 등록");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
@@ -63,8 +58,6 @@ public class BrInsertController extends HttpServlet{
 		new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		
 		BranchDao branchDao = BranchDao.getInstance();
-		
-		
 		
 		int n = branchDao.insert(
 				new BranchDto(

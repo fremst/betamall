@@ -26,6 +26,8 @@ protected void service(HttpServletRequest req, HttpServletResponse resp) throws 
 	 if(mbrCouponDto == null) {
 		 req.setAttribute("errMsg", "보유하고 계신 쿠폰이 없습니다.");
 	 }
+	 
+	 req.setAttribute("mainPageTitle", "Betamall - 회원 등급/쿠폰 조회");
 	 req.setAttribute("mainPage", "/views/member/mypage/userGrade.jsp");
 	 req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 

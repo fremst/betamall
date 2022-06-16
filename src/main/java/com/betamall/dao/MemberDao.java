@@ -247,7 +247,8 @@ public class MemberDao {
 			} finally {
 				JdbcUtil.close(con, pstmt, rs);
 			}
-
+    }
+    
     public MemberDto isMember(String id, String pwd) {
         Connection con = null;
         PreparedStatement pstmt = null;

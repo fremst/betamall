@@ -2,7 +2,6 @@ package com.betamall.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -53,13 +52,15 @@ public class ItemInsertController extends HttpServlet{
 			new DefaultFileRenamePolicy()
 		);
 		
-		Enumeration<String> em= mr.getFileNames();
-		while(em.hasMoreElements()){
-			String file=em.nextElement(); //전송된 파일의 파라미터이름 얻어오기
-			String orgfilename=mr.getOriginalFileName(file);
-			String savefilename=mr.getFilesystemName(file);
+		
+//		@SuppressWarnings("unchecked")
+//		Enumeration<String> em= mr.getFileNames();
+//		while(em.hasMoreElements()){
+//			String file=em.nextElement(); //전송된 파일의 파라미터이름 얻어오기
+//			String orgfilename=mr.getOriginalFileName(file);
+//			String savefilename=mr.getFilesystemName(file);
 	
-		}
+//		}
 //		String orgFileName = mr.getOriginalFileName("tImg");
 		String saveFileName = mr.getFilesystemName("tImg");
 		String saveFileName2 = mr.getFilesystemName("detImg");
@@ -76,28 +77,11 @@ public class ItemInsertController extends HttpServlet{
 		int price = Integer.parseInt(mr.getParameter("price"));
 		boolean itemDel = false;
 		
-		System.out.println(mcatNo);
-		System.out.println(scatNo);
-		System.out.println(itemName);
-		System.out.println(tImg);
-		System.out.println(detImg);
-		System.out.println(hash);
-		System.out.println(price);
-		System.out.println(itemDel);
-		
 		ItemDao itemDao = ItemDao.getInstance();
 		
-		int n = itemDao.insert(new ItemDto(0, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel));
-		
-		if(n>0) {
-			req.setAttribute("msg", "삽입 성공!");
-			System.out.println(saveDir+"에 저장 성공");
-		}else {
-			req.setAttribute("msg", "삽입 실패!");
-			System.out.println("실패");
-		}
-		// req.setAttribute("mainPage", "/views/admin/item/itemInsertResult.jsp");
-		// req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		itemDao.insert(new ItemDto(0, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel));
+		req.setAttribute("mainPageTitle", "Betamall - 상품 목록");
 		resp.sendRedirect(req.getContextPath() + "/admin/item/list");
+		
 	}
 }
