@@ -16,7 +16,9 @@ import com.betamall.dto.MemberDto;
 @SuppressWarnings("serial")
 public class JoinController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);
+        req.setAttribute("mainPageTitle", "Betamall - 회원가입");
+        req.setAttribute("mainPage", "/views/home/join.jsp");
+        req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,11 +35,20 @@ public class JoinController extends HttpServlet {
         MemberDao dao = MemberDao.getInstance();
         int n = dao.insert(dto);
         if (n > 0) {
+<<<<<<< Updated upstream
         	req.setAttribute("mainPage", "/views/common/main.jsp");
             req.setAttribute("mainPageTitle", "Betamall에 오신 것을 환영합니다!");
         } else {
             req.setAttribute("errMsg", "가입에 실패하였습니다. 다시 작성해주세요");
             req.getRequestDispatcher("/views/home/join.jsp").forward(req, resp);
+=======
+            resp.sendRedirect(req.getContextPath() + "/home");
+        } else {
+            req.setAttribute("mainPage", "/views/home/join.jsp");
+            req.setAttribute("mainPageTitle", "Betamall - 회원가입");
+            req.setAttribute("errMsg", "양식을 다시 작성해 주세요");
+            req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+>>>>>>> Stashed changes
         }
         req.getRequestDispatcher("views/common/layout.jsp").forward(req, resp);
     }
