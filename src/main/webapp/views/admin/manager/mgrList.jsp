@@ -5,40 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>점장 조회/수정/삭제</title>
-<style type="text/css">
-	table {
-		width: 940px;
-		height: 420px;
-		margin: auto;
-	}
-	table, th, tr, td {
-		border: solid 1px
-	}
-	th {
-		height: 20px;
-	}
-	td {
-		height: 120px;
-	}
-	p {
-		padding-bottom: 10px;
-		box-sizing: border-box;
-	}
-	#pageNav{
-		width: 100px;
-		margin: auto;
-	}
-</style>
+<title>점장 관리</title>
+<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
 <script type="text/javascript">
-	// window.onlaod = getInfo(1)
-	
-	window.onload = function(){
-		getInfo(1);
-		if(${res=='success'}){
-			alert('성공적으로 처리되었습니다.');
-		}
-	}
+	window.onlaod = getInfo(1)
 
 	function getInfo(pageNum){
 			let xhr = new XMLHttpRequest();
@@ -97,7 +67,7 @@
 </head>
 <body>
 	<h2>점장 조회/수정/삭제</h2>
-    <div>
+    <div id="mainWrap">
 		<table align="center" style="text-align: center">
 			<tbody id = "tbody">
 				<tr>
@@ -116,8 +86,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
+	    <div id="pageNav">
+		</div>
+		<div id = "newBtnArea">
+		<input type="button" value = "새로 등록" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
+		</div>
     </div>
-    <div id="pageNav">
-	</div>
 </body>
 </html>
