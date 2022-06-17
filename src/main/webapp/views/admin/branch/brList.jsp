@@ -6,37 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 조회/수정/삭제</title>
-<style type="text/css">
-	table {
-		width: 940px;
-		height: 420px;
-		margin: auto;
-	}
-	
-	table.center {
-		text-align: center;
-		margin-left: auto;
-  		margin-right: auto;
-	}
-	
-	table, th, tr, td {
-		border: solid 1px
-	}
-	th {
-		height: 20px;
-	}
-	td {
-		height: 120px;
-	}
-	p {
-		padding-bottom: 10px;
-		box-sizing: border-box;
-	}
-	#pageNav{
-		width: 100px;
-		margin: auto;
-	}
-</style>
+<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
 <script type="text/javascript">
 	window.onload = function(){
 		getInfo(1);
@@ -99,8 +69,8 @@
 </script>
 </head>
 <body>
-	<h2>지점 조회/수정/삭제</h2>
-    <div>
+	<h2>지점 관리</h2>
+    <div id="mainWrap">
 		<table class = "center">
 			<tbody id = "tbody">
 				<tr>
@@ -117,8 +87,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
+	    <div id="pageNav">
+		</div>
+		<div id = "newBtnArea">
+		<input type="button" value = "새로 등록" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
+		</div>
     </div>
-    <div id="pageNav">
-	</div>
 </body>
 </html>

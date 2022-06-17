@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 페이지</title>
+<link rel = "stylesheet" href="${cp}/resources/css/brForm.css">
 </head>
 <body>
     <div>
     	<h2 id = "subtitle">지점 정보 수정/삭제</h2>
    	    <form method="post" enctype="multipart/form-data" onsubmit = "return validate()}">
         	<fieldset id = "fieldset">
-        	<div>
+        	<div class = "inputTextField">
 	            <label for = "brNo">지점번호</label><br>
 	            <input type= "text" id = "brNo" value = "${brDto.brNo}" class = "inputText" disabled = "disabled"><br>
 	            <input type= "hidden" name = "brNo" value = "${brDto.brNo}">
