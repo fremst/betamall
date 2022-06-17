@@ -94,32 +94,44 @@
 		           		<td></td>
 	           		</tr>   
 	           	</thead>
-           	<c:forEach var = "i" items = "${iDtos}">
-	            <tr>
+           	<c:forEach begin = "0" end = "${iDtos.size()}" varStatus="status">
+           		<c:if test="${status.first or (iDtos[status.index].itemNo != iDtos[status.index-1].itemNo)}">
+           			<tr>
 	                <td class = "itemNo">
-	                    ${i.itemNo}
+	                    ${iDtos[status.index].itemNo}
 	                </td>
 	                <td class = "itemImg">
-	                    <a href = "${cp}/item/detail?itemNo=${i.itemNo}"><img src = "${cp }/resources/uploads/admin/item/${i.tImg}" class = "itemThumbNails"></a>
+	                    <a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}"><img src = "${cp }/resources/uploads/admin/item/${iDtos[status.index].tImg}" class = "itemThumbNails"></a>
 	                </td>
 	                <td class = "itemName">
 	                	<span class = "itemNames">
-	                		<a href = "${cp}/item/detail?itemNo=${i.itemNo}">${i.itemName}</a><br><br>
+	                		<a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}">${iDtos[status.index].itemName}</a><br><br>
 	                	</span>
-	                   	<span class = "itemStocks">매장 재고: ${i.brName}
-	                   	<c:if test = '${i.brName != "상품준비중"}'>
-		                   	${i.stkCnt}개
-	                   	</c:if>
-	                   	<br>
-	                   	</span>${i.hash}
-                	</td>
+	                	<span class = 'itemStocks'>매장 재고:
+	                	<c:forEach begin = "0" end = "${iDtos.size()}" varStatus="status2">
+	                		<c:if test="${iDtos[status.index].itemNo == iDtos[status2.index].itemNo}">
+				                <c:choose>
+				               		<c:when test="${not empty iDtos[status2.index].brName}">
+				                		${iDtos[status2.index].brName} ${iDtos[status2.index].stkCnt}개
+				                		<c:if test="${iDtos[status2.index+1].itemNo == iDtos[status2.index].itemNo}">/</c:if>
+				               		</c:when>
+				               		<c:otherwise>
+				               			없음<br>
+				               		</c:otherwise>
+				                </c:choose>
+		               		</c:if>
+	               		</c:forEach>
+        				</span><br>
+                   		${iDtos[status.index].hash}
+                		</td>
 	                <td class = "itemPrice">
-	                	<fmt:formatNumber value="${i.price}" type="number"/> 원
+	                	<fmt:formatNumber value="${iDtos[status.index].price}" type="number"/> 원
 	                </td>
 	                <td><a href = "#" class = "pcBtns">장바구니</a><br><br>
 	                	<a href = "#" class = "pcBtns">바로구매</a>
 	                </td>
-	            </tr>
+	            	</tr>
+            	</c:if>
             </c:forEach>
         </table>
     </div>
