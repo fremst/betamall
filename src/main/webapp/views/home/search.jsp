@@ -75,12 +75,14 @@
 <body>
     <h2>상품 검색</h2>
     <div class = "searchItem">
-        <select style = "font-size: 16px">
-            <option>상품명</option>
-            <option>지점명</option>
-        </select>
-        <input type="text" class = "srchText">
-        <input type="button" value="검색" class = "srchBtn">
+    	<form action="/betamall/item/search">
+	        <select name = "field" style = "font-size: 16px">
+	            <option <c:if test="${param.field=='상품명'}">selected</c:if>>상품명</option>
+	            <option <c:if test="${param.field=='지점명'}">selected</c:if>>지점명</option>
+	        </select>
+	        <input type="text" name = "keyword" value = "${param.keyword}" class = "srchText">
+	        <input type="submit" value="검색" class = "srchBtn">
+        </form>
     </div>
     <div class = "itemList">
         <table style = "text-align: center">
@@ -94,7 +96,7 @@
 		           		<td></td>
 	           		</tr>   
 	           	</thead>
-           	<c:forEach begin = "0" end = "${iDtos.size()}" varStatus="status">
+           	<c:forEach begin = "0" end = "${iDtos.size()-1}" varStatus="status">
            		<c:if test="${status.first or (iDtos[status.index].itemNo != iDtos[status.index-1].itemNo)}">
            			<tr>
 	                <td class = "itemNo">
@@ -127,7 +129,8 @@
 	                <td class = "itemPrice">
 	                	<fmt:formatNumber value="${iDtos[status.index].price}" type="number"/> 원
 	                </td>
-	                <td><a href = "#" class = "pcBtns">장바구니</a><br><br>
+	                <td>
+	                	<a href = "#" class = "pcBtns">장바구니</a><br><br>
 	                	<a href = "#" class = "pcBtns">바로구매</a>
 	                </td>
 	            	</tr>
