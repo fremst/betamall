@@ -20,13 +20,47 @@ public class ItemDao {
 		return instance;
 	}
 	
-	public ArrayList<ItemDto> selectAll(int startRow,int endRow){
+	public ItemDto select(int inputItemNo){
+		String sql="select * from item where itemno = ?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, inputItemNo);
+			rs=pstmt.executeQuery();
+			
+			ItemDto dto = null;
+			if(rs.next()) {
+				int itemNo=rs.getInt("ITEMNO");
+				int mcatNo=rs.getInt("MCATNO");
+				int scatNo=rs.getInt("SCATNO");
+				String itemName=rs.getString("ITEMNAME");
+				String tImg=rs.getString("TIMG");
+				String detImg=rs.getString("DETIMG");
+				String hash=rs.getString("HASH");
+				int price = rs.getInt("PRICE");
+				boolean itemDel=rs.getBoolean("ITEMDEL");
+				dto = new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
+			}
+			return dto;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
+	
+	
+	public ArrayList<ItemDto> selectAll(int startRow, int endRow){
 		String sql="select * from"
 				+ "("
 				+"		select aa.*, rownum rnum from"
 				+"		("
 				+"			select * from item"
-				+"			order by mcatno asc, scatno asc "
+				+"			order by mcatno asc, scatno asc  "
 				+"		) aa"
 				+"	)where rnum>=? and rnum<=?";
 		Connection con=null;
@@ -108,15 +142,44 @@ public class ItemDao {
 		}
 	}
 	
-	public int updateItem(ItemDto dto) {
+	public int disableItem(int itemNo, Boolean itemDel) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="update item set itemdel=? where itemname=?";
+		String sql="update item set itemdel=? where itemNo=?";
 		try {
 			con=JdbcUtil.getCon();
 			pstmt=con.prepareStatement(sql);
-			pstmt.setBoolean(1, dto.isItemDel());
-			pstmt.setString(2, dto.getItemName());
+			pstmt.setBoolean(1, itemDel);
+			pstmt.setInt(2, itemNo);
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con,pstmt,null);
+		}
+	}
+	
+	public int update(ItemDto itemDto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql="UPDATE ITEM SET MCATNO = ?, SCATNO = ?, ITEMNAME = ?, "
+				 + "TIMG = ?, DETIMG = ?, HASH = ?, PRICE = ?, ITEMDEL =?"
+				 + "WHERE ITEMNO = ?";
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, itemDto.getMcatNo());
+			pstmt.setInt(2, itemDto.getScatNo());
+			pstmt.setString(3, itemDto.getItemName());
+			pstmt.setString(4, itemDto.gettImg());
+			pstmt.setString(5, itemDto.getDetImg());
+			pstmt.setString(6, itemDto.getHash());
+			pstmt.setInt(7, itemDto.getPrice());
+			pstmt.setBoolean(8, itemDto.isItemDel());
+			pstmt.setInt(9, itemDto.getItemNo());
+			
 			int n=pstmt.executeUpdate();
 			return n;
 		}catch(SQLException s) {
