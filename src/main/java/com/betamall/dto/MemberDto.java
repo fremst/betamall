@@ -14,30 +14,16 @@ public class MemberDto {
     private Date mbrRegdate;
     private String mbrGrade;
     private int totAmt;
-    private String cond;
 
     @Override
-	public String toString() {
-		return "MemberDto [mbrNo=" + mbrNo + ", mbrName=" + mbrName + ", mbrTel=" + mbrTel + ", mbrAdr=" + mbrAdr
-				+ ", mbrEmail=" + mbrEmail + ", mbrId=" + mbrId + ", mbrPwd=" + mbrPwd + ", mbrBd=" + mbrBd
-				+ ", mbrRegdate=" + mbrRegdate + ", mbrGrade=" + mbrGrade + ", totAmt=" + totAmt + ", cond=" + cond+"]";
-	}
-
-
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt, String cond) {
-        this.mbrNo = mbrNo;
-        this.mbrName = mbrName;
-        this.mbrTel = mbrTel;
-        this.mbrAdr = mbrAdr;
-        this.mbrEmail = mbrEmail;
-        this.mbrId = mbrId;
-        this.mbrBd = mbrBd;
-        this.mbrRegdate = mbrRegdate;
-        this.mbrGrade = mbrGrade;
-        this.totAmt = totAmt;
-        this.cond = cond;
+    public String toString() {
+        return "MemberDto [mbrNo=" + mbrNo + ", mbrName=" + mbrName + ", mbrTel=" + mbrTel + ", mbrAdr=" + mbrAdr
+                + ", mbrEmail=" + mbrEmail + ", mbrId=" + mbrId + ", mbrPwd=" + mbrPwd + ", mbrBd=" + mbrBd
+                + ", mbrRegdate=" + mbrRegdate + ", mbrGrade=" + mbrGrade + ", totAmt=" + totAmt + "]";
     }
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
+
+    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId,
+            String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
         this.mbrNo = mbrNo;
         this.mbrName = mbrName;
         this.mbrTel = mbrTel;
@@ -138,12 +124,5 @@ public class MemberDto {
     public void setTotAmt(int totAmt) {
         this.totAmt = totAmt;
     }
-    
-    public String getCond() {
-        return cond;
-    }
 
-    public void setCond(String cond) {
-        this.cond = cond;
-    }
 }

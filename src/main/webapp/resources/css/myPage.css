@@ -1,36 +1,122 @@
 @charset "UTF-8";
-* {
-    margin: 0;
-    padding: 0;
-}
 
-#wrap {
-    margin-top: 50px;
-    padding-top: 5px;
+#myPageWrap {
+    margin-top: 20px;
     padding-bottom: 5px;
-    width: 100%;
-    height: 768px;
-    height: auto;
+    width: 1000px;
+    height: 700px;
+    align-content: center;
 }
 
-#side {
+#gradePageWrap {
+    margin-top: 20px;
+    padding-bottom: 5px;
+    width: 1000px;
+    height: 350px;
+    align-content: center;
+}
+
+#errBox {
+    color: red;
+    font-size: 12px;
+}
+
+#formSide {
     width: 20%;
     height: auto;
     float: left;
     margin-left: 80px;
 }
 
-#center {
+#formMain {
     width: 65%;
     height: auto;
     float: right;
+    padding-left: 40px;
 }
 
-#footer {
-    padding: 15px;
-    margin-left: 500px;
-    margin-top: 200px;
+#formArea {
+    height: auto;
+    margin-top: 10px;
+    margin-left: 50px;
+    padding-left: 20px;
 }
+
+#gradeArea {
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+}
+
+#gradeArea1 {
+    width: 45%;
+    text-align: center;
+    float: left;
+}
+
+#userGrade {
+    font-size: 40px;
+    color: mediumaquamarine;
+}
+
+#gradeArea2 {
+    padding-top: 25px;
+    width: 45%;
+    text-align: left;
+    float: right;
+}
+
+.gradeInfo {
+    color: gray;
+    font-size: 12px;
+}
+
+#couponArea {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    align-content: center;
+}
+
+#couponTitle {
+    text-align: left;
+}
+
+
+#couponTable {
+    width: 90%;
+    border-bottom: 1px solid gray;
+}
+
+
+#couponTable th {
+    margin-right: 5px;
+}
+
+#couponTable td {
+    margin-right: 5px;
+}
+
+
+.setForm {
+    color: gray;
+    font-size: 12px;
+}
+
+.adr {
+    width: 300px;
+    height: 20px;
+}
+
+#btnArea {
+    margin-top: 30px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    float: right;
+}
+
 
 #modBtn {
     background-color: hsl(209, 84%, 55%);
@@ -47,8 +133,18 @@
 }
 
 #backBtn {
-background-color: hsla(0, 2%, 29%, 0.226);
+    background-color: hsla(0, 2%, 29%, 0.226);
     border-radius: 3px;
     color: aliceblue;
     width: 50px;
+}
+
+#name, #mbrPwd, #pwd, #pwdCheck, #mbrBd, #mbrTel, #mbrEmail, #sample6_postcode, #sample6_address, #sample6_detailAddress, #sample6_extraAddress, #mbrRegdate, #totAmt {
+    margin-top: 15px;
+}
+
+.couponInfo {
+    margin-top: 10px;
+    color: cadetblue;
+    margin-bottom: 20px;
 }

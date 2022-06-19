@@ -14,9 +14,11 @@ public class CouponDto {
     private int mcatNo;
     private int scatNo;
 
-    public CouponDto(){}
+    public CouponDto() {
+    }
 
-    public CouponDto(int cpnNo, int discRate, Date expDate, Date period, boolean active, int minOrd, String cond, boolean issued, int mcatNo, int scatNo) {
+    public CouponDto(int cpnNo, int discRate, Date expDate, Date period, boolean active, int minOrd, String cond,
+            boolean issued, int mcatNo, int scatNo) {
         this.cpnNo = cpnNo;
         this.discRate = discRate;
         this.expDate = expDate;
