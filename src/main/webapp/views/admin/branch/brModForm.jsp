@@ -11,7 +11,7 @@
 <body>
     <div>
     	<h2 id = "subtitle">지점 정보 수정/삭제</h2>
-   	    <form method="post" enctype="multipart/form-data" onsubmit = "return validate()}">
+   	    <form method="post" enctype="multipart/form-data">
         	<fieldset id = "fieldset">
         	<div class = "inputTextField">
 	            <label for = "brNo">지점번호</label><br>
@@ -40,9 +40,9 @@
             </div>
             </fieldset>
             <div id = "btns">
-		    	<input type = "submit" value= "수정" formaction="${cp }/admin/branch/update?brNo=${brDto.brNo}">
+		    	<input type = "submit" value = "수정" onclick = "return validate()" formaction = "${cp }/admin/branch/update?brNo=${brDto.brNo}">
 		    	<input type = "button" value = "취소" onclick = "location.href='${cp }/admin/branch/list'">
-		    	<input type = "submit" value= "삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
+		    	<input type = "submit" value = "삭제" onclick = "if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
            	</div>
         </form>
     </div>
