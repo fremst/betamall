@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.ManagerDao;
-import com.betamall.dao.NoticeDao;
+import com.betamall.dao.BoardDao;
 import com.betamall.dto.ManagerDto;
-import com.betamall.dto.NoticeDto;
+import com.betamall.dto.BoardDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -34,7 +34,6 @@ public class NoticeInsertController extends HttpServlet{
 		
 		HttpSession session = req.getSession();
 		String mgrId = (String)session.getAttribute("id");
-		
 		ManagerDao mdao = ManagerDao.getInstance();
 		ManagerDto mdto = mdao.selectById(mgrId);
 		int mgrNo = mdto.getMgrNo();
@@ -53,18 +52,21 @@ public class NoticeInsertController extends HttpServlet{
 		String brdCat = mr.getParameter("brdCat");
 		String brdTitle = mr.getParameter("brdTitle");
 		String brdCon = mr.getParameter("brdCon");
-		
-		String systemFileName = mr.getFilesystemName("uploadFile");
-		String fileExt = systemFileName.substring(systemFileName.lastIndexOf(".")+1);
-		String saveFileName = brdCat + "+" + brdTitle + fileExt;
-		new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
-
 		Date brdSdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdSdate")) : null;
 		Date brdFdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdFdate")) : null;
 		Boolean popUp = (mr.getParameter("popUp") == null) ? false : true;
 		
-		NoticeDto dto = new NoticeDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
-		NoticeDao dao = NoticeDao.getInstance();
+		String systemFileName=null;
+		String fileExt=null;
+		String saveFileName = null;
+		if(mr.getFilesystemName("uploadFile")!=null) {
+			systemFileName=mr.getFilesystemName("uploadFile");
+			fileExt = systemFileName.substring(systemFileName.lastIndexOf(".")+1);
+			saveFileName= brdCat + "+" + brdTitle + fileExt;
+			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
+		}
+		BoardDto dto = new BoardDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
+		BoardDao dao = BoardDao.getInstance();
 		
 		int n = dao.insert(dto);
 		

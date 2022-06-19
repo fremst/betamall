@@ -8,7 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:set var="cp" value="${pageContext.request.contextPath }"/>
+	<div id="side">
+        <h2>고객센터</h2>
+        <ul>
+            <li><a href="${cp }/board/list">ㆍ공지사항/이벤트</a></li>
+            <li><a href=#>ㆍFAQ</a></li>
+            <li><a href=#>ㆍQ&A</a></li>
+        </ul>
+    </div>
 	<table border="1" width="750">
 		<tr>
 			<th>카테고리</th>
@@ -16,12 +23,11 @@
 			<th>작성자</th>
 			<th>작성일</th>
 		</tr>
-		
 		<c:forEach var="dto" items="${list }">
 			<tr>
 				<td>${dto.brdCat }</td>
 				<td><a href="${cp}/board/detail?brdNo=${dto.brdNo}">${dto.brdTitle }</a></td>
-				<td>임시</td><%-- managerDao merge 후 수정--%>
+				<td>${dto.mgrId }</td>
 				<td>${dto.brdWdate }</td>
 			</tr>
 		</c:forEach>

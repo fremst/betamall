@@ -7,17 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.betamall.dto.NoticeDto;
+import com.betamall.dto.BoardDto;
 import com.betamall.util.JdbcUtil;
 
-public class NoticeDao {
-	private static NoticeDao instance=new NoticeDao();
-	private NoticeDao() {}
-	public static NoticeDao getInstance() {
+public class BoardDao {
+	private static BoardDao instance=new BoardDao();
+	private BoardDao() {}
+	public static BoardDao getInstance() {
 		return instance;
 	}
 	
-	public int insert(NoticeDto dto) {
+	public int insert(BoardDto dto) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -42,7 +42,7 @@ public class NoticeDao {
 		}		
 	}
 	
-	public ArrayList<NoticeDto> list(int startRow,int endRow, String field,String keyword){
+	public ArrayList<BoardDto> list(int startRow,int endRow, String field,String keyword){
 		String sql=	null;
 		if(field==null || field.equals("")) {
 			sql="select * from "
@@ -50,6 +50,7 @@ public class NoticeDao {
 					+ "    select aa.*,rownum rnum from"
 					+ "    ("
 					+ "	      select * from board "
+					+ "       where brdcat='공지' or brdcat='이벤트'"
 					+ "	      order by brdno desc"
 					+ "    )aa"
 					+ ") "
@@ -59,7 +60,7 @@ public class NoticeDao {
 					+ "("
 					+ "    select aa.*,rownum rnum from"
 					+ "    ("
-					+ "	      select * from board where "+ field + " like '%"+ keyword + "%' "
+					+ "	      select * from board where "+ field + " like '%"+ keyword + "%' and (brdcat='공지' or brdcat='이벤트') "
 					+ "	      order by brdno desc"
 					+ "    )aa"
 					+ ") "
@@ -74,20 +75,21 @@ public class NoticeDao {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
-			ArrayList<NoticeDto> list=new ArrayList<NoticeDto>();
+			ArrayList<BoardDto> list=new ArrayList<BoardDto>();
+			ManagerDao dao=ManagerDao.getInstance();
 			while(rs.next()) {
-				int brdNo=rs.getInt("brdNo");
-				int mgrNo=rs.getInt("mgrNo");
-				String brdCat=rs.getString("brdCat");
-				String brdTitle=rs.getString("brdTitle");
-				String brdCon=rs.getString("brdCon");
-				String brdImg=rs.getString("brdImg");
-				Date brdWdate=rs.getDate("brdWdate");
-				Date brdMdate=rs.getDate("brdMdate");
-				Date brdSdate=rs.getDate("brdSdate");
-				Date brdFdate=rs.getDate("brdFdate");
-				boolean popUp=rs.getBoolean("popUp");
-				NoticeDto dto=new NoticeDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp);
+				int brdNo=rs.getInt("brdno");
+				int mgrNo=rs.getInt("mgrno");
+				String brdCat=rs.getString("brdcat");
+				String brdTitle=rs.getString("brdtitle");
+				String brdCon=rs.getString("brdcon");
+				String brdImg=rs.getString("brdimg");
+				Date brdWdate=rs.getDate("brdwdate");
+				Date brdMdate=rs.getDate("brdmdate");
+				Date brdSdate=rs.getDate("brdsdate");
+				Date brdFdate=rs.getDate("brdfdate");
+				boolean popUp=rs.getBoolean("popup");
+				BoardDto dto=new BoardDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp, dao.select(mgrNo).getMgrId());
 				list.add(dto);
 			}
 			return list;
@@ -99,13 +101,16 @@ public class NoticeDao {
 		}
 	}
 	
+	
+	
+	
 	public int getCount(String field, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="select COUNT(*) from board";
+			String sql="select count(*) from board";
 			if(field!=null && !field.equals("")) {
 				sql += " where "+ field +" like '%"+ keyword + "%' ";
 			}	
@@ -123,7 +128,7 @@ public class NoticeDao {
 		}		
 	}
 	
-	public NoticeDto select(int brdNo) {
+	public BoardDto select(int brdNo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -134,17 +139,17 @@ public class NoticeDao {
 			pstmt.setInt(1, brdNo);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				int mgrNo=rs.getInt("mgrNo");
-				String brdCat=rs.getString("brdCat");
-				String brdTitle=rs.getString("brdTitle");
-				String brdCon=rs.getString("brdCon");
-				String brdImg=rs.getString("brdImg");
-				Date brdWdate=rs.getDate("brdWdate");
-				Date brdMdate=rs.getDate("brdMdate");
-				Date brdSdate=rs.getDate("brdSdate");
-				Date brdFdate=rs.getDate("brdFdate");
-				boolean popUp=rs.getBoolean("popUp");
-				NoticeDto dto=new NoticeDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp);
+				int mgrNo=rs.getInt("mgrno");
+				String brdCat=rs.getString("brdcat");
+				String brdTitle=rs.getString("brdtitle");
+				String brdCon=rs.getString("brdcon");
+				String brdImg=rs.getString("brdimg");
+				Date brdWdate=rs.getDate("brdwdate");
+				Date brdMdate=rs.getDate("brdmdate");
+				Date brdSdate=rs.getDate("brdsdate");
+				Date brdFdate=rs.getDate("brdfdate");
+				boolean popUp=rs.getBoolean("popup");
+				BoardDto dto=new BoardDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp);
 				return dto;
 			}
 			return null;
@@ -156,12 +161,12 @@ public class NoticeDao {
 		}		
 	}
 	
-	public int update(NoticeDto dto) {
+	public int update(BoardDto dto) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="update board set brdCat=?, brdTitle=?, brdCon=?, brdImg=?, brdMdate=current_date, brdSdate=?, brdFdate=?, popUp=? where brdno=?";
+			String sql="update board set brdcat=?, brdtitle=?, brdcon=?, brdimg=?, brdmdate=current_date, brdsdate=?, brdfdate=?, popup=? where brdno=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, dto.getBrdCat());
 			pstmt.setString(2, dto.getBrdTitle());

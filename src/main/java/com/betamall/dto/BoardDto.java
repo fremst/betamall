@@ -2,7 +2,7 @@ package com.betamall.dto;
 
 import java.sql.Date;
 
-public class NoticeDto {
+public class BoardDto {
 	private int brdNo;
 	private int mgrNo;
 	private String brdCat;
@@ -14,10 +14,11 @@ public class NoticeDto {
 	private Date brdSdate;
 	private Date brdFdate;
 	private boolean popUp;
+	private String mgrId;
 	
-	public NoticeDto() {}
+	public BoardDto() {}
 
-	public NoticeDto(int brdNo, int mgrNo, String brdCat, String brdTitle, String brdCon, String brdImg, Date brdWdate,
+	public BoardDto(int brdNo, int mgrNo, String brdCat, String brdTitle, String brdCon, String brdImg, Date brdWdate,
 			Date brdMdate, Date brdSdate, Date brdFdate, boolean popUp) {
 		super();
 		this.brdNo = brdNo;
@@ -31,6 +32,23 @@ public class NoticeDto {
 		this.brdSdate = brdSdate;
 		this.brdFdate = brdFdate;
 		this.popUp = popUp;
+	}
+	
+	public BoardDto(int brdNo, int mgrNo, String brdCat, String brdTitle, String brdCon, String brdImg, Date brdWdate,
+			Date brdMdate, Date brdSdate, Date brdFdate, boolean popUp, String mgrId) {
+		super();
+		this.brdNo = brdNo;
+		this.mgrNo = mgrNo;
+		this.brdCat = brdCat;
+		this.brdTitle = brdTitle;
+		this.brdCon = brdCon;
+		this.brdImg = brdImg;
+		this.brdWdate = brdWdate;
+		this.brdMdate = brdMdate;
+		this.brdSdate = brdSdate;
+		this.brdFdate = brdFdate;
+		this.popUp = popUp;
+		this.mgrId = mgrId;
 	}
 
 	public int getBrdNo() {
@@ -126,6 +144,14 @@ public class NoticeDto {
 		return "NoticeDto [brdNo=" + brdNo + ", mgrNo=" + mgrNo + ", brdCat=" + brdCat + ", brdTitle=" + brdTitle
 				+ ", brdCon=" + brdCon + ", brdImg=" + brdImg + ", brdWdate=" + brdWdate + ", brdMdate=" + brdMdate
 				+ ", brdSdate=" + brdSdate + ", brdFdate=" + brdFdate + ", popUp=" + popUp + "]\n";
+	}
+
+	public String getMgrId() {
+		return mgrId;
+	}
+
+	public void setMgrId(String mgrId) {
+		this.mgrId = mgrId;
 	}
 
 }
