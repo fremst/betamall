@@ -42,7 +42,7 @@ public class BoardDao {
 		}		
 	}
 	
-	public ArrayList<BoardDto> list(int startRow,int endRow, String field,String keyword){
+	public ArrayList<BoardDto> noticeList(int startRow,int endRow, String field,String keyword){
 		String sql=	null;
 		if(field==null || field.equals("")) {
 			sql="select * from "
@@ -101,8 +101,64 @@ public class BoardDao {
 		}
 	}
 	
-	
-	
+	public ArrayList<BoardDto> faqList(int startRow,int endRow, String field,String keyword){
+		String sql=	null;
+		if(field==null || field.equals("")) {
+			sql="select * from "
+					+ "("
+					+ "    select aa.*,rownum rnum from"
+					+ "    ("
+					+ "	      select * from board "
+					+ "       where brdcat in('회원가입', '주문결제', '배송')"
+					+ "	      order by brdno desc"
+					+ "    )aa"
+					+ ") "
+					+ "where rnum>=? and rnum<=?";
+		}else {
+			sql="select * from "
+					+ "("
+					+ "    select aa.*,rownum rnum from"
+					+ "    ("
+					+ "	      select * from board where "+ field + " like '%"+ keyword + "%' and brdcat in('회원가입', '주문결제', '배송') "
+					+ "	      order by brdno desc"
+					+ "    )aa"
+					+ ") "
+					+ "where rnum>=? and rnum<=?";
+			}
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<BoardDto> list=new ArrayList<BoardDto>();
+			ManagerDao dao=ManagerDao.getInstance();
+			while(rs.next()) {
+				int brdNo=rs.getInt("brdno");
+				int mgrNo=rs.getInt("mgrno");
+				String brdCat=rs.getString("brdcat");
+				String brdTitle=rs.getString("brdtitle");
+				String brdCon=rs.getString("brdcon");
+				String brdImg=rs.getString("brdimg");
+				Date brdWdate=rs.getDate("brdwdate");
+				Date brdMdate=rs.getDate("brdmdate");
+				Date brdSdate=rs.getDate("brdsdate");
+				Date brdFdate=rs.getDate("brdfdate");
+				boolean popUp=rs.getBoolean("popup");
+				BoardDto dto=new BoardDto(brdNo, mgrNo, brdCat, brdTitle, brdCon, brdImg, brdWdate, brdMdate, brdSdate, brdFdate, popUp, dao.select(mgrNo).getMgrId());
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
 	
 	public int getCount(String field, String keyword) {
 		Connection con=null;

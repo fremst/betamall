@@ -22,11 +22,11 @@
 	</c:choose>
 	<c:choose>
 		<c:when test="${dto.mgrNo==mgrNo || mgrNo==0 }">
-			<button onclick="location.href='${cp }/board/update?brdNo=${dto.brdNo}'">수정</button>
+			<button onclick="location.href='${cp }/board/faqupdate?brdNo=${dto.brdNo}'">수정</button>
 			<button id="del" onclick="deleteCheck()">삭제</button>
 		</c:when>
 	</c:choose>
-	<button onclick="location.href='${cp }/board/list'">목록으로</button>
+	<button onclick="location.href='${cp }/board/faqlist'">목록으로</button>
 </body>
 <script type="text/javascript">
 	function deleteCheck() {
