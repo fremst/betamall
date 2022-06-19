@@ -14,8 +14,12 @@ import javax.servlet.http.HttpSession;
 import com.betamall.dao.BranchDao;
 import com.betamall.dao.ItemDao;
 import com.betamall.dao.MemberDao;
+import com.betamall.dao.OrdItemDao;
+import com.betamall.dao.OrderDao;
 import com.betamall.dto.BranchDto;
 import com.betamall.dto.ItemDto;
+import com.betamall.dto.OrdItemDto;
+import com.betamall.dto.OrderDto;
 
 @WebServlet("/member/cart")
 @SuppressWarnings("serial")
@@ -79,6 +83,42 @@ public class MbrCartController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+    	int mbrNo = Integer.parseInt(req.getParameter("mbrNo"));
+    	String[] sbrNos = req.getParameterValues("brNo");
+    	for(int i = 0; i< sbrNos.length; i++) {
+    		int brNo = Integer.parseInt(sbrNos[i]);
+    		
+    		/* -------- 지점별 주문 내역 삽입 ------- */
+        	
+        	OrderDao ordDao = OrderDao.getInstance();
+        	int ordNo = ordDao.getOrdNo();
+            OrderDto ordDto = new OrderDto(ordNo, mbrNo, brNo, null, "결제대기", null, null);
+            int n1 = ordDao.insert(ordDto);
+            
+            if(n1 < 0) {
+            	System.out.println("에러 발생");
+            }
+        	
+        	String[] itemNos = req.getParameterValues("itemNofbr"+(i+1));
+        	String[] cntNos = req.getParameterValues("cntfbr"+(i+1));
+        	
+        	for(int j = 0; j<itemNos.length; j++) {
+        		
+        		int itemNo = Integer.parseInt(itemNos[j]);
+        		int ordCnt = Integer.parseInt(cntNos[j]);
+        		
+        		OrdItemDao ordItemDao = OrdItemDao.getInstance();
+            	OrdItemDto ordItemDto = new OrdItemDto(ordNo, itemNo, ordCnt, null, 0, null);
+            	
+            	int n2 = ordItemDao.insert(ordItemDto);
+            	
+                if(n2 > 0) {
+                	resp.sendRedirect(req.getContextPath() + "/member/payment");
+                }else {
+                	System.out.println("에러 발생");
+                }
+        	}
+    	}
     	
     }
 }

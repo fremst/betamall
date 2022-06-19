@@ -48,9 +48,10 @@
 		<c:when test="${not empty ordBrList }">
 			<form method="post" action="${cp }/member/cart">
 				<div class="itemList">
-					<c:forEach begin="0" end="${ordBrList.size()-1}" varStatus="brSts">
-						<c:if
-							test="${brSts.first or (ordBrList[brSts.index].brNo != ordBrList[brSts.index-1].brNo)}">
+					<c:set var = "oipbInd" value = "0"/>
+					<c:forEach begin="0" end = "${ordBrList.size()-1}" varStatus="brSts">
+						<c:if test="${brSts.first or (ordBrList[brSts.index].brNo != ordBrList[brSts.index-1].brNo)}">
+							<c:set var = "oipbInd" value = "${oipbInd+1}"/>
 							<fieldset id="fieldset">
 								<legend>${ordBrList[brSts.index].getBrName()}</legend>
 								<input type="hidden" value="${ordBrList[brSts.index].getBrNo()}"
@@ -64,20 +65,20 @@
 											<th>정가</th>
 											<th>수량</th>
 										</tr>
-										<c:forEach begin="${brSts.index}"
-											end="${brSts.index+ordItemPerBr[brSts.index]}"
-											varStatus="itemSts">
-											<c:if
-												test="${itemSts.first or (ordBrList[itemSts.index].brNo == ordBrList[itemSts.index-1].brNo)}">
+										<c:forEach begin = "${brSts.index}" end = "${brSts.index+ordItemPerBr[oipbInd-1]-1}" varStatus="itemSts">
+											<c:if test = "${itemSts.first or (ordBrList[itemSts.index].brNo == ordBrList[itemSts.index-1].brNo)}">
 												<tr>
 													<td class="itemNo">
 														${ordItemList[itemSts.index].itemNo}
 														<input type="hidden" value="${ordItemList[itemSts.index].itemNo}" name="itemNofbr${ordBrList[brSts.index].getBrNo()}">
 													</td>
-													<td class="itemImg"><a
-															href="${cp}/item/detail?itemNo=${ordItemList[itemSts.index].itemNo}">
-															<img src="${cp }/resources/uploads/admin/item/${ordItemList[itemSts.index].tImg}" class="itemThumbNails"></a></td>
-													<td class="itemName"><a href="${cp}/item/detail?itemNo=${ordItemList[itemSts.index].itemNo}">${ordItemList[itemSts.index].itemName}</a><br>														<br>
+													<td class="itemImg">
+														<a href="${cp}/item/detail?itemNo=${ordItemList[itemSts.index].itemNo}">
+															<img src="${cp }/resources/uploads/admin/item/${ordItemList[itemSts.index].tImg}" class="itemThumbNails">
+														</a>
+													</td>
+													<td class="itemName">
+														<a href="${cp}/item/detail?itemNo=${ordItemList[itemSts.index].itemNo}">${ordItemList[itemSts.index].itemName}</a><br><br>
 													</td>
 													<td class="itemPrice">
 														<fmt:formatNumber value="${ordItemList[itemSts.index].price}" type="number"/> 원

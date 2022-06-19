@@ -24,13 +24,19 @@ public class OrderDao {
 		try {
 			con = JdbcUtil.getCon();
 			String sql = "INSERT INTO \"ORDER\"(ORDNO, MBRNO, BRNO, ORDDATE, ORDSTA, ORDARRD, ORDTEL) "
-					   + "VALUES(SEQ_ORDER.NEXTVAL, ?, ?, CURRENT_DATE, ?, ?, ?)";
+					   + "VALUES(?, ?, ?, CURRENT_DATE, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, ordDto.getMbrNo());
-			pstmt.setInt(2, ordDto.getBrNo());
-			pstmt.setString(3, ordDto.getOrdSta());
-			pstmt.setString(4, ordDto.getOrdArrd());
-			pstmt.setString(5, ordDto.getOrdTel());
+			
+			if(ordDto.getOrdNo()==0) {
+				throw new IllegalArgumentException("주문 번호를 입력하세요.");
+			}
+			
+			pstmt.setInt(1, ordDto.getOrdNo());
+			pstmt.setInt(2, ordDto.getMbrNo());
+			pstmt.setInt(3, ordDto.getBrNo());
+			pstmt.setString(4, ordDto.getOrdSta());
+			pstmt.setString(5, ordDto.getOrdArrd());
+			pstmt.setString(6, ordDto.getOrdTel());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,13 +102,13 @@ public class OrderDao {
 		}
 	}
 	
-	public int getMaxOrdNo() {
+	public int getOrdNo() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "SELECT MAX(ORDNO) FROM \"ORDER\"";
+			String sql = "SELECT SEQ_ORDER.NEXTVAL FROM DUAL";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
