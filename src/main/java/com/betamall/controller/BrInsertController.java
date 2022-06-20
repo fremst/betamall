@@ -24,6 +24,11 @@ public class BrInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String res = req.getParameter("res");
+		if(res != null) {
+			req.setAttribute("res", res);
+		}
+		
 		ManagerDto loginMgrDto = ManagerDao.getInstance().selectById((String)req.getSession().getAttribute("id"));
 		if(loginMgrDto == null || loginMgrDto.getMgrNo() != 0) {
 			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
@@ -70,10 +75,9 @@ public class BrInsertController extends HttpServlet{
 							)
 						);
 		if(n>0) {
-			System.out.println(saveDir+"에 저장 성공");
-			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
-		}else {
-			System.out.println("실패");
+			resp.sendRedirect(req.getContextPath() + "/admin/branch/list?&res=success");
+		}else{
+			resp.sendRedirect(req.getContextPath() + "/admin/branch/insert?&res=fail");
 		}
 	}
 }

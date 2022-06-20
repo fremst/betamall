@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betamall.dao.NoticeDao;
+import com.betamall.dao.BoardDao;
 
 @SuppressWarnings("serial")
 @WebServlet("/board/delete")
@@ -16,7 +16,7 @@ public class NoticeDeleteController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int brdNo=Integer.parseInt(req.getParameter("brdNo"));
-		NoticeDao dao=NoticeDao.getInstance();
+		BoardDao dao=BoardDao.getInstance();
 		int n = dao.delete(brdNo);
 		if(n>0) {
 			req.setAttribute("code","success");

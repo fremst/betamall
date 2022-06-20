@@ -59,6 +59,11 @@ public class BranchDto {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		return this.brNo == ((BranchDto)obj).getBrNo();
+	}
+	
+	@Override
 	public String toString() {
 		return "BranchDto [brNo=" + brNo + ", brName=" + brName + ", brAddr=" + brAddr + ", brTel=" + brTel
 				+ ", brDate=" + brDate + ", brImg=" + brImg + "]\n";

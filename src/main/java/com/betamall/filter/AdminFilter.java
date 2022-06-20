@@ -16,14 +16,13 @@ import com.betamall.dao.ManagerDao;
 @WebFilter("/admin/*")
 public class AdminFilter implements Filter {
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-//		boolean login = false;
-		// 세션에 member id가 존재하면 member로 admin에 id가 존재하면 admin으로 로그인
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
+		
 		if (session.getAttribute("id") != null && ManagerDao.getInstance().selectById((String) session.getAttribute("id")) != null) {
-//			String id = (String) session.getAttribute("id");
+			req.setAttribute("adminPage", "true");
 			chain.doFilter(request, response);
 		} else {
 			HttpServletResponse resp = (HttpServletResponse) response;

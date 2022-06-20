@@ -20,8 +20,12 @@
 			<img src="${cp}/resources/uploads/admin/board/${dto.brdImg }" style='width: 500px; height:500px'><br>
 		</c:otherwise>
 	</c:choose>
-	<button onclick="location.href='${cp }/board/update?brdNo=${dto.brdNo}'">수정</button>
-	<button id="del" onclick="deleteCheck()">삭제</button>
+	<c:choose>
+		<c:when test="${dto.mgrNo==mgrNo || mgrNo==0 }">
+			<button onclick="location.href='${cp }/board/update?brdNo=${dto.brdNo}'">수정</button>
+			<button id="del" onclick="deleteCheck()">삭제</button>
+		</c:when>
+	</c:choose>
 	<button onclick="location.href='${cp }/board/list'">목록으로</button>
 </body>
 <script type="text/javascript">

@@ -374,7 +374,7 @@ public class MemberDao {
             pstmt.setString(1, id);
             pstmt.setString(2, email);
             pstmt.setString(3, tel);
-            rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery()
             if (rs.next()) {
                 pwd = rs.getString("MBRPWD");
             }

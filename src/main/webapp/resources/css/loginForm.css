@@ -1,8 +1,14 @@
 @charset "UTF-8";
-#title {
-    margin-left: 10px;
-    margin-top: 10px;
+
+#loginWrap {
+    text-align: center;
+    margin: auto;
 }
+
+#title {
+    margin-left: 20px;
+}
+
 #errBox {
     color: red;
     font-size: 12px;
@@ -21,18 +27,14 @@
     background-color: hsl(209, 84%, 55%);
     border-radius: 3px;
     color: aliceblue;
+    width: 150px;
 }
 
-#idBtn {
-    border-radius: 3px;
-}
-
-#pwdBtn {
-    border-radius: 3px;
-}
-
-.btn {
+#searchBox {
+    width: 500px;
+    margin: auto;
     margin-top: 20px;
-    margin-left:10px;
-    width:100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 }
