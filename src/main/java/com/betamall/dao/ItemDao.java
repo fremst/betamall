@@ -126,4 +126,39 @@ public class ItemDao {
 			JdbcUtil.close(con,pstmt,null);
 		}
 	}
+
+	public ItemDto select(int itemNo){
+		
+		String sql = "SELECT * FROM ITEM WHERE ITEMNO = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = JdbcUtil.getCon();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ItemDto itemDto = new ItemDto(
+					rs.getInt("ITEMNO"),
+					rs.getInt("MCATNO"),
+					rs.getInt("SCATNO"),
+					rs.getString("ITEMNAME"),
+					rs.getString("TIMG"),
+					rs.getString("DETIMG"),
+					rs.getString("HASH"),
+					rs.getInt("PRICE"),
+					rs.getBoolean("ITEMDEL"));
+				return itemDto;
+			}
+			return null;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
 }
