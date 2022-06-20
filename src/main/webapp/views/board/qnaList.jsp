@@ -26,7 +26,7 @@
 		<c:forEach var="dto" items="${list }">
 			<tr>
 				<td>${dto.qnaCat }</td>
-				<td><a href="${cp}/board/qnadetail?brdNo=${dto.qnaNo}">${dto.qnaTitle }</a></td>
+				<td><a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}">${dto.qnaTitle }</a></td>
 				<td>임시</td> <!-- 회원 작성자 추가하기 + 작성자로 검색하기 추가 -->
 				<td>${dto.qnaWdate }</td>
 			</tr>

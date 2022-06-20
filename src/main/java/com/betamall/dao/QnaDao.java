@@ -124,4 +124,37 @@ public class QnaDao {
 			JdbcUtil.close(con, pstmt, null);
 		}		
 	}
+	
+	public QnaDto select(int qnaNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select * from qna where qnano=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int mbrNo=rs.getInt("mbrno");
+				int itemNo=rs.getInt("itemno");
+				String qnaCat=rs.getString("qnacat");
+				String qnaTitle=rs.getString("qnatitle");
+				String qnaCon=rs.getString("qnacon");
+				String qnaFile=rs.getString("qnafile");
+				boolean secret=rs.getBoolean("secret");
+				Date qnaWdate=rs.getDate("qnawdate");
+				Date qnaMdate=rs.getDate("qnamdate");
+				boolean qnaDel=rs.getBoolean("qnadel");
+				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel);
+				return dto;
+			}
+			return null;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
 }
