@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.betamall.dao.BoardDao;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/delete")
-public class NoticeDeleteController extends HttpServlet{
+@WebServlet("/board/faqdelete")
+public class FaqDeleteController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int brdNo=Integer.parseInt(req.getParameter("brdNo"));

@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betamall.dao.BoardDao;
-import com.betamall.dto.BoardDto;
+import com.betamall.dao.QnaDao;
+import com.betamall.dto.QnaDto;
 
-@WebServlet("/board/list")
+@WebServlet("/board/qnalist")
 @SuppressWarnings("serial")
-public class NoticeListController extends HttpServlet{
+public class QnaListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -28,8 +28,8 @@ public class NoticeListController extends HttpServlet{
 		}		
 		int startRow=(pageNum-1)*10+1;		
 		int endRow=startRow+9;					
-		BoardDao dao=BoardDao.getInstance();
-		ArrayList<BoardDto> list=dao.noticeList(startRow, endRow, field, keyword);
+		QnaDao dao=QnaDao.getInstance();
+		ArrayList<QnaDto> list=dao.list(startRow, endRow, field, keyword);
 		int pageCount=(int)Math.ceil(dao.getCount(field,keyword)/10.0);		
 		
 		int startPage=(pageNum-1)/10*10+1;		
@@ -47,7 +47,7 @@ public class NoticeListController extends HttpServlet{
 		req.setAttribute("keyword", keyword);
 
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 목록");
-		req.setAttribute("mainPage", "/views/board/noticeList.jsp");
+		req.setAttribute("mainPage", "/views/board/qnaList.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 }

@@ -8,18 +8,19 @@
 </head>
 <body>
 	<h1>게시글 등록</h1>
-	<form method="post" action="${cp }/board/insert" enctype="multipart/form-data" name="insertForm">
-		카테고리 <select name="brdCat" id="category" onchange="changeSelect()">
-			<option value="공지">공지</option>
-			<option value="이벤트">이벤트</option>
+	<form method="post" action="${cp }/board/qnainsert" enctype="multipart/form-data" name="insertForm">
+		카테고리 <select name="qnaCat" id="category" onchange="changeSelect()">
+			<option value="입고">입고</option>
+			<option value="배송">배송</option>
+			<option value="상품">상품</option>
 		</select>
 		<div id ="eventPeriod">
 		</div>
-		팝업여부 <input type="checkbox" name="popUp"><br>
+		비밀글 <input type="checkbox" name="srcret"><br>
 		제목<br>
-		<input type="text" name="brdTitle" id="brdTitle"><br>
+		<input type="text" name="qnaTitle" id="qnaTitle"><br>
 		내용<br>
-		<textarea rows="10" cols="100" name="brdCon" id="brdCon"></textarea><br>
+		<textarea rows="10" cols="100" name="qnaCon" id="qnaCon"></textarea><br>
 		첨부파일<br>
 		<div class = "fileField">
 	    	<label for = "uploadedFile">첨부파일</label>
@@ -36,7 +37,7 @@
 		function changeSelect() {
 			let category=document.getElementById("category");
 			let eventPeriod=document.getElementById("eventPeriod");
-			if(category.value == '이벤트'){
+			if(category.value == '상품'){
 				eventPeriod.innerHTML = "시작일 <input type='date' name='brdSdate' id='brdSdate'><br> 종료일 <input type='date' name='brdFdate' id='brdFdate'>";
 				let brdSdate=document.getElementById("brdSdate");
 				let brdFdate=document.getElementById("brdFdate");
@@ -54,12 +55,12 @@
 		}
 		
 		function checkSpace() {
-			let brdTitle=document.getElementById("brdTitle");
-			let brdCon=document.getElementById("brdCon");
-			if(brdTitle.value=='' || brdTitle.value==null) {
+			let qnaTitle=document.getElementById("qnaTitle");
+			let qnaCon=document.getElementById("qnaCon");
+			if(qnaTitle.value=='' || qnaTitle.value==null) {
 				alert("제목을 입력해주세요.")
 				return false;
-			}else if(brdCon.value=='' || brdCon.value==null) {
+			}else if(qnaCon.value=='' || qnaCon.value==null) {
 				alert("내용을 입력해주세요.")
 				return false;
 			}else {

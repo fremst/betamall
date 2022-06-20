@@ -2,7 +2,6 @@ package com.betamall.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,12 +19,12 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/insert")
-public class NoticeInsertController extends HttpServlet{
+@WebServlet("/board/faqinsert")
+public class FaqInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
-		req.setAttribute("mainPage", "/views/board/noticeForm.jsp");
+		req.setAttribute("mainPage", "/views/board/faqInsertForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
@@ -52,9 +51,6 @@ public class NoticeInsertController extends HttpServlet{
 		String brdCat = mr.getParameter("brdCat");
 		String brdTitle = mr.getParameter("brdTitle");
 		String brdCon = mr.getParameter("brdCon");
-		Date brdSdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdSdate")) : null;
-		Date brdFdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdFdate")) : null;
-		Boolean popUp = (mr.getParameter("popUp") == null) ? false : true;
 		
 		String systemFileName=null;
 		String fileExt=null;
@@ -65,7 +61,7 @@ public class NoticeInsertController extends HttpServlet{
 			saveFileName= brdCat + "+" + brdTitle + fileExt;
 			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		}
-		BoardDto dto = new BoardDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
+		BoardDto dto = new BoardDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, null, null, false);
 		BoardDao dao = BoardDao.getInstance();
 		
 		int n = dao.insert(dto);

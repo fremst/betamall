@@ -15,8 +15,8 @@ import com.betamall.dto.BoardDto;
 import com.betamall.dto.ManagerDto;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/detail")
-public class NoticeDetailController extends HttpServlet{
+@WebServlet("/board/faqdetail")
+public class FaqDetailController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int brdNo=Integer.parseInt(req.getParameter("brdNo"));
@@ -34,7 +34,7 @@ public class NoticeDetailController extends HttpServlet{
 		}
 		
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 보기");
-		req.setAttribute("mainPage", "/views/board/noticeDetail.jsp");
+		req.setAttribute("mainPage", "/views/board/faqDetail.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 }

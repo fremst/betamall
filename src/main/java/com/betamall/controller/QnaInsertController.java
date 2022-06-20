@@ -13,19 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.ManagerDao;
+import com.betamall.dao.MemberDao;
+import com.betamall.dao.QnaDao;
 import com.betamall.dao.BoardDao;
 import com.betamall.dto.ManagerDto;
+import com.betamall.dto.MemberDto;
+import com.betamall.dto.QnaDto;
 import com.betamall.dto.BoardDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/insert")
-public class NoticeInsertController extends HttpServlet{
+@WebServlet("/board/qnainsert")
+public class QnaInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
-		req.setAttribute("mainPage", "/views/board/noticeForm.jsp");
+		req.setAttribute("mainPage", "/views/board/qnaInsertForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
@@ -33,10 +37,10 @@ public class NoticeInsertController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		String mgrId = (String)session.getAttribute("id");
-		ManagerDao mdao = ManagerDao.getInstance();
-		ManagerDto mdto = mdao.selectById(mgrId);
-		int mgrNo = mdto.getMgrNo();
+		String Id = (String)session.getAttribute("id");
+		MemberDao mdao = MemberDao.getInstance();
+		MemberDto mdto = mdao.select(Id);
+		int mbrNo = mdto.getMbrNo();
 		// 접속자가 회원인 경우 예외 처리
 		
 		ServletContext application = req.getServletContext();
@@ -49,12 +53,10 @@ public class NoticeInsertController extends HttpServlet{
 			"utf-8",
 			new DefaultFileRenamePolicy()
 		);
-		String brdCat = mr.getParameter("brdCat");
-		String brdTitle = mr.getParameter("brdTitle");
-		String brdCon = mr.getParameter("brdCon");
-		Date brdSdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdSdate")) : null;
-		Date brdFdate = (brdCat.equals("이벤트")) ? Date.valueOf(mr.getParameter("brdFdate")) : null;
-		Boolean popUp = (mr.getParameter("popUp") == null) ? false : true;
+		String qnaCat = mr.getParameter("qnaCat");
+		String qnaTitle = mr.getParameter("qnaTitle");
+		String qnaCon = mr.getParameter("qnaCon");
+		Boolean secret = (mr.getParameter("secret") == null) ? false : true;
 		
 		String systemFileName=null;
 		String fileExt=null;
@@ -62,11 +64,11 @@ public class NoticeInsertController extends HttpServlet{
 		if(mr.getFilesystemName("uploadFile")!=null) {
 			systemFileName=mr.getFilesystemName("uploadFile");
 			fileExt = systemFileName.substring(systemFileName.lastIndexOf(".")+1);
-			saveFileName= brdCat + "+" + brdTitle + fileExt;
+			saveFileName= qnaCat + "+" + qnaTitle + fileExt;
 			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		}
-		BoardDto dto = new BoardDto(0, mgrNo, brdCat, brdTitle, brdCon, saveFileName, null, null, brdSdate, brdFdate, popUp);
-		BoardDao dao = BoardDao.getInstance();
+		QnaDto dto = new QnaDto(0, mbrNo, 1001, qnaCat, qnaTitle, qnaCon, saveFileName, secret, null, null, false);
+		QnaDao dao = QnaDao.getInstance();
 		
 		int n = dao.insert(dto);
 		

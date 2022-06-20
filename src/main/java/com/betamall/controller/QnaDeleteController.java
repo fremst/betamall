@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betamall.dao.BoardDao;
+import com.betamall.dao.QnaDao;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/delete")
-public class NoticeDeleteController extends HttpServlet{
+@WebServlet("/board/qnadelete")
+public class QnaDeleteController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int brdNo=Integer.parseInt(req.getParameter("brdNo"));
-		BoardDao dao=BoardDao.getInstance();
-		int n = dao.delete(brdNo);
+		int qnaNo=Integer.parseInt(req.getParameter("qnaNo"));
+		QnaDao dao=QnaDao.getInstance();
+		int n = dao.delete(qnaNo);
 		if(n>0) {
 			req.setAttribute("code","success");
 		}else {
