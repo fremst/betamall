@@ -60,10 +60,10 @@
 			<ul class="nav2">
 				<c:choose>
 					<c:when test="${role == 'member' || empty adminPage}">
-						<li><a href="#">수납</a></li>
-						<li><a href="#">필기류</a></li>
-						<li><a href="#">일반사무용품</a></li>
-						<li><a href="#">화일/바인더</a></li>	
+						<li><a href="${cp}/item/search?field=mcatName&keyword=수납">수납</a></li>
+						<li><a href="${cp}/item/search?field=mcatName&keyword=필기류">필기류</a></li>
+						<li><a href="${cp}/item/search?field=mcatName&keyword=일반사무용품">일반사무용품</a></li>
+						<li><a href="${cp}/item/search?field=mcatName&keyword=파일/바인더">파일/바인더</a></li>	
 					</c:when>
 					<c:when test="${role == 'admin0'}">
 						<li><a href="${cp}/admin/item/list">상품 관리</a></li>
