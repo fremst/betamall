@@ -16,7 +16,7 @@ import com.betamall.dto.ItemDto;
 @SuppressWarnings("serial")
 public class ItemListController extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String ipageNum = req.getParameter("pageNum");
 		
@@ -27,7 +27,7 @@ public class ItemListController extends HttpServlet{
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		ItemDao dao= ItemDao.getInstance();
-		ArrayList<ItemDto> list=dao.selectAll(startRow, endRow);
+		ArrayList<ItemDto> list = dao.selectAll(startRow, endRow);
 		int count=dao.getCount();
 		int pageCount=(int)Math.ceil(count/10.0);//전체 페이지 갯수
 		int startPageNum=((pageNum-1)/10*10) + 1;//시작페이지 번호
