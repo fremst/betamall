@@ -20,10 +20,15 @@
 		text-align: center;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 20px;
 		margin-bottom: 15px;
+	}
+	table{
+		margin-bottom: 100px;
 	}
 	.itemList{
 		width: 1050px;
+		text-align: center;
 		margin: auto;
 	}
 	.itemNo{
@@ -71,57 +76,88 @@
     	padding: 3px;
     	border: solid 0.5px gray;
     }
+    .nothing{
+    	height: 400px;
+    	vertical-align: center;
+    	padding-top: 200px;
+    }
 </style>
 <body>
     <h2>상품 검색</h2>
-    <div class = "searchItem">
-        <select style = "font-size: 16px">
-            <option>상품명</option>
-            <option>지점명</option>
-        </select>
-        <input type="text" class = "srchText">
-        <input type="button" value="검색" class = "srchBtn">
-    </div>
     <div class = "itemList">
-        <table style = "text-align: center">
-	           	<thead>
-	           		<tr style = "height: 40px">
-		           		<td><strong>상품 번호</strong></td>
-		           		<td><strong>상품 이미지</strong></td>
-		           		<td><strong>상품명</strong></td>
-		           		<td><strong>가  격</strong></td>
-		           		<td><strong>구  매</strong></td>
-		           		<td></td>
-	           		</tr>   
-	           	</thead>
-           	<c:forEach var = "i" items = "${iDtos}">
-	            <tr>
-	                <td class = "itemNo">
-	                    ${i.itemNo}
-	                </td>
-	                <td class = "itemImg">
-	                    <a href = "${cp}/item/detail?itemNo=${i.itemNo}"><img src = "${cp }/resources/uploads/admin/item/${i.tImg}" class = "itemThumbNails"></a>
-	                </td>
-	                <td class = "itemName">
-	                	<span class = "itemNames">
-	                		<a href = "${cp}/item/detail?itemNo=${i.itemNo}">${i.itemName}</a><br><br>
-	                	</span>
-	                   	<span class = "itemStocks">매장 재고: ${i.brName}
-	                   	<c:if test = '${i.brName != "상품준비중"}'>
-		                   	${i.stkCnt}개
-	                   	</c:if>
-	                   	<br>
-	                   	</span>${i.hash}
-                	</td>
-	                <td class = "itemPrice">
-	                	<fmt:formatNumber value="${i.price}" type="number"/> 원
-	                </td>
-	                <td><a href = "#" class = "pcBtns">장바구니</a><br><br>
-	                	<a href = "#" class = "pcBtns">바로구매</a>
-	                </td>
-	            </tr>
-            </c:forEach>
-        </table>
+    	<div class = "searchItem">
+    	<form action="/betamall/item/search">
+	        <select name = "field" style = "font-size: 16px">
+	            <option value = "itemName" <c:if test="${param.field=='itemName'}">selected</c:if>>상품명</option>
+	            <option value = "brName" <c:if test="${param.field=='brName'}">selected</c:if>>지점명</option>
+	            <option value = "mcatName" <c:if test="${param.field=='mcatName'}">selected</c:if>>대분류</option>
+	        </select>
+	        <input type="text" name = "keyword" value = "${param.keyword}" class = "srchText">
+	        <input type="submit" value="검색" class = "srchBtn">
+        </form>
+    </div>
+    <hr>
+        <c:choose>
+	        <c:when test = "${not empty iDtos}">
+	        <table style = "text-align: center">
+		           	<thead>
+		           		<tr style = "height: 40px">
+			           		<td><strong>상품 번호</strong></td>
+			           		<td><strong>상품 이미지</strong></td>
+			           		<td><strong>상품명</strong></td>
+			           		<td><strong>가  격</strong></td>
+			           		<td><strong>구  매</strong></td>
+			           		<td></td>
+		           		</tr>   
+		           	</thead>
+		           	<c:forEach begin = "0" end = "${iDtos.size()-1}" varStatus="status">
+		           		<c:if test="${status.first or (iDtos[status.index].itemNo != iDtos[status.index-1].itemNo)}">
+		           			<tr>
+			                <td class = "itemNo">
+			                    ${iDtos[status.index].itemNo}
+			                </td>
+			                <td class = "itemImg">
+			                    <a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}"><img src = "${cp }/resources/uploads/admin/item/${iDtos[status.index].tImg}" class = "itemThumbNails"></a>
+			                </td>
+			                <td class = "itemName">
+			                	<span class = "itemNames">
+			                		<a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}">${iDtos[status.index].itemName}</a><br><br>
+			                	</span>
+			                	<span class = 'itemStocks'>매장 재고:
+			                	<c:forEach begin = "0" end = "${iDtos.size()}" varStatus="status2">
+			                		<c:if test="${iDtos[status.index].itemNo == iDtos[status2.index].itemNo}">
+						                <c:choose>
+						               		<c:when test="${not empty iDtos[status2.index].brName}">
+						                		${iDtos[status2.index].brName} ${iDtos[status2.index].stkCnt}개
+						                		<c:if test="${iDtos[status2.index+1].itemNo == iDtos[status2.index].itemNo}">/</c:if>
+						               		</c:when>
+						               		<c:otherwise>
+						               			없음<br>
+						               		</c:otherwise>
+						                </c:choose>
+				               		</c:if>
+			               		</c:forEach>
+		        				</span><br>
+		                   		${iDtos[status.index].hash}
+		                		</td>
+			                <td class = "itemPrice">
+			                	<fmt:formatNumber value="${iDtos[status.index].price}" type="number"/> 원
+			                </td>
+			                <td>
+			                	<a href = "#" class = "pcBtns">장바구니</a><br><br>
+			                	<a href = "#" class = "pcBtns">바로구매</a>
+			                </td>
+			            	</tr>
+		            	</c:if>
+		            </c:forEach>
+	        </table>
+	        </c:when>
+	        <c:otherwise>
+	        	<div class = "nothing">
+					<h3>검색 결과가 없습니다.</h3>
+				</div>
+	        </c:otherwise>
+       </c:choose>
     </div>
 </body>
 </html>
