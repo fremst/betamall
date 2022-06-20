@@ -53,10 +53,27 @@
 		</div>
 		<div class="cate">
 			<ul class="nav2">
-				<li><a href="#">수납</a></li>
-				<li><a href="#">필기류</a></li>
-				<li><a href="#">일반사무용품</a></li>
-				<li><a href="#">화일/바인더</a></li>	
+			<c:choose>
+				<c:when test="${role == 'member' }">
+					<li><a href="#">수납</a></li>
+					<li><a href="#">필기류</a></li>
+					<li><a href="#">일반사무용품</a></li>
+					<li><a href="#">화일/바인더</a></li>
+				</c:when>
+				<c:when test="${role == 'admin0' }">
+					<li><a href="${cp }/admin/item/list">상품 관리</a></li>
+					<li><a href="#">매출 조회</a></li>
+					<li><a href="#">고객 조회</a></li>
+					<li><a href="#">지점 관리</a></li>
+					<li><a href="#">점장 관리</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="#">상품 관리</a></li>
+					<li><a href="#">매출 조회</a></li>
+					<li><a href="#">고객 조회</a></li>
+					<li><a href="#">지점 관리</a></li>
+				</c:otherwise>
+			</c:choose>
 			</ul>
 		</div>
 	</header>
