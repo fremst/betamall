@@ -44,6 +44,19 @@ public class MbrPmtController extends HttpServlet{
 			totAmt = ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee;
 		}
 		
+		MemberDto mbrDto = mbrDao.selectById(mbrId);
+		String str = mbrDto.getMbrAdr();
+		String[] adresses = str.split("/");
+		
+		
+		req.setAttribute("recName", mbrDto.getMbrName());
+		req.setAttribute("recTel", mbrDto.getMbrTel());
+		
+		req.setAttribute("recpostno", adresses[0]);
+		req.setAttribute("recAdr", adresses[1]);
+		req.setAttribute("recAdr1", adresses[2]);
+		req.setAttribute("recAdr2", adresses[3]);
+		
 		req.setAttribute("totAmt", totAmt);
 		req.setAttribute("discAmt", discAmt);
 		req.setAttribute("delFee", delFee);
@@ -73,10 +86,13 @@ public class MbrPmtController extends HttpServlet{
     		
     		int ordNo = Integer.parseInt(sordNos[i]);
     		
+			String recTel = req.getParameter("recTel");
+			String recFullAdr = "(" + req.getParameter("recpostno") + ") " + req.getParameter("recAdr") + req.getParameter("recAdr1") + req.getParameter("recAdr2");
+			
 			OrderDto ordDto = ordDao.select(ordNo);
 			pmtDao.insert(new PmtDto(ordNo, ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee, "카드", null));
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
-			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", ordDto.getOrdArrd(), ordDto.getOrdTel()));
+			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recFullAdr, recTel));
 
 			// 트리거로 처리 
 			MemberDto mbrDto = mbrDao.selectById(mbrId);
@@ -84,5 +100,6 @@ public class MbrPmtController extends HttpServlet{
 			mbrDao.update(mbrDto);
 		}
 		System.out.println("결제 완료");
+		resp.sendRedirect(req.getContextPath() + "/item/search");
 	}
 }

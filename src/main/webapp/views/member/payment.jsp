@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>장바구니</title>
+	<title>결제</title>
 	<style type="text/css">
 		.itemThumbNails {
 			width: 100px;
@@ -45,8 +45,22 @@
 		<c:when test="${not empty ordNos}">
 			<form method="post" action="${cp }/member/payment">
 				<fieldset id="fieldset">
+					<legend>배송지 정보</legend>
+					받으시는 분<br>
+					<input type="text" name = "recName" value = "${recName}" readonly = "readonly"><br>
+					전화 번호<br>
+					<input type="text" name = "recTel" value = "${recTel}"><br>
+					우편 번호<br>
+					<input type="text" name = "recpostno" value = "${recpostno}"><br>
+					주소<br>
+					<input type="text" name = "recAdr" value = "${recAdr}"><br>
+					<input type="text" name = "recAdr1" value = "${recAdr1}"><br>
+					<input type="text" name = "recAdr2" value = "${recAdr2}"><br>
+				</fieldset>
+				<br>
+				<fieldset id="fieldset">
 					<c:forEach var = "i" begin = "0" end = "${ordNos.size()-1}">
-					<input type="hidden" name="ordNos" value="${ordNos[i]}" id = "ordNos"><br>
+					<input type="hidden" name="ordNos" value="${ordNos[i]}" id = "ordNos">
 					</c:forEach>
 					<legend>결제 금액</legend>
 					총 주문 금액:
