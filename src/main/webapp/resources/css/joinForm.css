@@ -1,0 +1,60 @@
+@charset "UTF-8";
+#joinWrap {
+    margin: auto;
+}
+
+#title {
+    margin-left: 20px;
+}
+
+#errBox {
+    color: red;
+    font-size: 12px;
+}
+.setForm {
+    color: gray;
+    font-size: 12px;
+}
+
+
+#joinField {
+    margin: auto;
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    width: 700px;
+    height: auto;
+}
+
+.adr {
+    width: 300px;
+    height: 20px;
+}
+#bd {
+    width: 150px;
+}
+
+#btnField{
+    margin-top: 30px;
+    margin-right: 100px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+#joinBtn {
+    background-color: hsl(209, 84%, 55%);
+    border-radius: 3px;
+    color: aliceblue;
+    width: 100px;
+}
+#backBtn {
+    width: 40px;
+    border-radius: 3px;
+}
+
+#id,#pwd,#pwdCheck,#name,#bd,#tel,#email,#sample6_postcode,#sample6_address,#sample6_detailAddress,#sample6_extraAddress {
+    margin-top: 15px;
+}
+

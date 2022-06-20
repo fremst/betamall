@@ -3,21 +3,26 @@
 <head>
     <title>login.jsp</title>
     <link rel="stylesheet" href="${cp}/resources/css/loginForm.css">
-	<link rel="stylesheet" href="${cp}/resources/css/layout.css">
+    <link rel="stylesheet" href="${cp}/resources/css/layout.css">
 </head>
 <body>
-<h1 id=title>비밀번호 찾기</h1><hr>
-<form action="${cp}/login/searchPwd" method="post">
-<fieldset id = "loginField">
-<legend>비밀번호 찾기 양식</legend>
-	아이디&nbsp;<input type="text" name="id" id="id"><br><br>  
-	이메일&nbsp;<input type="text" name="email" id="email"><br><br>  
-    전화번호&nbsp;<input type="text" name="tel" id="pwd"><br><br>
-    <div id="errBox" >${pwd}</div>
-    <input type="button" value="로그인" onclick="location.href='${cp }/login'" id="idBtn" class="btn">&nbsp;&nbsp;
-    <input type="button" value="아이디찾기" onclick="location.href='${cp }/login/searchId'" id="pwdBtn" class="btn">&nbsp;&nbsp;
-    <input type="submit" value="비밀번호찾기" id=loginBtn class="btn">  
-</fieldset>
-</form>
+<h2 id=title>비밀번호 찾기</h2>
+<hr>
+<div id="loginWrap">
+    <form action="${cp}/login/searchPwd" method="post">
+        <fieldset id="loginField">
+            <legend>비밀번호 찾기 양식</legend>
+            아이디&nbsp;<input type="text" name="id" id="id"><br><br>
+            이메일&nbsp;<input type="text" name="email" id="email"><br><br>
+            전화번호&nbsp;<input type="text" name="tel" id="pwd"><br><br>
+            <div id="errBox">${pwd}</div>
+            <input type="submit" value="비밀번호찾기" id=loginBtn class="btn">
+        </fieldset>
+    </form>
+    <div id=searchBox>
+        <a href="${cp }/login" id="idTag">로그인</a>&nbsp;|
+        <a href="${cp }/login/searchId" id="pwdTag">아이디 찾기</a>
+    </div>
+</div>
 </body>
 </html>
