@@ -31,7 +31,7 @@
 <script type="text/javascript">
 	function deleteCheck() {
 		if(confirm("정말 삭제하시겠습니까?")==true) {
-			location.href='${cp }/board/delete?brdNo=${dto.brdNo}';
+			location.href='${cp }/board/faqdelete?brdNo=${dto.brdNo}';
 		}else {
 			return false;
 		}

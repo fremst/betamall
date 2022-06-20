@@ -13,7 +13,7 @@
         <ul>
             <li><a href="${cp }/board/list">ㆍ공지사항/이벤트</a></li>
             <li><a href="${cp }/board/faqlist">ㆍFAQ</a></li>
-            <li><a href=#>ㆍQ&A</a></li>
+            <li><a href="${cp }/board/qnalist">ㆍQ&A</a></li>
         </ul>
     </div>
 	<table border="1" width="750">
