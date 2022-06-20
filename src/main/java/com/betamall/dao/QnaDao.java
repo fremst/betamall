@@ -157,4 +157,22 @@ public class QnaDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}		
 	}
+	
+	public int delete(int qnaNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="update qna set qnadel=? where qnano=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setBoolean(1, true);
+			pstmt.setInt(2, qnaNo);
+			return pstmt.executeUpdate();
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, null);
+		}		
+	}
 }
