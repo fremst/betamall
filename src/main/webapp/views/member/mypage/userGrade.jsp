@@ -63,11 +63,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-    function selectId() {
-        let coupon = document.createElement()
-
-    }
-
-</script>
 </html>
