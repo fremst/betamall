@@ -15,6 +15,7 @@ import com.betamall.dao.MemberDao;
 public class SearchIdController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("mainPageTitle", "Betamall - 아이디찾기");
 		req.setAttribute("mainPage", "/views/home/searchId.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
@@ -28,11 +29,11 @@ public class SearchIdController extends HttpServlet {
 		if (id != null) {
 			req.setAttribute("mainPage", "/views/home/searchId.jsp");
 			req.setAttribute("id", "아이디는" + id + "입니다.");
-			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		} else {
 			req.setAttribute("mainPage", "/views/home/searchId.jsp");
 			req.setAttribute("id", "다시 입력해 주세요.");
-			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}
+		req.setAttribute("mainPageTitle", "Betamall - 아이디찾기");
+		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 }

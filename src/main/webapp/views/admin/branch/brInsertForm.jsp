@@ -6,16 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 페이지</title>
-<!-- <link rel = "stylesheet" href="${cp}/resources/css/brForm.css">  -->
+<link rel = "stylesheet" href="${cp}/resources/css/brForm.css">
 </head>
 <body>
     <div>
     	<h2 id = "subtitle">지점 등록</h2>
    	    <form method="post" enctype="multipart/form-data" onsubmit="return validate()" action="${cp }/admin/branch/insert">
         	<fieldset id = "fieldset">
-        	<div>
+        	<div class = "inputTextField">
 	            <label for = "brName">지점명</label><br>
-	            <input type= "text" name = "brName" id = "brName" value = "${brDto.brName}" class = "inputText" onkeyup = "resetCheck()"><br>
+	            <input type= "text" name = "brName" id = "brName" value = "${brDto.brName}" class = "inputText" onkeyup = "resetCheck()">
 				<input type = "button" value = "중복 확인" onclick = "checkName()"><br>
 	            <label for = "brAddr">지점 주소</label><br>
 	            <input type= "text" name= "brAddr" id = "brAddr" value ="${brDto.brAddr}" class = "inputText"><br>
@@ -41,6 +41,12 @@
 </body>
 <script type="text/javascript">
 	let exists = -1;
+	
+	window.onload = function(){
+		if(${res=='fail'}){
+			alert('등록에 실패하였습니다.');
+		}
+	}
 	
 	function setThumbnail(event) {
 	    let reader = new FileReader();

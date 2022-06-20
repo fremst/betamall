@@ -18,8 +18,18 @@ public class ItemSearchController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ItemDetailDao itemDetailDao = ItemDetailDao.getInstance();
-		ArrayList<ItemDetailDto> itemDetailDtos = itemDetailDao.selectAll();
 		
+		String field = req.getParameter("field");
+		String keyword = req.getParameter("keyword");
+		
+		ArrayList<ItemDetailDto> itemDetailDtos = new ArrayList<ItemDetailDto>();
+		if(field == null || keyword == null || field.equals("") || keyword.equals("")) {
+			itemDetailDtos = itemDetailDao.selectAll();
+		}else {
+			itemDetailDtos = itemDetailDao.selectByKeyword(field, keyword);
+		}
+		req.setAttribute("field", field);
+		req.setAttribute("keyword", keyword);
 		req.setAttribute("iDtos", itemDetailDtos);
 		req.setAttribute("mainPage", "/views/home/search.jsp");
 		req.setAttribute("mainPageTitle", "Betamall - 상품 검색");

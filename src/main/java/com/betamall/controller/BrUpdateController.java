@@ -22,15 +22,20 @@ public class BrUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String res = req.getParameter("res");
+		if(res != null) {
+			req.setAttribute("res", res);
+		}
+		
 		ManagerDto loginMgrDto = ManagerDao.getInstance().selectById((String)req.getSession().getAttribute("id"));
 		if(loginMgrDto == null || loginMgrDto.getMgrNo() != 0) {
 			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
 			return;
 		}
 		
-		int selectedbrNo = Integer.parseInt(req.getParameter("brNo"));
-		
-		req.setAttribute("brDto", BranchDao.getInstance().select(selectedbrNo));
+		int selectedBrNo = Integer.parseInt(req.getParameter("brNo"));
+
+		req.setAttribute("brDto", BranchDao.getInstance().select(selectedBrNo));
 		req.setAttribute("mainPage", "/views/admin/branch/brModForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
@@ -38,7 +43,7 @@ public class BrUpdateController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BranchDao brDao = BranchDao.getInstance();
-		int selectedbrNo = Integer.parseInt(req.getParameter("brNo"));
+		int selectedBrNo = Integer.parseInt(req.getParameter("brNo"));
 		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/branch");
@@ -50,7 +55,7 @@ public class BrUpdateController extends HttpServlet{
 				"utf-8"
 		);
 		
-		BranchDto selectedbrDto = brDao.select(selectedbrNo);
+		BranchDto selectedbrDto = brDao.select(selectedBrNo);
 		String systemFileName = mr.getFilesystemName("uploadFile");
 		String saveFileName = selectedbrDto.getBrImg();
 		
@@ -74,11 +79,9 @@ public class BrUpdateController extends HttpServlet{
 							)
 						);
 		if(n>0) {
-			System.out.println(saveDir+"에 저장 성공");
-			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
-		}else {
-			System.out.println("실패");
-			resp.sendRedirect(req.getContextPath() + "/admin/branch/list");
+			resp.sendRedirect(req.getContextPath() + "/admin/branch/update?brNo="+selectedBrNo+"&res=success");
+		}else{
+			resp.sendRedirect(req.getContextPath() + "/admin/branch/update?brNo="+selectedBrNo+"&res=fail");
 		}
 	}
 }

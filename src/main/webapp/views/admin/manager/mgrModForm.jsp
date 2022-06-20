@@ -14,9 +14,7 @@
 			<c:set var="isDel" value="true"/>
 		</c:if>
 		<h2 id = "subtitle"></h2>
-		<form method="post" enctype="multipart/form-data"
-		onsubmit = "if(${isDel=='true'}){ if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}} else {
-		return validate()}">
+		<form method="post" enctype="multipart/form-data">
 			<input type = "text" value = "${mgrInfoDto.mgrNo}" hidden="hidden">
 			<fieldset id = "fieldset">
 		<div class = "inputTextField">
@@ -52,18 +50,26 @@
 		</fieldset>
 		<div id = "btns">
 			<c:if test="${role == 'master' && relation != 'self'}">
-				<input type="submit" value="삭제" formaction="${cp }/admin/manager/delete?mgrNo=${mgrInfoDto.mgrNo}">
+			<input type = "submit" value="삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/manager/delete?mgrNo=${mgrInfoDto.mgrNo}">
 			</c:if>
 			<c:if test="${relation == 'self'}">
-				<input type="submit" value="수정" formaction="${cp }/admin/manager/update?mgrNo=${mgrInfoDto.mgrNo}">
+			<input type = "submit" value = "수정" formaction="${cp }/admin/manager/update?mgrNo=${mgrInfoDto.mgrNo}" onclick = "return validate()">
 			</c:if>
-			<button onclick = "history.back(); return false;">취소</button>
+			<input type = "button" value = "취소" onclick = "location.href='${cp }/admin/manager/list'">
 		</div>
 		</form>
     </div>
 </body>
 <script type="text/javascript">
 	let exists = -1;
+	
+	window.onload = function(){
+		if(${res=='success'}){
+			alert('성공적으로 처리되었습니다.');
+		}else if(${res=='fail'}){
+			alert('요청 처리에 실패하였습니다.');
+		}
+	}
 	
 	function setThumbnail(event) {
 	    let reader = new FileReader();
@@ -76,10 +82,6 @@
 	        document.querySelector("div#thumbNailImg").appendChild(img);
 	    };
 	    reader.readAsDataURL(event.target.files[0]);
-	}
-	
-	function resetCheck(){
-		exists = -1;
 	}
 	
 	function validate(){

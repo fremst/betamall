@@ -22,20 +22,6 @@ public class MemberDto {
                 + ", mbrRegdate=" + mbrRegdate + ", mbrGrade=" + mbrGrade + ", totAmt=" + totAmt + "]";
     }
 
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, Date mbrBd,
-            Date mbrRegdate, String mbrGrade, int totAmt) {
-        this.mbrNo = mbrNo;
-        this.mbrName = mbrName;
-        this.mbrTel = mbrTel;
-        this.mbrAdr = mbrAdr;
-        this.mbrEmail = mbrEmail;
-        this.mbrId = mbrId;
-        this.mbrBd = mbrBd;
-        this.mbrRegdate = mbrRegdate;
-        this.mbrGrade = mbrGrade;
-        this.totAmt = totAmt;
-    }
-
     public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId,
             String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
         this.mbrNo = mbrNo;
