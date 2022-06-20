@@ -6,6 +6,8 @@ public class ItemDetailDto {
 	private String tImg;
 	private int mcatNo;
 	private int scatNo;
+	private String mcatName;
+	private String scatName;
 	private String hash;
 	private int price;
 	private String brName;
@@ -13,13 +15,15 @@ public class ItemDetailDto {
 	
 	public ItemDetailDto() {}
 
-	public ItemDetailDto(int itemNo, String itemName, String tImg, int mcatNo, int scatNo, String hash, int price,
-			String brName, int stkCnt) {
+	public ItemDetailDto(int itemNo, String itemName, String tImg, int mcatNo, int scatNo, String mcatName,
+			String scatName, String hash, int price, String brName, int stkCnt) {
 		this.itemNo = itemNo;
 		this.itemName = itemName;
 		this.tImg = tImg;
 		this.mcatNo = mcatNo;
 		this.scatNo = scatNo;
+		this.mcatName = mcatName;
+		this.scatName = scatName;
 		this.hash = hash;
 		this.price = price;
 		this.brName = brName;
@@ -66,6 +70,22 @@ public class ItemDetailDto {
 		this.scatNo = scatNo;
 	}
 
+	public String getMcatName() {
+		return mcatName;
+	}
+
+	public void setMcatName(String mcatName) {
+		this.mcatName = mcatName;
+	}
+
+	public String getScatName() {
+		return scatName;
+	}
+
+	public void setScatName(String scatName) {
+		this.scatName = scatName;
+	}
+
 	public String getHash() {
 		return hash;
 	}
@@ -101,8 +121,8 @@ public class ItemDetailDto {
 	@Override
 	public String toString() {
 		return "ItemDetailDto [itemNo=" + itemNo + ", itemName=" + itemName + ", tImg=" + tImg + ", mcatNo=" + mcatNo
-				+ ", scatNo=" + scatNo + ", hash=" + hash + ", price=" + price + ", brName=" + brName + ", stkCnt="
-				+ stkCnt + "]\n";
+				+ ", scatNo=" + scatNo + ", mcatName=" + mcatName + ", scatName=" + scatName + ", hash=" + hash
+				+ ", price=" + price + ", brName=" + brName + ", stkCnt=" + stkCnt + "]\n";
 	}
-	
+
 }

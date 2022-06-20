@@ -88,8 +88,9 @@
     	<div class = "searchItem">
     	<form action="/betamall/item/search">
 	        <select name = "field" style = "font-size: 16px">
-	            <option <c:if test="${param.field=='상품명'}">selected</c:if>>상품명</option>
-	            <option <c:if test="${param.field=='지점명'}">selected</c:if>>지점명</option>
+	            <option value = "itemName" <c:if test="${param.field=='itemName'}">selected</c:if>>상품명</option>
+	            <option value = "brName" <c:if test="${param.field=='brName'}">selected</c:if>>지점명</option>
+	            <option value = "mcatName" <c:if test="${param.field=='mcatName'}">selected</c:if>>대분류</option>
 	        </select>
 	        <input type="text" name = "keyword" value = "${param.keyword}" class = "srchText">
 	        <input type="submit" value="검색" class = "srchBtn">
