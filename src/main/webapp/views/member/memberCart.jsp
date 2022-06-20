@@ -14,7 +14,6 @@
 		.itemThumbNails {
 			width: 100px;
 		}
-
 		.itemList {
 			width: 1050px;
 			margin: auto;
@@ -54,8 +53,7 @@
 							<c:set var = "oipbInd" value = "${oipbInd+1}"/>
 							<fieldset id="fieldset">
 								<legend>${ordBrList[brSts.index].getBrName()}</legend>
-								<input type="hidden" value="${ordBrList[brSts.index].getBrNo()}"
-									name="brNo">
+								<input type="hidden" value="${ordBrList[brSts.index].getBrNo()}" name="brNo">
 								<table align="center" style="text-align: center">
 									<tbody id="orderList">
 										<tr>
@@ -100,12 +98,14 @@
 						<legend>결제 금액</legend>
 						총 주문 금액:
 						<fmt:formatNumber value="${totAmt}" type="number"/>원<br>
+						<input type="hidden" value="${totAmt}" name="totAmt">
 						할인 금액:
 						<fmt:formatNumber value="${discAmt}" type="number"/>원<br>
+						<input type="hidden" value="${discAmt}" name="discAmt">
 						배송비:
 						<fmt:formatNumber value="${delFee}" type="number"/>
-						x<fmt:formatNumber value="${ordItemPerBr.size()}" type="number"/>
-						=<fmt:formatNumber value="${delFee*ordItemPerBr.size()}" type="number"/>원
+						x <fmt:formatNumber value="${ordItemPerBr.size()}" type="number"/>
+						= <fmt:formatNumber value="${delFee*ordItemPerBr.size()}" type="number"/>원
 						<input type="hidden" value="${delFee*ordItemPerBr.size()}" name="totDelFee"> <br>
 						<hr>
 						결제 예정 금액<br>

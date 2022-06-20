@@ -25,9 +25,9 @@ public class AddCartController extends HttpServlet{
 		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1002&ordCnt=2
 		// http://localhost:8080/betamall/member/addcart?brNo=2&itemNo=1004&ordCnt=5
 		// http://localhost:8080/betamall/member/addcart?brNo=2&itemNo=1004&ordCnt=1
+		// http://localhost:8080/betamall/member/addcart?brNo=3&itemNo=1003&ordCnt=2
 		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1001&ordCnt=1
 		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1004&ordCnt=5
-		// http://localhost:8080/betamall/member/addcart?brNo=3&itemNo=1003&ordCnt=2
 		
 		int brNo = Integer.parseInt(req.getParameter("brNo"));
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
