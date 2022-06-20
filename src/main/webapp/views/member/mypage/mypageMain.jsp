@@ -7,84 +7,89 @@
     <meta charset="UTF-8">
     <title>MyPage</title>
     <link rel="stylesheet" href="${cp}/resources/css/layout.css">
-    <%-- <link rel="stylesheet" href="${cp}/resources/css/myPage.css"> --%>
+    <link rel="stylesheet" href="${cp}/resources/css/myPage.css">
 </head>
 <script type="text/javascript">
-function checkValue() {
-	let mbrPwd = document.getElementById("mbrPwd").value;
-    let pwd = document.getElementById("pwd").value;
-    let mbrTel = document.getElementById("mbrTel").value;
-    let mbrAdr = document.getElementById("mbrAdr").value;
-    let mbrEmail = document.getElementById("mbrEmail").value;
-    if (!mbrPwd) {
-        alert("비밀번호를 입력하세요.");
-        mbrEmail.focus();
-    } else if (!((/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/).test(mbrPwd))) {
-        alert('비밀번호는 영어/숫자/특수문자를 조합해 8-12자로 이루어져야 합니다.');
-    } else if (mbrPwd !== pwd) {//비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
-        alert("비밀번호를 동일하게 입력하세요.");
-        return false;
-    } else if (isNaN(mbrTel)) {
-        alert("전화번호는 숫자만 입력가능 합니다.");
-        return false;
-    } else if (!mbrAdr) {
-        alert("주소를 입력하세요.");
-        return false;
-    } else if (!mbrEmail) {
-        alert("이메일을 입력하세요.");
-        return false;
-    } else {
-        return true;
+    function checkValue() {
+        let mbrPwd = document.getElementById("mbrPwd").value;
+        let pwd = document.getElementById("pwd").value;
+        let mbrTel = document.getElementById("mbrTel").value;
+        let mbrAdr = document.getElementById("sample6_postcode").value;
+        if (!mbrPwd) {
+            alert("비밀번호를 입력하세요.");
+            return false;
+        } else if (!((/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/).test(mbrPwd))) {
+            alert('비밀번호는 영어/숫자/특수문자를 조합해 8-12자로 이루어져야 합니다.');
+            return false;
+        } else if (pwd != mbrPwd) { //비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+            alert("비밀번호를 동일하게 입력하세요.");
+            return false;
+        } else if (!mbrTel) {
+            alert("전화번호를 입력하세요.");
+            return false;
+        } else if (isNaN(!mbrTel)) {
+            alert("전화번호는 숫자만 입력가능 합니다.");
+            return false;
+        } else if (!mbrAdr) {
+            alert("주소를 입력하세요.");
+            return false;
+        } else {
+            return true;
+        }
     }
-} 
 </script>
 <body>
 <div id="myPageWrap">
-    <div id="side">
+    <div id="formSide">
         <h3>마이 페이지</h3>
         <ul>
             <li><a href="${cp }/member/update">나의 정보 수정</a></li>
-            <li><a href=#>장바구니</a></li>
+            <li><a href="${cp}/member/cart">장바구니/결제</a></li>
             <li><a href=#>지점 즐겨찾기</a></li>
             <li><a href=#>주문/배송 조회</a></li>
             <li><a href=#>내글보기</a></li>
             <li><a href="${cp }/member/userGrade">등급/쿠폰 조회</a></li>
         </ul>
     </div>
-    <div style="color: red; font-size: 12px;">${errMsg}</div>
-    <div id="center">
-        <form method="post" name="modForm" onsubmit="return checkValue()">
-         <fieldset id=form>
-        <legend>회원 정보 수정양식</legend>
-            <input type="hidden" name="mbrNo" value="${mbrDto.mbrNo}"><br>
-            아이디 <input type="text"  value="${mbrDto.mbrId}" disabled=disabled><br>
-            <input type="hidden" name="mbrId" value="${mbrDto.mbrId}">
-            새 비밀번호 <input type="password" name=mbrPwd id=mbrPwd><br>
-            새 비밀번호 확인 <input type="password" id="pwd"><br>
-            이름<input type="text" name="mbrName" value="${mbrDto.mbrName}" disabled=disabled><br>
-            <input type="hidden" name="mbrName" value="${mbrDto.mbrName}">
-            생년월일<input type="date" value="${mbrDto.mbrBd}" disabled=disabled><br>
-            <input type="date" name="mbrBd" value="${mbrDto.mbrBd}" hidden="hidden"><br>
-            전화번호<input type="text" name="mbrTel" id="mbrTel" value="${mbrDto.mbrTel}" placeholder="'-'하이픈 없이 숫자만 입력"><br>
-            주소<input type="text" id="sample6_postcode" name="postno" value="${mbrDto.mbrAdr}">&nbsp;&nbsp;
-            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" name="addr" id="mbrAdr" value="${mbrDto.mbrAdr}"><br>
-            <input type="text" id="sample6_detailAddress" name="addr1"  value="${mbrDto.mbrAdr}"><br>
-            <input type="text" id="sample6_extraAddress" name="addr2"  value="${mbrDto.mbrAdr}"><br>
-            이메일<input type="email" name="mbrEmail" id="mbrEmail" value="${mbrDto.mbrEmail}"><br>
-            가입일<input type="text" name="mbrRegdate" value="${mbrDto.mbrRegdate}" disabled=disabled><br>
-            <input type="hidden" name="mbrRegdate" value="${mbrDto.mbrRegdate}">
-            총 결제금액 <input type="text" name="totAmt" value="${mbrDto.totAmt}" disabled=disabled><br>
-            <input type="hidden" name="totAmt" value="${mbrDto.totAmt}">
-	           <div id=btnField>
-			        <input type="submit" value="삭제" id="delBtn" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/member/delete">&nbsp;&nbsp;
-			        <input type="submit" value="수정" id="modBtn">&nbsp;&nbsp;
-			        <input type="button" value="취소" id="backBtn" onclick="history.back(); return false;">
-		        </div>
-	        </fieldset>
+    <div id="formMain">
+        <form method="post" name="modForm">
+            <fieldset id=formArea>
+                <legend>회원 정보 수정양식</legend>
+                <div id="errBox">${errMsg}</div>
+                <input type="hidden" name="mbrNo" value="${mbrDto.mbrNo}"><br>
+                아이디 <input type="text" value="${mbrDto.mbrId}" disabled=disabled><br>
+                <input type="hidden" name="mbrId" value="${mbrDto.mbrId}">
+                새 비밀번호 <input type="password" name=mbrPwd id=mbrPwd><br>
+                <span class="setForm">※영문 대문자, 소문자, 숫자, 특수문자를 3가지 이상 사용하여 8자 20자 이하로 설정하십시오.</span><br>
+                새 비밀번호 확인 <input type="password" id="pwd"><br>
+                이름 <input type="text" name="mbrName" id=name value="${mbrDto.mbrName}" disabled=disabled><br>
+                <input type="hidden" name="mbrName" value="${mbrDto.mbrName}">
+                생년월일 <input type="date" value="${mbrDto.mbrBd}" id="mbrBd" disabled=disabled><br>
+                <input type="date" name="mbrBd" value="${mbrDto.mbrBd}" hidden="hidden">
+                전화번호 <input type="text" name="mbrTel" id="mbrTel" value="${mbrDto.mbrTel}"
+                            placeholder="'-'하이픈 없이 숫자만 입력"><br>
+                주소 <input type="text" id="sample6_postcode" name="postno" value="${postno}">&nbsp;&nbsp;
+                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="text" id="sample6_address" name="addr" value="${mbrAdr}" class="adr"><br>
+                <input type="text" id="sample6_detailAddress" name="addr1" value="${mbrAdr1}" class="adr"><br>
+                <input type="text" id="sample6_extraAddress" name="addr2" value="${mbrAdr2}" class="adr"><br>
+                이메일 <input type="email" name="mbrEmail" id="mbrEmail" value="${mbrDto.mbrEmail}" disabled=disabled><br>
+                <input type="hidden" name="mbrEmail" value="${mbrDto.mbrId}">
+                가입일 <input type="text" name="mbrRegdate" id="mbrRegdate" value="${mbrDto.mbrRegdate}" disabled=disabled><br>
+                <input type="hidden" name="mbrRegdate" value="${mbrDto.mbrRegdate}">
+                총 결제금액 <input type="text" name="totAmt" id="totAmt" value="${mbrDto.totAmt}" disabled=disabled><br>
+                <input type="hidden" name="totAmt" value="${mbrDto.totAmt}">
+                <div id=btnArea>
+                    <input type="submit" value="수정" id="modBtn" onclick="checkValue()">&nbsp;&nbsp;
+                    <input type="button" value="취소" id="backBtn" onclick="history.back(); return false;">&nbsp;&nbsp;
+                    <input type="submit" value="탈퇴" id="delBtn"
+                           onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}"
+                           formaction="${cp }/member/delete">
+                </div>
+            </fieldset>
         </form>
     </div>
-    </div>
+</div>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
