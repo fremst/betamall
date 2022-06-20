@@ -19,6 +19,7 @@ public class MbrCouponDao {
         return instance;
     }
 
+
     public ArrayList<MbrCouponInfoDto> haveCoupon(int mbrNo) {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -44,7 +45,9 @@ public class MbrCouponDao {
                                 rs.getBoolean("ACTIVE"),
                                 rs.getBoolean("ISSUED"),
                                 rs.getInt("SCATNO"),
-                                rs.getInt("MCATNO")));
+                                rs.getInt("MCATNO")
+                        )
+                );
             }
             return list;
         } catch (SQLException e) {

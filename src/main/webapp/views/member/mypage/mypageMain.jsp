@@ -44,7 +44,7 @@
         <h3>마이 페이지</h3>
         <ul>
             <li><a href="${cp }/member/update">나의 정보 수정</a></li>
-            <li><a href=#>장바구니</a></li>
+            <li><a href="${cp}/member/cart">장바구니/결제</a></li>
             <li><a href=#>지점 즐겨찾기</a></li>
             <li><a href=#>주문/배송 조회</a></li>
             <li><a href=#>내글보기</a></li>
@@ -52,7 +52,7 @@
         </ul>
     </div>
     <div id="formMain">
-        <form method="post" name="modForm" onsubmit="return checkValue()">
+        <form method="post" name="modForm">
             <fieldset id=formArea>
                 <legend>회원 정보 수정양식</legend>
                 <div id="errBox">${errMsg}</div>
@@ -80,9 +80,9 @@
                 총 결제금액 <input type="text" name="totAmt" id="totAmt" value="${mbrDto.totAmt}" disabled=disabled><br>
                 <input type="hidden" name="totAmt" value="${mbrDto.totAmt}">
                 <div id=btnArea>
-                    <input type="submit" value="수정" id="modBtn">&nbsp;&nbsp;
+                    <input type="submit" value="수정" id="modBtn" onclick="checkValue()">&nbsp;&nbsp;
                     <input type="button" value="취소" id="backBtn" onclick="history.back(); return false;">&nbsp;&nbsp;
-                    <input type="submit" value="삭제" id="delBtn"
+                    <input type="submit" value="탈퇴" id="delBtn"
                            onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}"
                            formaction="${cp }/member/delete">
                 </div>

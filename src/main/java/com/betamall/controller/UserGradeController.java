@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 @WebServlet("/member/userGrade")
 @SuppressWarnings("serial")
 public class UserGradeController extends HttpServlet {
@@ -22,7 +23,7 @@ public class UserGradeController extends HttpServlet {
         HttpSession session = req.getSession();
         String mbrId = (String) session.getAttribute("id");
         MemberDao mbrDao = MemberDao.getInstance();
-        MemberDto mbrDto = mbrDao.select(mbrId);
+        MemberDto mbrDto = mbrDao.selectById(mbrId);
         MbrCouponDao mbrCouponDao = MbrCouponDao.getInstance();
         ArrayList<MbrCouponInfoDto> mbrCouponInfoDtos = mbrCouponDao.haveCoupon(mbrDto.getMbrNo());
 
