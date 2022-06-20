@@ -58,7 +58,6 @@
 		margin-left: 15px;
 	}
 
-
 	.logo{
 		width: 267px;
 		height: 140px;
@@ -67,6 +66,10 @@
 		margin: auto;
 		text-align: center;
 	} 
+	.quickMenu{
+		float: right;
+		margin-right: 50px;
+	}
 	.nav2{
 		display: flex;
 		justify-content: flex-start;
@@ -217,6 +220,3 @@
 	.card > p{
 		text-align: center;
 	}
-	
-	
-	

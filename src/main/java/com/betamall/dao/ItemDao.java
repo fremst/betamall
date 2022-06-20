@@ -53,14 +53,13 @@ public class ItemDao {
 		}
 	}
 	
-	
 	public ArrayList<ItemDto> selectAll(int startRow, int endRow){
 		String sql="select * from"
 				+ "("
 				+"		select aa.*, rownum rnum from"
 				+"		("
 				+"			select * from item"
-				+"			order by mcatno asc, scatno asc  "
+				+"			order by itemno, mcatno asc, scatno asc  "
 				+"		) aa"
 				+"	)where rnum>=? and rnum<=?";
 		Connection con=null;
@@ -94,10 +93,73 @@ public class ItemDao {
 			JdbcUtil.close(con,pstmt,rs);
 		}
 	}
+	
+	public ArrayList<ItemDto> selectNDel(int startRow, int endRow){
+		String sql="select * from"
+				+ "("
+				+"		select aa.*, rownum rnum from"
+				+"		("
+				+"			select * from item"
+				+"		    where itemdel = 0 "
+				+"			order by itemno, mcatno asc, scatno asc "
+				+"		) aa"
+				+"	)where rnum>=? and rnum<=?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<ItemDto> list=new ArrayList<ItemDto>();
+			while(rs.next()) {
+				int itemNo=rs.getInt("ITEMNO");
+				int mcatNo=rs.getInt("MCATNO");
+				int scatNo=rs.getInt("SCATNO");
+				String itemName=rs.getString("ITEMNAME");
+				String tImg=rs.getString("TIMG");
+				String detImg=rs.getString("DETIMG");
+				String hash=rs.getString("HASH");
+				int price = rs.getInt("PRICE");
+				boolean itemDel=rs.getBoolean("ITEMDEL");
+				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
+	
 	public int getCount() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		String sql="select count(*) from item";
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			rs.next();
+			int cnt=rs.getInt(1); //1번째 칼럼값 얻어오기
+			return cnt;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
+	
+	public int getCountNDel() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="select count(*) from item where itemdel = 0";
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
@@ -187,41 +249,6 @@ public class ItemDao {
 			return -1;
 		}finally {
 			JdbcUtil.close(con,pstmt,null);
-		}
-	}
-
-	public ItemDto select(int itemNo){
-		
-		String sql = "SELECT * FROM ITEM WHERE ITEMNO = ?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = JdbcUtil.getCon();
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, itemNo);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				ItemDto itemDto = new ItemDto(
-					rs.getInt("ITEMNO"),
-					rs.getInt("MCATNO"),
-					rs.getInt("SCATNO"),
-					rs.getString("ITEMNAME"),
-					rs.getString("TIMG"),
-					rs.getString("DETIMG"),
-					rs.getString("HASH"),
-					rs.getInt("PRICE"),
-					rs.getBoolean("ITEMDEL"));
-				return itemDto;
-			}
-			return null;
-		}catch(SQLException s) {
-			s.printStackTrace();
-			return null;
-		}finally {
-			JdbcUtil.close(con,pstmt,rs);
 		}
 	}
 }

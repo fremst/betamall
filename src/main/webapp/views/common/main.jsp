@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -47,26 +48,14 @@
 		</div>
 		<div class="cardbox">
 			<div id="cardlist">
+				<c:forEach var="itemDto" items="${itemDtos}">
 				<div class="card">
-					<div><img src="${cp }/resources/images/highlighter05.jpg" id="new_item" width="200px" height="200px"></div>
-						<p>[스테들러] 텍스트서퍼 364</p>
+					<div>
+						<a href="${cp}/item/detail?itemNo=${itemDto.itemNo}"><img src = "${cp}/resources/uploads/admin/item/${itemDto.tImg}" id="new_item" width="200px" height="200px"></a>
+						<p><a href="${cp}/item/detail?itemNo=${itemDto.itemNo}">${itemDto.itemName}</a></p>
 					</div>
-				<div class="card">
-					<div><img src="${cp }/resources/images/pen04.jpg" id="new_item"  width="200px" height="200px"></div>
-						<p>[케이피아이] 유성펜 스톱펜S</p>
-					</div>
-				<div class="card">
-					<div><img src="${cp }/resources/images/pencil04.jpg" id="new_item" width="200px" height="200px"></div>
-						<p>[파버카스텔] 파버톡 연필세트</p>
 				</div>
-				<div class="card">
-					<div><img src="${cp }/resources/images/Lfile01.jpg" id="new_item" width="200px" height="200px"></div>
-						<p>[알파] 클리어 L홀더 A4</p>
-				</div>
-				<div class="card">
-					<div><img src="${cp }/resources/images/tape05.jpg" id="new_item" width="200px" height="200px"></div>
-						<p>[3M] 포장용테이프 3655</p>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</main>

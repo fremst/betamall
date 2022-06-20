@@ -2,7 +2,6 @@ package com.betamall.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,14 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betamall.dao.ManagerDao;
 import com.betamall.dao.MemberDao;
 import com.betamall.dao.QnaDao;
-import com.betamall.dao.BoardDao;
-import com.betamall.dto.ManagerDto;
 import com.betamall.dto.MemberDto;
 import com.betamall.dto.QnaDto;
-import com.betamall.dto.BoardDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -39,7 +34,7 @@ public class QnaInsertController extends HttpServlet{
 		HttpSession session = req.getSession();
 		String Id = (String)session.getAttribute("id");
 		MemberDao mdao = MemberDao.getInstance();
-		MemberDto mdto = mdao.select(Id);
+		MemberDto mdto = mdao.selectById(Id);
 		int mbrNo = mdto.getMbrNo();
 		// 접속자가 회원인 경우 예외 처리
 		

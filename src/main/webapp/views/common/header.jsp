@@ -36,7 +36,6 @@
 						</c:when>
 						<c:when test="${role == 'member'}">
 							<li><span>환영합니다! ${id}님</span></li>
-							<li><a href="${cp }/member/mypage">마이페이지</a></li>
 							<li><a href="#">고객센터</a></li>
 						</c:when>
 					</c:choose>
@@ -50,27 +49,27 @@
 					<c:when test="${(role == 'admin0' || role == 'admin') && empty adminPage}">
 						<li><a href="${cp}/admin/item/list">관리자페이지</a></li>
 					</c:when>
-					<c:otherwise>
-						<li><a href="${cp}/home">홈으로</a></li>
-					</c:otherwise>
 				</c:choose>
 			</ul>
+		</div>
+		<div class ="quickMenu">
+			<a href = "${cp}/member/mypage"><img src = "${cp}/resources/images/mypage.png" width = "30px"></a>
+			<a href = "${cp}/member/cart"><img src = "${cp}/resources/images/cart.png" width = "30px"></a>
 		</div>
 		<div class="cate">
 			<ul class="nav2">
 				<c:choose>
 					<c:when test="${role == 'member' || empty adminPage}">
-						<li><a href="${cp}/item/search?field=mcatName&keyword=수납">수납</a></li>
-						<li><a href="${cp}/item/search?field=mcatName&keyword=필기류">필기류</a></li>
-						<li><a href="${cp}/item/search?field=mcatName&keyword=일반사무용품">일반사무용품</a></li>
-						<li><a href="${cp}/item/search?field=mcatName&keyword=파일/바인더">파일/바인더</a></li>	
+						<c:forEach var="i" begin="0" end="${mcatNames.size()-1}">
+							<li><a href="${cp}/item/search?field=mcatName&keyword=${mcatNames[i]}">${mcatNames[i]}</a></li>
+						</c:forEach>
 					</c:when>
 					<c:when test="${role == 'admin0'}">
 						<li><a href="${cp}/admin/item/list">상품 관리</a></li>
 						<li><a href="${cp}/admin/sales/list">매출 조회</a></li>
-						<li><a href="${cp}/admin/board/list">공지/FAQ/이벤트</a></li>
-						<li><a href="${cp}/admin/qna/list">Q&A</a></li>
-						<li><a href="${cp}/admin/admin/mbrList">고객 조회</a></li>
+						<li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
+						<li><a href="${cp}/board/qnalist">Q&A</a></li>
+						<li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
 						<li><a href="${cp}/admin/branch/list">지점 관리</a></li>
 						<li><a href="${cp}/admin/manager/list">점장 관리</a></li>
 					</c:when>
@@ -78,9 +77,9 @@
 						<li><a href="${cp}/admin/item/list">등록 상품 조회</a></li>
 						<li><a href="${cp}/admin/stock/list">재고 관리</a></li>
 						<li><a href="${cp}/admin/sales/list">매출 조회</a></li>
-						<li><a href="${cp}/admin/board/list">공지/FAQ/이벤트</a></li>
-						<li><a href="${cp}/admin/qna/list">Q&A</a></li>
-						<li><a href="${cp}/admin/admin/mbrList">고객 조회</a></li>
+						<li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
+						<li><a href="${cp}/board/qnalist">Q&A</a></li>
+						<li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
 						<li><a href="${cp}/admin/branch/list">지점 조회</a></li>
 						<li><a href="${cp}/admin/manager/list">점장 조회</a></li>
 					</c:when>

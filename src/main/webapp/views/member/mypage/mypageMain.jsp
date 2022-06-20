@@ -45,7 +45,6 @@
         <ul>
             <li><a href="${cp }/member/update">나의 정보 수정</a></li>
             <li><a href="${cp}/member/cart">장바구니/결제</a></li>
-            <li><a href=#>지점 즐겨찾기</a></li>
             <li><a href=#>주문/배송 조회</a></li>
             <li><a href=#>내글보기</a></li>
             <li><a href="${cp }/member/userGrade">등급/쿠폰 조회</a></li>

@@ -94,6 +94,7 @@ public class MemberDao {
             String sql = "SELECT * FROM MEMBER WHERE MBRNO=?";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, mbrNo);
+            rs = pstmt.executeQuery();
             MemberDto mbrDto = null;
             if (rs.next()) {
                 mbrDto = new MemberDto(
@@ -374,7 +375,7 @@ public class MemberDao {
             pstmt.setString(1, id);
             pstmt.setString(2, email);
             pstmt.setString(3, tel);
-            rs = pstmt.executeQuery()
+            rs = pstmt.executeQuery();
             if (rs.next()) {
                 pwd = rs.getString("MBRPWD");
             }

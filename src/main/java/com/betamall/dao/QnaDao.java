@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.betamall.dto.BoardDto;
 import com.betamall.dto.QnaDto;
 import com.betamall.util.JdbcUtil;
 
@@ -51,7 +50,6 @@ public class QnaDao {
 			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
 			ArrayList<QnaDto> list=new ArrayList<QnaDto>();
-			QnaDao dao=QnaDao.getInstance();
 			while(rs.next()) {
 				int qnaNo=rs.getInt("qnano");
 				int mbrNo=rs.getInt("mbrNo");

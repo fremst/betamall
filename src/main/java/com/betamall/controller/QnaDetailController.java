@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betamall.dao.BoardDao;
 import com.betamall.dao.ManagerDao;
 import com.betamall.dao.MemberDao;
 import com.betamall.dao.QnaDao;
-import com.betamall.dto.BoardDto;
 import com.betamall.dto.ManagerDto;
 import com.betamall.dto.MemberDto;
 import com.betamall.dto.QnaDto;
@@ -34,7 +32,7 @@ public class QnaDetailController extends HttpServlet{
 			ManagerDao mdao = ManagerDao.getInstance();
 			ManagerDto mdto = mdao.selectById(Id);
 			MemberDao memberdao = MemberDao.getInstance();
-			MemberDto memberdto = memberdao.select(Id);
+			MemberDto memberdto = memberdao.selectById(Id);
 			int mgrNo = mdto.getMgrNo();
 			int mbrNo =  memberdto.getMbrNo();
 			req.setAttribute("mgrNo", mgrNo);

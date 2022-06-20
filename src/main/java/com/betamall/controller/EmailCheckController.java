@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@SuppressWarnings("serial")
 @WebServlet("/emailcheck")
 public class EmailCheckController extends HttpServlet {
     @Override

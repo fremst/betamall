@@ -12,19 +12,18 @@
 <body>
 <div id="mbrListWrap">
     <h2 id="mbrListTitle">회원 조회</h2>
-    <hr>
     <div id="mbrList">
         <c:set var="cp" value="${pageContext.request.contextPath }"/>
         <table id="mbrTable">
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>전화번호</th>
-                <th>이메일</th>
-                <th>주소</th>
-                <th>생년월일</th>
-                <th>등급</th>
-                <th>가입일</th>
+                <th class="mbrInfo_header">아이디</th>
+                <th class="mbrInfo_header">이름</th>
+                <th class="mbrInfo_header">전화번호</th>
+                <th class="mbrInfo_header">이메일</th>
+                <th class="mbrInfo_header">주소</th>
+                <th class="mbrInfo_header">생년월일</th>
+                <th class="mbrInfo_header">등급</th>
+                <th class="mbrInfo_header">가입일</th>
             </tr>
             <c:forEach var="m" items="${mbrList }">
                 <tr>

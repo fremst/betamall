@@ -14,16 +14,14 @@
 <body>
 <!--footer-->
 	<footer>
-		<div><img src="${cp }/resources/images/betalogo.png" id="under_logo"></div>
 		<div class="copyright">
 			<p style="color: white; font-size: 20px;">
 			(주) 베타 문구<br>
 			자주묻는질문    개인정보처리방침    이메일무단수집거부    인재채용    인트라넷    오시는길<br>
 			</p>
 			<p style="font-size: 12px; color:white">
-			주소 : 우편번호 (06297) 서울특별시 강남구 남부순환로 2748 한웰빌딩 베타문구  이메일 : betamall0000@gmail.com
-			개인정보관리책임자 : 김베타  TEL : 00-111-2222  <br>FAX : 00-111-2222  고객만족실 : 00-111-2222 멤버십 문의 : 00-111-2222 
-			<br>
+			주소 : 우편번호 (03134) 서울특별시 종로구 율곡로 10길 105 디아망 베타문구 이메일 : betamall0000@gmail.com
+			개인정보관리책임자 : 김베타  TEL : 02-111-2222  <br>FAX : 02-111-3333  고객만족실 : 02-111-4444 멤버십 문의 : 00-111-5555 
 			<br>	
 			Copyright &copy 2022 BETAMALL. All Rights Reserved.
 			</p>
@@ -37,5 +35,6 @@
 				점심시간 오후 12시 ~ 1시
 			</p>
 		</div>
+		<div><img src="${cp }/resources/images/betalogo.png" id="under_logo"></div>
 	</footer>
 </body>

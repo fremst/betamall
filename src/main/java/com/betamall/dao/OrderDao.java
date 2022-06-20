@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.betamall.dto.OrderDto;
 import com.betamall.util.JdbcUtil;
@@ -120,6 +121,29 @@ public class OrderDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}
 		return -1;
+	}
+	
+	public ArrayList<Integer> getIpOrdNos(int mbrNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT ORDNO FROM \"ORDER\" WHERE MBRNO = ? AND ORDSTA = '결제대기'";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
+			ArrayList<Integer> ordNos = new ArrayList<>(); 
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordNos.add(rs.getInt(1));
+			}
+			return ordNos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+		return null;
 	}
 	
 }

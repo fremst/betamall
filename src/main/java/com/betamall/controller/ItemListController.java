@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betamall.dao.ItemDao;
+import com.betamall.dao.McatDao;
+import com.betamall.dao.ScatDao;
 import com.betamall.dto.ItemDto;
+import com.betamall.dto.McatDto;
+import com.betamall.dto.ScatDto;
 
-@WebServlet("/admin/item/list")
+@WebServlet(urlPatterns = {"/admin/item/list", "/admin"})
 @SuppressWarnings("serial")
 public class ItemListController extends HttpServlet{
 	@Override
@@ -27,7 +31,12 @@ public class ItemListController extends HttpServlet{
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		ItemDao dao= ItemDao.getInstance();
+		McatDao mcatDao = McatDao.getInstance();
+		ScatDao scatDao = ScatDao.getInstance();
 		ArrayList<ItemDto> list = dao.selectAll(startRow, endRow);
+		
+		ArrayList<McatDto> mcatList = mcatDao.selectAll();
+		ArrayList<ScatDto> scatList = scatDao.selectAll();
 		int count=dao.getCount();
 		int pageCount=(int)Math.ceil(count/10.0);//전체 페이지 갯수
 		int startPageNum=((pageNum-1)/10*10) + 1;//시작페이지 번호
@@ -35,7 +44,10 @@ public class ItemListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount;
 		}
+		
 		req.setAttribute("list", list);
+		req.setAttribute("mcatList", mcatList);
+		req.setAttribute("scatList", scatList);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);

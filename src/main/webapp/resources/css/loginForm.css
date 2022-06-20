@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 #loginWrap {
     text-align: center;
     margin: auto;
@@ -14,8 +13,15 @@
     font-size: 12px;
 }
 
+#loginWrap {
+    width: 500px;
+    height: 400px;
+
+}
+
 #loginField {
     width: 500px;
+    height: auto;
     margin: auto;
     margin-top: 20px;
     padding-top: 20px;
@@ -32,6 +38,7 @@
 
 #searchBox {
     width: 500px;
+    height: 30px;
     margin: auto;
     margin-top: 20px;
     padding-top: 20px;
