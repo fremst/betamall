@@ -105,19 +105,17 @@ public class QnaDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="insert into qna values(seq_board.nextval,?,?,?,?,?,current_date,?,?,?,?)";
+			String sql="insert into qna values(seq_qna.nextval,?,?,?,?,?,?,?,current_date,?,?)";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1,dto.getQnaNo());
-			pstmt.setInt(2,dto.getMbrNo());
-			pstmt.setInt(3,dto.getItemNo());
-			pstmt.setString(4,dto.getQnaCat());
-			pstmt.setString(5,dto.getQnaTitle());
-			pstmt.setString(6,dto.getQnaCon());
-			pstmt.setString(7, dto.getQnaFile());
-			pstmt.setBoolean(8, dto.isSecret());
-			pstmt.setDate(9, dto.getQnaWdate());
-			pstmt.setDate(10, dto.getQnaMdate());
-			pstmt.setBoolean(11, dto.isQnaDel());
+			pstmt.setInt(1,dto.getMbrNo());
+			pstmt.setInt(2,dto.getItemNo());
+			pstmt.setString(3,dto.getQnaCat());
+			pstmt.setString(4,dto.getQnaTitle());
+			pstmt.setString(5,dto.getQnaCon());
+			pstmt.setString(6, dto.getQnaFile());
+			pstmt.setBoolean(7, dto.isSecret());
+			pstmt.setDate(8, dto.getQnaMdate());
+			pstmt.setBoolean(9, dto.isQnaDel());
 			return pstmt.executeUpdate();
 		}catch(SQLException s) {
 			s.printStackTrace();
