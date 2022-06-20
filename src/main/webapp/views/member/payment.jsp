@@ -10,6 +10,14 @@
 	<meta charset="UTF-8">
 	<title>결제</title>
 	<style type="text/css">
+	
+		.main{
+			width: 1024px;
+			height: auto;
+			margin: auto;
+			margin-bottom: 27px;
+		}
+		
 		.itemThumbNails {
 			width: 100px;
 		}
@@ -37,6 +45,12 @@
 	        width: 150px;
 	        height: 150px;
 	    }
+	    .nothing{
+	    	height: 768px;
+	    	vertical-align: center;
+	    	padding-top: 200px;
+	    	text-align: center;
+    	}
 	</style>
 </head>
 <body>
@@ -82,7 +96,9 @@
 			</form>
 		</c:when>
 		<c:otherwise>
-			진행중인 결제가 없습니다.
+		<div class = "nothing">
+			<h3>결제 대기 상품이 없습니다.</h3>
+		</div>
 		</c:otherwise>
 	</c:choose>
 </body>

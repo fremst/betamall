@@ -111,8 +111,8 @@ public class MbrCartController extends HttpServlet {
             	System.out.println("에러 발생");
             }
         	
-        	String[] itemNos = req.getParameterValues("itemNofbr"+(i+1));
-        	String[] cntNos = req.getParameterValues("cntfbr"+(i+1));
+        	String[] itemNos = req.getParameterValues("itemNofbr"+brNo);
+        	String[] cntNos = req.getParameterValues("cntfbr"+brNo);
         	
         	for(int j = 0; j<itemNos.length; j++) {
         		

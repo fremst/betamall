@@ -10,6 +10,8 @@
 </head>
 <style>
 	.main{
+		width: 1024px;
+		margin: auto;
 		text-align: auto;
 	}
 	td{
@@ -83,7 +85,7 @@
     }
 </style>
 <body>
-    <h2>상품 검색</h2>
+   <h2>상품 검색</h2>
     <div class = "itemList">
     	<div class = "searchItem">
     	<form action="/betamall/item/search">

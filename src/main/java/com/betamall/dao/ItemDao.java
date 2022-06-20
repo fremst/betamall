@@ -59,7 +59,7 @@ public class ItemDao {
 				+"		select aa.*, rownum rnum from"
 				+"		("
 				+"			select * from item"
-				+"			order by itemno, mcatno asc, scatno asc  "
+				+"			order by itemno "
 				+"		) aa"
 				+"	)where rnum>=? and rnum<=?";
 		Connection con=null;
@@ -101,7 +101,7 @@ public class ItemDao {
 				+"		("
 				+"			select * from item"
 				+"		    where itemdel = 0 "
-				+"			order by itemno, mcatno asc, scatno asc "
+				+"			order by itemno "
 				+"		) aa"
 				+"	)where rnum>=? and rnum<=?";
 		Connection con=null;

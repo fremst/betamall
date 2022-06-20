@@ -51,7 +51,7 @@
 				<c:forEach var="itemDto" items="${itemDtos}">
 				<div class="card">
 					<div>
-						<a href="${cp}/item/detail?itemNo=${itemDto.itemNo}"><img src = "${cp}/resources/uploads/admin/item/${itemDto.tImg}" id="new_item" width="200px" height="200px"></a>
+						<a href="${cp}/item/detail?itemNo=${itemDto.itemNo}"><img src="${cp}/resources/uploads/admin/item/${itemDto.tImg}" id="new_item" width="200px" height="200px"></a>
 						<p><a href="${cp}/item/detail?itemNo=${itemDto.itemNo}">${itemDto.itemName}</a></p>
 					</div>
 				</div>

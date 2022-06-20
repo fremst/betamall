@@ -66,7 +66,6 @@ public class AddCartController extends HttpServlet{
 			cart.put(ordKey, cart.get(ordKey) + ordCnt);
 		}
 		
-		System.out.println(cart);
 		session.setAttribute("cart", cart);
 		
 	}

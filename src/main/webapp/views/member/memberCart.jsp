@@ -6,11 +6,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>장바구니</title>
 	<style type="text/css">
+	
+		.main{
+			width: 1024px;
+			height: auto;
+			margin: auto;
+			margin-bottom: 27px;
+		}
+		
 		.itemThumbNails {
 			width: 100px;
 		}
@@ -38,11 +45,18 @@
 	        width: 150px;
 	        height: 150px;
 	    }
+	    .nothing{
+	    	height: 768px;
+	    	vertical-align: center;
+	    	padding-top: 200px;
+	    	text-align: center;
+    	}
 	</style>
 </head>
 
 <body>
 	<h2>장바구니</h2>
+	<hr>
 	<c:choose>
 		<c:when test="${not empty ordBrList }">
 			<form method="post" action="${cp }/member/cart">
@@ -116,7 +130,9 @@
 			</form>
 		</c:when>
 		<c:otherwise>
-			주문 상품이 없습니다.
+		<div class = "nothing">
+			<h3>주문 상품이 없습니다.</h3>
+		</div>
 		</c:otherwise>
 	</c:choose>
 </body>
