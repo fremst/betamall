@@ -18,7 +18,7 @@
 		border-bottom: solid 1px;
 	}
 	.searchItem{
-		width: 1000px;
+		width: 1024px;
 		text-align: center;
 		margin-left: auto;
 		margin-right: auto;
@@ -29,18 +29,21 @@
 		margin-bottom: 100px;
 	}
 	.itemList{
-		width: 1050px;
+		width: 1024px;
 		text-align: center;
 		margin: auto;
 	}
 	.itemNo{
-		width: 80px;
+		width: 70px;
+	}
+	.mcatName{
+		width: 100px;
 	}
 	.itemImg{
-		width: 200px;
+		width: 180px;
 	}
 	.itemName{
-		width: 600px;
+		width: 500px;
 		text-align: left;
 	}
 	.itemPrice{
@@ -72,8 +75,13 @@
     	height: 30px;
     	font-size: 16px;
     }
-    .pcBtns{
+    .allBtn{
     	width: 80px;
+    	height: 30px;
+    	font-size: 16px;
+    }
+    .pcBtns{
+    	width: 100px;
     	height: 25px;
     	padding: 3px;
     	border: solid 0.5px gray;
@@ -94,8 +102,9 @@
 	            <option value = "brName" <c:if test="${param.field=='brName'}">selected</c:if>>지점명</option>
 	            <option value = "mcatName" <c:if test="${param.field=='mcatName'}">selected</c:if>>대분류</option>
 	        </select>
-	        <input type="text" name = "keyword" value = "${param.keyword}" class = "srchText">
+	        <input type="search" name = "keyword" value = "${param.keyword}" class = "srchText">
 	        <input type="submit" value="검색" class = "srchBtn">
+	        <input type="button" value="전체 보기" onclick = "location.href='${cp}/item/search'" class = "allBtn">
         </form>
     </div>
     <hr>
@@ -105,53 +114,50 @@
 		           	<thead>
 		           		<tr style = "height: 40px">
 			           		<td><strong>상품 번호</strong></td>
+			           		<td><strong>대분류</strong></td>
 			           		<td><strong>상품 이미지</strong></td>
 			           		<td><strong>상품명</strong></td>
 			           		<td><strong>가  격</strong></td>
 			           		<td><strong>구  매</strong></td>
 			           		<td></td>
-		           		</tr>   
+		           		</tr>
 		           	</thead>
-		           	<c:forEach begin = "0" end = "${iDtos.size()-1}" varStatus="status">
-		           		<c:if test="${status.first or (iDtos[status.index].itemNo != iDtos[status.index-1].itemNo)}">
-		           			<tr>
+		           	<c:forEach var="iDto" items="${iDtos}">
+	           			<tr>
 			                <td class = "itemNo">
-			                    ${iDtos[status.index].itemNo}
+			                    ${iDto.itemNo}
+			                </td>
+			                 <td class = "mcatName">
+			                    ${iDto.mcatName}
 			                </td>
 			                <td class = "itemImg">
-			                    <a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}"><img src = "${cp }/resources/uploads/admin/item/${iDtos[status.index].tImg}" class = "itemThumbNails"></a>
+			                    <a href = "${cp}/item/detail?itemNo=${iDto.itemNo}"><img src = "${cp }/resources/uploads/admin/item/${iDto.tImg}" class = "itemThumbNails"></a>
 			                </td>
 			                <td class = "itemName">
 			                	<span class = "itemNames">
-			                		<a href = "${cp}/item/detail?itemNo=${iDtos[status.index].itemNo}">${iDtos[status.index].itemName}</a><br><br>
+			                		<a href = "${cp}/item/detail?itemNo=${iDto.itemNo}">${iDto.itemName}</a><br><br>
 			                	</span>
 			                	<span class = 'itemStocks'>매장 재고:
-			                	<c:forEach begin = "0" end = "${iDtos.size()}" varStatus="status2">
-			                		<c:if test="${iDtos[status.index].itemNo == iDtos[status2.index].itemNo}">
-						                <c:choose>
-						               		<c:when test="${not empty iDtos[status2.index].brName}">
-						                		${iDtos[status2.index].brName} ${iDtos[status2.index].stkCnt}개
-						                		<c:if test="${iDtos[status2.index+1].itemNo == iDtos[status2.index].itemNo}">/</c:if>
-						               		</c:when>
-						               		<c:otherwise>
-						               			없음<br>
-						               		</c:otherwise>
-						                </c:choose>
-				               		</c:if>
-			               		</c:forEach>
+			                		<c:choose>
+					               		<c:when test="${not empty iDto.brName}">
+					                		${iDto.brName} ${iDto.stkCnt}개
+					               		</c:when>
+					               		<c:otherwise>
+					               			없음<br>
+					               		</c:otherwise>
+				               		</c:choose>
 		        				</span><br>
-		                   		${iDtos[status.index].hash}
-		                		</td>
+		                   		${iDto.hash}
+		                	</td>
 			                <td class = "itemPrice">
-			                	<fmt:formatNumber value="${iDtos[status.index].price}" type="number"/> 원
+			                	<fmt:formatNumber value="${iDto.price}" type="number"/> 원
 			                </td>
 			                <td>
-			                	<a href = "#" class = "pcBtns">장바구니</a><br><br>
-			                	<a href = "#" class = "pcBtns">바로구매</a>
+			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur" class = "pcBtns" onclick="alert('장바구니에 성공적으로 담겼습니다.')">장바구니</a><br><br>
+			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart" class = "pcBtns" onclick="return confirm('바로 구매 하시겠습니까?')">바로구매</a>
 			                </td>
-			            	</tr>
-		            	</c:if>
-		            </c:forEach>
+	            		</tr>
+	            	</c:forEach>
 	        </table>
 	        </c:when>
 	        <c:otherwise>

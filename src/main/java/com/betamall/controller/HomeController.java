@@ -22,7 +22,7 @@ public class HomeController extends HttpServlet {
 		
 		ItemDao itemDao = ItemDao.getInstance();
 		int itemCnt = itemDao.getCountNDel();
-		ArrayList<ItemDto> itemDtos = itemDao.selectNDel(itemCnt-4, itemCnt);
+		ArrayList<ItemDto> itemDtos = itemDao.selectNDel(itemCnt-3, itemCnt);
 		Collections.reverse(itemDtos);
 		
 		req.setAttribute("itemDtos", itemDtos);

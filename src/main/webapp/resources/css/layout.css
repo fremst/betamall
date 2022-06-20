@@ -1,222 +1,341 @@
-@charset "UTF-8";
- *{
-		list-style: none; /*목록에 점 없애는 기능*/
-		text-decoration: none; /*밑줄 색깔 없애는 기능*/
-		border-collapse: collapse; /*테이블이 선이 다따로 떨어저 있는걸 없애주는 기능*/
-		margin:0px;
-		padding:0px;
-		color:#707070;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
+* {
+    list-style: none; /*목록에 점 없애는 기능*/
+    text-decoration: none; /*밑줄 색깔 없애는 기능*/
+    border-collapse: collapse; /*테이블이 선이 다따로 떨어저 있는걸 없애주는 기능*/
+    margin: 0px;
+    padding: 0px;
+    color: #707070;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
-	.headers{
-		display: flex;
-		width: 100%;
-		height: 204px;
-		margin: auto;
-		height: 40px;
-	}
-	.headers .searchArea{
-		float: left;
-	}
-	.search_area{
-		border:1px solid #707070;
-		width: 250px;
-		height: 30px;
-		background: rgba(0,0,0,0);
-		border-radius: 5px;
-		margin-top:20px;
-		margin-left: 42px;
+#wrap {
+    width: 1500px;
+    min-height: 768px;
+    align-content: center;
+    margin: auto;
+}
 
-	}
-	.search_area > form > #search{
-		border:none;
-		width:180px;
-		height:30px;
-		background:rgba(0,0,0,0.0);
-		color:#000000;
-		padding-left:10px;
+.headers {
+    display: flex;
+    width: 100%;
+    height: 150px;
+    margin: auto;
+}
+
+.logo{
+	padding-left: 110px;
+	width: 300px;
+	text-align: center;
+	align-content: center;
+}
+
+.navBox{
+	width: 400px;
 	
-	}
-	.search_area > form > #search_btn{
-		width:50px;
-		color:#707070;
-		font-weight: bold;
-		cursor: pointer;
-		border: none;
-		background:rgba(0,0,0,0);
-	
-	}
-	.nav{
-		display: flex;
-		justify-content: flex-end;
-		line-height: 50px;
-		margin-right: 42px;
-		
-	}
-	.nav >li{
-		margin-left: 15px;
-	}
+}
+.headers .searchArea {
+    float: left;
+}
 
-	.logo{
-		width: 267px;
-		height: 140px;
-		padding-top: 20px;
-		display: block;
-		margin: auto;
-		text-align: center;
-	} 
-	.quickMenu{
-		float: right;
-		margin-right: 50px;
-	}
-	.nav2{
-		display: flex;
-		justify-content: flex-start;
-		line-height: 50px;
-		margin-top: 160px;
-		/* margin-right: 100px;
-		padding-left: 30px;
-		padding-right: 30px; */
-		margin-left: auto;
-		margin-right: auto;
-		border-top: 1px solid black;
-		border-bottom: 1px solid black;	
-	}
-	.nav2 li{
-		margin-left: 50px;
-	}
-	footer{
-		background-color: #aaaaaa;
-		height: 250px;
-		display: flex;
-	}
-	#under_logo{
-		padding-top: 50px;
-		padding-left: 15px;
-	}
-	.copyright{
-		margin-top: 50px;
-		margin-left: 20px;
-		width: 930px;
-	}
-	.customer_center{
-		border: 2px solid white;
-		border-radius: 5px;
-		padding-top: 15px;
-		padding-left: 15px;
-		padding-right: 15px;
-		margin-top: 50px;
-		margin-left: 100px;
-		height:100px;
-	}
-	/*main*/
-	.slider{
-		position: relative;
-		height: 500px;
-	}
-	.slider ul li{
-		height: 400px;
-		background-repeat: no-repeat;
-		background-size: cover;
-		position: absolute;
-		top: 100px;left: calc(50% - 300px);
-		width: 600px;
-	}
-	.slider input,
-	.slider label{
-		position: relative;	
-		top: 420px;
-	}
-	/*인디케이터-레이블 디자인*/
-	.slider label{
-		width: 20px;
-		height: 20px;
-		background-color: #ddd;
-		background: rgba(0,0,0,0.5);
-		display: inline-block;
-		border-radius: 10px;
-		cursor: pointer;
-	}
-	/*input태그 날리기*/
-	.slider input[type="radio"]{
-		display: none;
-	}
-	/*모든 슬라이드 이미지 숨기기*/
-	.slider ul li{display: none;}
-	/*인디케이터 선택시 이미지 보이기*/
-	#btn1:checked ~ .slide li:nth-child(1){display: block;}
-	#btn2:checked ~ .slide li:nth-child(2){display: block;}
-	#btn3:checked ~ .slide li:nth-child(3){display: block;}
-	#btn4:checked ~ .slide li:nth-child(4){display: block;}
-	/*선택된 인디케이터 스타일링*/
-	#btn1:checked ~ #in1 {background-color: white;}
-	#btn2:checked ~ #in2 {background-color: white;}
-	#btn3:checked ~ #in3 {background-color: white;}
-	#btn4:checked ~ #in4 {background-color: white;}
-	/*인디케이터 템플릿 (.wide)*/
-	#btn1:checked ~ #in1.wide{width:40px;}
-	#btn2:checked ~ #in2.wide{width:40px;}
-	#btn3:checked ~ #in3.wide{width:40px;}
-	#btn4:checked ~ #in4.wide{width:40px;}
-	/*모션*/
-	.slider label{transition: all 0.6s;}
+.search_area {
+    border: 1px solid #707070;
+    width: 250px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    margin-top: 50px;
+    margin-left: 42px;
 
-	#btn1 ~ ul li.fade,
-	#btn2 ~ ul li.fade
-	#btn3 ~ ul li.fade
-	#btn4 ~ ul li.fade{
-		display: block;
-		opacity: 0;
-		visibility: hidden;
-		transition: all 0.6s;
-	}
-	#btn1:checked ~ ul li.fade:nth-child(1),
-	#btn2:checked ~ ul li.fade:nth-child(2),
-	#btn3:checked ~ ul li.fade:nth-child(3),
-	#btn4:checked ~ ul li.fade:nth-child(4){
-		opacity: 1;
-		visibility: visible;
-	}
-	.slide-img1{
-		background-image: url(../images/slider01.jpg);
-	}
-	.slide-img2{
-		background-image: url(../images/slider02.jpg);
-	}
-	.slide-img3{
-		background-image: url(../images/slider03.jpg);
-	}
-	.slide-img4{
-		background-image: url(../images/slider04.jpg);
-	}
-	.slider label{
-		top: 470px;z-index: 99990;
-		left: calc(50% - 50px);
-	}
-	.banner{
-		height: 500px;
-	}
-	#banner_img{
-		display: block;margin-left: auto; margin-right: auto; padding-top: 10%;
-	}
-	.cardbox{
-		display: flex;
-		height: 600px;
-	}
-	.card{
-		padding-top: 10%;
-		margin-left: 50px;
-	}
-	h4{
-		text-align: center;
-	}
-	#cardlist{
-		display:flex; margin-left: auto; margin-right: auto;
-	}
-	#new_item{
-		border: 1px solid black;
-	}
-	.card > div{
-		text-align: center;
-	}
+}
+
+.search_area > form > #search {
+    border: none;
+    width: 180px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.0);
+    color: #000000;
+    padding-left: 10px;
+
+}
+
+.search_area > form > #search_btn {
+    width: 50px;
+    color: #707070;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 50px;
+    margin-right: 42px;
+	margin-top: 30px;
+}
+
+.nav > li {
+    margin-left: 15px;
+}
+
+.logo {
+    width: 267px;
+    height: 140px;
+    padding-top: 20px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.quickMenu {
+    float: right;
+    margin-right: 50px;
+}
+
+.nav2 {
+    width: 95%;
+    display: flex;
+    justify-content: flex-start;
+    line-height: 50px;
+    padding-right: 30px;
+    margin-top: 30px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 50px;
+}
+
+.nav2 li {
+    padding-left: 20px;
+}
+
+.main {
+    width: 1024px;
+    min-height: 200px;
+    height: auto;
+    margin: auto;
+    align-content: center;
+}
+
+#main_banner_img img{
+	width: 1100px;
+}
+
+.slider {
+    position: relative;
+    height: 450px;
+}
+
+.slider ul li {
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 100px;
+    left: calc(50% - 300px);
+    width: 600px;
+}
+
+.slider input,
+.slider label {
+    position: relative;
+    top: 420px;
+}
+
+/*인디케이터-레이블 디자인*/
+.slider label {
+    width: 20px;
+    height: 20px;
+    background-color: #ddd;
+    background: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/*input태그 날리기*/
+.slider input[type="radio"] {
+    display: none;
+}
+
+/*모든 슬라이드 이미지 숨기기*/
+.slider ul li {
+    display: none;
+}
+
+/*인디케이터 선택시 이미지 보이기*/
+#btn1:checked ~ .slide li:nth-child(1) {
+    display: block;
+}
+
+#btn2:checked ~ .slide li:nth-child(2) {
+    display: block;
+}
+
+#btn3:checked ~ .slide li:nth-child(3) {
+    display: block;
+}
+
+#btn4:checked ~ .slide li:nth-child(4) {
+    display: block;
+}
+
+/*선택된 인디케이터 스타일링*/
+#btn1:checked ~ #in1 {
+    background-color: white;
+}
+
+#btn2:checked ~ #in2 {
+    background-color: white;
+}
+
+#btn3:checked ~ #in3 {
+    background-color: white;
+}
+
+#btn4:checked ~ #in4 {
+    background-color: white;
+}
+
+/*인디케이터 템플릿 (.wide)*/
+#btn1:checked ~ #in1.wide {
+    width: 40px;
+}
+
+#btn2:checked ~ #in2.wide {
+    width: 40px;
+}
+
+#btn3:checked ~ #in3.wide {
+    width: 40px;
+}
+
+#btn4:checked ~ #in4.wide {
+    width: 40px;
+}
+
+/*모션*/
+.slider label {
+    transition: all 0.6s;
+}
+
+#btn1 ~ ul li.fade,
+#btn2 ~ ul li.fade,
+#btn3 ~ ul li.fade,
+#btn4 ~ ul li.fade {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s;
+}
+
+#btn1:checked ~ ul li.fade:nth-child(1),
+#btn2:checked ~ ul li.fade:nth-child(2),
+#btn3:checked ~ ul li.fade:nth-child(3),
+#btn4:checked ~ ul li.fade:nth-child(4) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide-img1 {
+    background-image: url(../images/slider01.jpg);
+}
+
+.slide-img2 {
+    background-image: url(../images/slider02.jpg);
+}
+
+.slide-img3 {
+    background-image: url(../images/slider03.jpg);
+}
+
+.slide-img4 {
+    background-image: url(../images/slider04.jpg);
+}
+
+.slider label {
+    top: 470px;
+    z-index: 99990;
+    left: calc(50% - 50px);
+}
+
+.banner {
+    height: 400px;
+}
+
+#banner_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding-top: 10%;
+}
+
+.comment {
+	text-align: center;
+    color: dimgray;
+    font-weight: bold;
+    margin-bottom: 100px;
+}
+
+.commentTitle{
+	font-size: 25px;
+}
+
+.cardbox {
+    width: 1000px;
+    height: 350px;
+}
+
+.card {
+    padding-top: 50px;
+}
+
+h4 {
+    text-align: center;
+}
+
+#cardlist {
+    display: flex;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card > p {
+    text-align: center;
+}
+
+#footerWrap {
+	width: 100%;
+    background-color: #aaaaaa;
+    display: flex;
+}
+
+.underlogo{
+	margin: 20px;
+	padding-left: 50px;
+	margin-top: 50px;
+	width: 300px;
+	height: 100%;
+}
+
+#under_logo {
+    width: 100%;
+}
+
+.copyright {
+    width: 600px;
+    margin: 40px;
+    font-size: 15px;
+}
+
+.customer_center {
+    width: 300px;
+    height: 120px;
+    padding: 10px;
+    border: 2px solid dimgray;
+    border-radius: 10px;
+    margin-top: 40px;
+}

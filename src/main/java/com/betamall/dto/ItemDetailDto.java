@@ -10,13 +10,14 @@ public class ItemDetailDto {
 	private String scatName;
 	private String hash;
 	private int price;
+	private int brNo;
 	private String brName;
 	private int stkCnt;
 	
 	public ItemDetailDto() {}
 
 	public ItemDetailDto(int itemNo, String itemName, String tImg, int mcatNo, int scatNo, String mcatName,
-			String scatName, String hash, int price, String brName, int stkCnt) {
+			String scatName, String hash, int price, int brNo, String brName, int stkCnt) {
 		this.itemNo = itemNo;
 		this.itemName = itemName;
 		this.tImg = tImg;
@@ -26,6 +27,7 @@ public class ItemDetailDto {
 		this.scatName = scatName;
 		this.hash = hash;
 		this.price = price;
+		this.brNo = brNo;
 		this.brName = brName;
 		this.stkCnt = stkCnt;
 	}
@@ -102,6 +104,14 @@ public class ItemDetailDto {
 		this.price = price;
 	}
 
+	public int getBrNo() {
+		return brNo;
+	}
+
+	public void setBrNo(int brNo) {
+		this.brNo = brNo;
+	}
+
 	public String getBrName() {
 		return brName;
 	}
@@ -122,7 +132,13 @@ public class ItemDetailDto {
 	public String toString() {
 		return "ItemDetailDto [itemNo=" + itemNo + ", itemName=" + itemName + ", tImg=" + tImg + ", mcatNo=" + mcatNo
 				+ ", scatNo=" + scatNo + ", mcatName=" + mcatName + ", scatName=" + scatName + ", hash=" + hash
-				+ ", price=" + price + ", brName=" + brName + ", stkCnt=" + stkCnt + "]\n";
+				+ ", price=" + price + ", brNo=" + brNo + ", brName=" + brName + ", stkCnt=" + stkCnt
+				+ ", getItemNo()=" + getItemNo() + ", getItemName()=" + getItemName() + ", gettImg()=" + gettImg()
+				+ ", getMcatNo()=" + getMcatNo() + ", getScatNo()=" + getScatNo() + ", getMcatName()=" + getMcatName()
+				+ ", getScatName()=" + getScatName() + ", getHash()=" + getHash() + ", getPrice()=" + getPrice()
+				+ ", getBrNo()=" + getBrNo() + ", getBrName()=" + getBrName() + ", getStkCnt()=" + getStkCnt()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]\n";
 	}
 
 }

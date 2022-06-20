@@ -25,7 +25,7 @@ public class ItemSearchController extends HttpServlet{
 		ArrayList<ItemDetailDto> itemDetailDtos = new ArrayList<ItemDetailDto>();
 		if(field == null || keyword == null || field.equals("") || keyword.equals("")) {
 			itemDetailDtos = itemDetailDao.selectAll();
-		}else {
+		}else{
 			itemDetailDtos = itemDetailDao.selectByKeyword(field, keyword);
 		}
 		req.setAttribute("field", field);

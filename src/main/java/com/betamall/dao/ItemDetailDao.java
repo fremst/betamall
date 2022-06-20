@@ -25,7 +25,7 @@ public class ItemDetailDao {
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="SELECT ITEMNO, ITEMNAME, TIMG, MCATNO, SCATNO, MCATNAME, SCATNAME, HASH, PRICE, BRNAME, NVL(STKCNT, 0) STKCNT "
+			String sql="SELECT ITEMNO, ITEMNAME, TIMG, MCATNO, SCATNO, MCATNAME, SCATNAME, HASH, PRICE, BRNO, BRNAME, NVL(STKCNT, 0) STKCNT "
 					+ "FROM (STOCK INNER JOIN BRANCH USING (BRNO) "
 					+ 		"RIGHT OUTER JOIN (ITEM INNER JOIN MCAT USING (MCATNO) "
 					+ 						  "INNER JOIN SCAT USING(SCATNO, MCATNO)) USING (ITEMNO)) "
@@ -46,9 +46,10 @@ public class ItemDetailDao {
 					hash = '#' + rs.getString("HASH").replace(","," #");
 				}
 				int price = rs.getInt("PRICE");
+				int brNo = rs.getInt("BRNO");
 				String brName = rs.getString("BRNAME");
 				int stkCnt = rs.getInt("STKCNT");
-				ItemDetailDto dto = new ItemDetailDto(itemNo, itemName, tImg, mcatNo, scatNo, mcatName, scatName, hash, price, brName, stkCnt);
+				ItemDetailDto dto = new ItemDetailDto(itemNo, itemName, tImg, mcatNo, scatNo, mcatName, scatName, hash, price, brNo, brName, stkCnt);
 				list.add(dto);
 			}
 			return list;
@@ -66,7 +67,7 @@ public class ItemDetailDao {
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="SELECT ITEMNO, ITEMNAME, TIMG, MCATNO, SCATNO, MCATNAME, SCATNAME, HASH, PRICE, BRNAME, NVL(STKCNT, 0) STKCNT "
+			String sql="SELECT ITEMNO, ITEMNAME, TIMG, MCATNO, SCATNO, MCATNAME, SCATNAME, HASH, PRICE, BRNO, BRNAME, NVL(STKCNT, 0) STKCNT "
 					+ "FROM (STOCK INNER JOIN BRANCH USING (BRNO) "
 					+ 		"RIGHT OUTER JOIN (ITEM INNER JOIN MCAT USING (MCATNO) "
 					+ 						  "INNER JOIN SCAT USING(SCATNO, MCATNO)) USING (ITEMNO)) ";
@@ -98,9 +99,10 @@ public class ItemDetailDao {
 					hash = '#' + rs.getString("HASH").replace(","," #");
 				}
 				int price = rs.getInt("PRICE");
+				int brNo = rs.getInt("BRNO");
 				String brName = rs.getString("BRNAME");
 				int stkCnt = rs.getInt("STKCNT");
-				ItemDetailDto dto = new ItemDetailDto(itemNo, itemName, tImg, mcatNo, scatNo, mcatName, scatName, hash, price, brName, stkCnt);
+				ItemDetailDto dto = new ItemDetailDto(itemNo, itemName, tImg, mcatNo, scatNo, mcatName, scatName, hash, price, brNo, brName, stkCnt);
 				list.add(dto);
 			}
 			return list;

@@ -13,6 +13,8 @@
 </head>
 <body>
 	<main>
+		<div id="main_banner_img"><img src="${cp }/resources/images/mainBanner.png"></div>
+		
 		<!--이미지 슬라이드-->
 		<div class="slider">
 			<!--인디케이터-->
@@ -42,22 +44,38 @@
 			<div><img src="${cp }/resources/images/banner.png" id="banner_img"></div>
 		</div>
 		
+		
 		<!--신상품라인-->
 		<div class="comment">
-			<h4>Recent Arrival <br> 새로 업데이트된 상품을 확인해 보세요.</h4>
+		    <p class = "commentTitle">Recent Arrival</p>
+		    <fieldset>
+		        <legend class="commentTitle">새로 업데이트된 상품을 확인해 보세요.</legend>
+		        <div class="cardbox">
+		            <div id="cardlist">
+		                <c:forEach var="itemDto" items="${itemDtos}">
+		                    <div class="card">
+		                        <div>
+		                            <a href="${cp}/item/detail?itemNo=${itemDto.itemNo}"><img
+		                                    src="${cp}/resources/uploads/admin/item/${itemDto.tImg}" id="new_item" width="200px"
+		                                    height="200px"></a>
+		                            <p><a href="${cp}/item/detail?itemNo=${itemDto.itemNo}">${itemDto.itemName}</a></p>
+		                        </div>
+		                    </div>
+		                </c:forEach>
+		            </div>
+		        </div>
+		    </fieldset>
 		</div>
-		<div class="cardbox">
-			<div id="cardlist">
-				<c:forEach var="itemDto" items="${itemDtos}">
-				<div class="card">
-					<div>
-						<a href="${cp}/item/detail?itemNo=${itemDto.itemNo}"><img src="${cp}/resources/uploads/admin/item/${itemDto.tImg}" id="new_item" width="200px" height="200px"></a>
-						<p><a href="${cp}/item/detail?itemNo=${itemDto.itemNo}">${itemDto.itemName}</a></p>
-					</div>
-				</div>
-				</c:forEach>
-			</div>
-		</div>
-	</main>
+</main>
 </body>
+<script type="text/javascript">
+let obj = document.getElementsByName('dot');
+let i = 0;
+playSlider = setInterval(function() {
+           obj[i].checked = true;
+           i++;
+           if(i == obj.length){
+        	   i = 0;}
+           }, 2000);
+</script>
 </html>

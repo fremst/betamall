@@ -48,7 +48,6 @@ public class MbrPmtController extends HttpServlet{
 		String str = mbrDto.getMbrAdr();
 		String[] adresses = str.split("/");
 		
-		
 		req.setAttribute("recName", mbrDto.getMbrName());
 		req.setAttribute("recTel", mbrDto.getMbrTel());
 		
@@ -99,7 +98,9 @@ public class MbrPmtController extends HttpServlet{
 			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
 			mbrDao.update(mbrDto);
 		}
-		System.out.println("결제 완료");
+		
+		session.removeAttribute("cart");
 		resp.sendRedirect(req.getContextPath() + "/item/search");
+		
 	}
 }

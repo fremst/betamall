@@ -21,14 +21,7 @@ public class AddCartController extends HttpServlet{
 	@SuppressWarnings("unchecked")
 	// doPost로 수정
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1001&ordCnt=3
-		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1002&ordCnt=2
-		// http://localhost:8080/betamall/member/addcart?brNo=2&itemNo=1004&ordCnt=5
-		// http://localhost:8080/betamall/member/addcart?brNo=2&itemNo=1004&ordCnt=1
-		// http://localhost:8080/betamall/member/addcart?brNo=3&itemNo=1003&ordCnt=2
-		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1001&ordCnt=1
-		// http://localhost:8080/betamall/member/addcart?brNo=1&itemNo=1004&ordCnt=5
-		
+
 		int brNo = Integer.parseInt(req.getParameter("brNo"));
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
 		int ordCnt = Integer.parseInt(req.getParameter("ordCnt"));
@@ -68,5 +61,11 @@ public class AddCartController extends HttpServlet{
 		
 		session.setAttribute("cart", cart);
 		
+		String status = req.getParameter("status");
+		if(status.equals("pur")) {
+			resp.sendRedirect(req.getHeader("referer"));
+		}else if(status.equals("cart")) {
+			resp.sendRedirect(req.getContextPath() + "/member/cart");
+		}
 	}
 }

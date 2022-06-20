@@ -18,32 +18,34 @@
 		<div class="logo">
 			<a href="${cp }/home"><img src="${cp }/resources/images/betamall.png" ></a>
 		</div>
-		<ul class="nav">
-			<c:if test="${not empty role}">
+		<div class = "navBox">
+			<ul class="nav">
+				<c:if test="${not empty role}">
+					<c:choose>
+						<c:when test="${role == 'admin0'}">
+							<li><span>안녕하세요! 총관리자님</span></li>
+						</c:when>
+						<c:when test="${role == 'admin'}">
+							<li><span>안녕하세요! 점장님</span></li>
+						</c:when>
+						<c:when test="${role == 'member'}">
+							<li><span>환영합니다! ${id}님</span></li>
+							<li><a href="#">고객센터</a></li>
+						</c:when>
+					</c:choose>
+					<li><a href="${cp }/logout">로그아웃</a></li>
+				</c:if>
+				<c:if test="${empty role}">
+					<li><a href="${cp }/login">로그인</a></li>
+					<li><a href="${cp }/join/termsofuse">회원가입</a></li>
+				</c:if>
 				<c:choose>
-					<c:when test="${role == 'admin0'}">
-						<li><span>안녕하세요! 총관리자님</span></li>
-					</c:when>
-					<c:when test="${role == 'admin'}">
-						<li><span>안녕하세요! 점장님</span></li>
-					</c:when>
-					<c:when test="${role == 'member'}">
-						<li><span>환영합니다! ${id}님</span></li>
-						<li><a href="#">고객센터</a></li>
+					<c:when test="${(role == 'admin0' || role == 'admin') && empty adminPage}">
+						<li><a href="${cp}/admin/item/list">관리자페이지</a></li>
 					</c:when>
 				</c:choose>
-				<li><a href="${cp }/logout">로그아웃</a></li>
-			</c:if>
-			<c:if test="${empty role}">
-				<li><a href="${cp }/login">로그인</a></li>
-				<li><a href="${cp }/join/termsofuse">회원가입</a></li>
-			</c:if>
-			<c:choose>
-				<c:when test="${(role == 'admin0' || role == 'admin') && empty adminPage}">
-					<li><a href="${cp}/admin/item/list">관리자페이지</a></li>
-				</c:when>
-			</c:choose>
-		</ul>
+			</ul>
+		</div>
 	</div>
 	<div class ="quickMenu">
 		<a href = "${cp}/member/mypage"><img src = "${cp}/resources/images/mypage.png" width = "30px"></a>
