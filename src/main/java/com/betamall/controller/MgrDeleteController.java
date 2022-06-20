@@ -20,6 +20,11 @@ public class MgrDeleteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String res = req.getParameter("res");
+		if(res != null) {
+			req.setAttribute("res", res);
+		}
+		
 		ManagerDao mgrDao = ManagerDao.getInstance();
 		
 		HttpSession session = req.getSession();
@@ -33,18 +38,15 @@ public class MgrDeleteController extends HttpServlet{
 			
 			int n = mgrDao.delete(selectedMgrNo);
 			if(n>0) {
-				// 삭제 성공 시 메시지 추가
-				System.out.println(n);
 				ServletContext application = req.getServletContext();
 				String saveDir = application.getRealPath("/resources/uploads/admin/manager");
 				new File(saveDir, selectedMgrDto.getMgrImg()).delete();
+				resp.sendRedirect(req.getContextPath() + "/admin/manager/list?res=success");
 			}else {
-				// 삭제 실패 시 에러 및 이유 추가
-				System.out.println(n);
+				resp.sendRedirect(req.getContextPath() + "/admin/manager/update?brNo="+selectedMgrNo+"&res=fail");
 			}
 		}else {
 			req.setAttribute("status", "detail");
 		}
-		resp.sendRedirect(req.getContextPath() + "/admin/manager/list");
 	}
 }
