@@ -33,7 +33,11 @@ public class SalesInfoDao {
 					+ "    INNER JOIN "
 					+ "    (SELECT ORDNO, BRNAME, ORDDATE, ORDSTA "
 					+ "     FROM (\"ORDER\" INNER JOIN BRANCH USING (BRNO))) "
-					+ "    USING (ORDNO)";
+					+ "    USING (ORDNO) "
+					+ "    INNER JOIN "
+					+ "    PMT "
+					+ "    USING (ORDNO) "
+					+ "	  ORDER BY ORDNO DESC";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<SalesInfoDto> salesInfoDtos = new ArrayList<SalesInfoDto>();
@@ -47,7 +51,60 @@ public class SalesInfoDao {
 								rs.getInt("ORDCNT"),
 								rs.getString("BRNAME"),
 								rs.getDate("ORDDATE"),
-								rs.getString("ORDSTA")));
+								rs.getString("ORDSTA"),
+								rs.getInt("PMTAMT"),
+								rs.getString("PMTTYPE"),
+								rs.getDate("PMTDATE")));
+			}
+			return salesInfoDtos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
+	public ArrayList<SalesInfoDto> selectByQuery(String query) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		if(query == null) {
+			query = "";
+		}
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT * FROM "
+					+ "    (SELECT ORDNO, MCATNAME, SCATNAME, ITEMNAME, ORDCNT "
+					+ "     FROM (((ORDITEM INNER JOIN \"ORDER\" USING (ORDNO)) INNER JOIN ITEM USING (ITEMNO)) "
+					+ "              INNER JOIN MCAT USING (MCATNO)) INNER JOIN SCAT USING (MCATNO, SCATNO)) "
+					+ "    INNER JOIN "
+					+ "    (SELECT ORDNO, BRNAME, ORDDATE, ORDSTA "
+					+ "     FROM (\"ORDER\" INNER JOIN BRANCH USING (BRNO))) "
+					+ "    USING (ORDNO) "
+					+ "    INNER JOIN "
+					+ "    PMT "
+					+ "    USING (ORDNO) "
+					+ "    WHERE ORDSTA = '구매확정' ";
+			sql	+= query;       
+			sql +=	  "	  ORDER BY ORDNO DESC";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			ArrayList<SalesInfoDto> salesInfoDtos = new ArrayList<SalesInfoDto>();
+			while (rs.next()) {
+				salesInfoDtos.add(
+						new SalesInfoDto(
+								rs.getInt("ORDNO"),
+								rs.getString("MCATNAME"),
+								rs.getString("SCATNAME"),
+								rs.getString("ITEMNAME"),
+								rs.getInt("ORDCNT"),
+								rs.getString("BRNAME"),
+								rs.getDate("ORDDATE"),
+								rs.getString("ORDSTA"),
+								rs.getInt("PMTAMT"),
+								rs.getString("PMTTYPE"),
+								rs.getDate("PMTDATE")));
 			}
 			return salesInfoDtos;
 		} catch (SQLException e) {

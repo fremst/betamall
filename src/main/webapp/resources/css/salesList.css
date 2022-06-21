@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#salesListWrap {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 40px;
+    align-content: center;
+
+}
+
+#salesListTitle {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+#salesList {
+    margin-left: 20px;
+    text-align: center;
+}
+
+#salesTable {
+    width: 1000px;
+    align-content: center;
+}
+
+
+.salesInfo_header {
+    height: 20px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+
+.salesInfo {
+    font-size: 14px;
+    margin-right: 30px;
+    border-bottom: 1px solid gray;
+}
+
+#salesListNum {
+    text-align: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#salesPageNav {
+    text-align: center;
+    align-content: center;
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
