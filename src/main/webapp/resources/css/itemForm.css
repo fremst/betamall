@@ -1,1 +1,55 @@
 @charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+	text-align:center;
+	
+}
+h1 {
+	text-align: left;
+}
+label {
+	display: inline-block;
+	width: 90px;
+	font-size:18px;
+	font-weight: bold;
+}
+#itemName {
+	width: 100%;
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom:10px;
+}
+input {
+	outline: none;
+  	border: none;
+  	width:150px;
+  	font-size:18px;
+}
+.context {
+	display: flex;
+	margin-top: 50px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.list {
+	text-align: left;
+	margin:20px;
+	word-spacing: 10px;
+}
+.tImg{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.img{
+	margin-top: 200px;
+	margin-bottom:300px;
+}
+button{
+	margin-top:10px;
+	padding-right:25px;
+	padding-left:20px;
+}
+.quickMenu{
+	margin:right;
+}
