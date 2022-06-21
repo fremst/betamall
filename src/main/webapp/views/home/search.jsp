@@ -152,10 +152,21 @@
 			                <td class = "itemPrice">
 			                	<fmt:formatNumber value="${iDto.price}" type="number"/> 원
 			                </td>
-			                <td>
-			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur" class = "pcBtns" onclick="alert('장바구니에 성공적으로 담겼습니다.')">장바구니</a><br><br>
-			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart" class = "pcBtns" onclick="return confirm('바로 구매 하시겠습니까?')">바로구매</a>
-			                </td>
+			                <c:choose>
+				                <c:when test="${iDto.stkCnt>0}">
+					                <td>
+					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur"
+					                	class="pcBtns" onclick="addCart()">장바구니</a><br><br>
+					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart"
+					                	class="pcBtns" onclick="return purchase()">바로구매</a>
+					                </td>
+				                </c:when>
+				                <c:otherwise>
+				                	<td>
+				                		재고 없음
+				                	</td>
+			                	</c:otherwise>
+			                </c:choose>
 	            		</tr>
 	            	</c:forEach>
 	        </table>
@@ -168,4 +179,24 @@
        </c:choose>
     </div>
 </body>
+<script type="text/javascript">
+
+function addCart(){
+	if(${empty id}){
+		alert('로그인이 필요한 기능입니다.')
+	}else{
+		alert('장바구니에 성공적으로 담겼습니다.')
+	}
+}
+
+function purchase(){
+	if(${empty id}){
+		alert('로그인이 필요한 기능입니다.')
+		return true;
+	}else{
+		return confirm('바로 구매 하시겠습니까?')
+	}
+}
+
+</script>
 </html>

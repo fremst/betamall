@@ -38,9 +38,8 @@ public class MbrCartController extends HttpServlet {
     	System.out.println(ordDao.getIpOrdNos(mbrNo));
     	
     	if((ordDao.getIpOrdNos(mbrNo) != null) && (ordDao.getIpOrdNos(mbrNo).size() != 0)) {
-    		
+    		// session.setAttribute("inPurchase", "true");
     		resp.sendRedirect(req.getContextPath() + "/member/payment");
-    		
     	}else{
     	
 	    	@SuppressWarnings("unchecked")
@@ -56,9 +55,12 @@ public class MbrCartController extends HttpServlet {
 	    	}else {
 	    		req.setAttribute("mbrNo", mbrNo);
 	    		cart.forEach((k, v) -> {
-	    			ordBrList.add(brDao.select(k.get(0)));
-	    			ordItemList.add(itemDao.select(k.get(1)));
-	    			ordCntList.add(v);
+	    			
+	    			if(v > 0) {
+	    				ordBrList.add(brDao.select(k.get(0)));
+	    				ordItemList.add(itemDao.select(k.get(1)));
+	    				ordCntList.add(v);
+	    			}
 	    			req.setAttribute("ordItemList", ordItemList);
 	    			req.setAttribute("ordBrList", ordBrList);
 	    			req.setAttribute("ordCntList", ordCntList);
@@ -70,9 +72,20 @@ public class MbrCartController extends HttpServlet {
 	    			}else {
 	    				ordItemPerBr.set(ordItemPerBr.size()-1, ordItemPerBr.get(ordItemPerBr.size()-1)+1);
 	    			}
+
+	    			/* System.out.println("ordItemList\n"+ordItemList);
+	    			System.out.println("ordBrList\n"+ordBrList);
+	    			System.out.println("ordCntList\n"+ordCntList);
+	    			System.out.println("ordItemPerBr\n"+ordItemPerBr); */
 	    			req.setAttribute("ordItemPerBr", ordItemPerBr);
 	    		}
 	    		
+//	    		for(int i = 0; i < ordBrList.size(); i++) {
+//	    			if(ordItemPerBr.get(i) < 1) {
+//	    				
+//	    			}
+//	    		}
+
 	    		int totAmt = 0;
 	    		int discAmt = 0;
 				int delFee = 2500;
@@ -104,7 +117,7 @@ public class MbrCartController extends HttpServlet {
         	
         	OrderDao ordDao = OrderDao.getInstance();
         	int ordNo = ordDao.getOrdNo();
-            OrderDto ordDto = new OrderDto(ordNo, mbrNo, brNo, null, "결제대기", null, null);
+            OrderDto ordDto = new OrderDto(ordNo, mbrNo, brNo, null, "결제대기", null, null, null);
             int n1 = ordDao.insert(ordDto);
             
             if(n1 < 0) {

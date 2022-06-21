@@ -12,10 +12,24 @@
 	<style type="text/css">
 	
 		.main{
-			width: 1024px;
+			width: 1100px;
 			height: auto;
 			margin: auto;
 			margin-bottom: 27px;
+		}
+		
+		.fieldset{
+			width: 97%;
+			padding-top:10px;
+			padding-right:20px;
+			padding-bottom:10px;
+			padding-left:20px;
+		}
+		
+		#purchaseBtn{
+			width: 80px;
+			height: 25px;
+			margin-top: 10px;
 		}
 		
 		.itemThumbNails {
@@ -26,7 +40,7 @@
 			margin: auto;
 		}
 		.itemNo{
-		width: 80px;
+			width: 80px;
 		}
 		.itemImg{
 			width: 200px;
@@ -38,8 +52,8 @@
 		.itemPrice{
 			width: 100px;
 		}
-		.purchase{
-			width: 100px;
+		.itemCnt{
+			width: 120px;
 		}
 	    .itemThumbNails{
 	        width: 150px;
@@ -53,7 +67,6 @@
     	}
 	</style>
 </head>
-
 <body>
 	<h2>장바구니</h2>
 	<hr>
@@ -65,7 +78,7 @@
 					<c:forEach begin="0" end = "${ordBrList.size()-1}" varStatus="brSts">
 						<c:if test="${brSts.first or (ordBrList[brSts.index].brNo != ordBrList[brSts.index-1].brNo)}">
 							<c:set var = "oipbInd" value = "${oipbInd+1}"/>
-							<fieldset id="fieldset">
+							<fieldset class="fieldset">
 								<legend>${ordBrList[brSts.index].getBrName()}</legend>
 								<input type="hidden" value="${ordBrList[brSts.index].getBrNo()}" name="brNo">
 								<table align="center" style="text-align: center">
@@ -95,9 +108,15 @@
 													<td class="itemPrice">
 														<fmt:formatNumber value="${ordItemList[itemSts.index].price}" type="number"/> 원
 													</td>
-													<td>
+													<td class="itemCnt">
+														<a href="${cp}/member/addcart?brNo=${ordBrList[itemSts.index].brNo}&itemNo=${ordItemList[itemSts.index].itemNo}&ordCnt=-1&status=cart">
+														<b>－</b>
+														</a>
 														<fmt:formatNumber value="${ordCntList[itemSts.index]}" type="number" /> 개
 														<input type="hidden" value="${ordCntList[itemSts.index]}" name="cntfbr${ordBrList[brSts.index].getBrNo()}">
+														<a href="${cp}/member/addcart?brNo=${ordBrList[itemSts.index].brNo}&itemNo=${ordItemList[itemSts.index].itemNo}&ordCnt=1&status=cart">
+														<b>＋</b>
+														</a>
 													</td>
 												</tr>
 											</c:if>
@@ -108,7 +127,7 @@
 						</c:if>
 					</c:forEach>
 					<input type="hidden" name="mbrNo" value="${mbrNo}" id="mbrNo"><br>
-					<fieldset id="fieldset">
+					<fieldset class="fieldset">
 						<legend>결제 금액</legend>
 						총 주문 금액:
 						<fmt:formatNumber value="${totAmt}" type="number"/>원<br>
@@ -125,7 +144,7 @@
 						결제 예정 금액<br>
 						<fmt:formatNumber value="${totAmt - discAmt + delFee*ordItemPerBr.size()}" type="number"/>원
 					</fieldset>
-					<input type="submit" value="구매하기">
+					<input type="submit" value="구매하기" id = "purchaseBtn">
 				</div>
 			</form>
 		</c:when>

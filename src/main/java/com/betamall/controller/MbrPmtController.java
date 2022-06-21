@@ -40,8 +40,7 @@ public class MbrPmtController extends HttpServlet{
 		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(mbrNo);
 		
 		for(int ordNo:ordNos) {
-			OrderDto ordDto = ordDao.select(ordNo);
-			totAmt = ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee;
+			totAmt += ordItemDao.getTotPmt(ordNo)-discAmt+delFee;
 		}
 		
 		MemberDto mbrDto = mbrDao.selectById(mbrId);
@@ -81,17 +80,19 @@ public class MbrPmtController extends HttpServlet{
 		int delFee = Integer.parseInt(req.getParameter("delFee"));
 		String[] sordNos = req.getParameterValues("ordNos");
 		
+		String recName = req.getParameter("recName");
+		String recTel = req.getParameter("recTel");
+		
     	for(int i = 0; i< sordNos.length; i++) {
     		
     		int ordNo = Integer.parseInt(sordNos[i]);
     		
-			String recTel = req.getParameter("recTel");
 			String recFullAdr = "(" + req.getParameter("recpostno") + ") " + req.getParameter("recAdr") + req.getParameter("recAdr1") + req.getParameter("recAdr2");
 			
 			OrderDto ordDto = ordDao.select(ordNo);
 			pmtDao.insert(new PmtDto(ordNo, ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee, "카드", null));
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
-			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recFullAdr, recTel));
+			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recName, recFullAdr, recTel));
 
 			// 트리거로 처리 
 			MemberDto mbrDto = mbrDao.selectById(mbrId);

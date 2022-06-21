@@ -18,6 +18,30 @@
 			margin-bottom: 27px;
 		}
 		
+		#purchaseWrap{
+			width: 700px;
+			margin: auto;
+		}
+		
+		.fieldset{
+			width: 400px;
+			padding-top:10px;
+			padding-right:20px;
+			padding-bottom:10px;
+			padding-left:20px;
+		}
+		
+		.contents{
+			width: 500px;
+			margin: auto;
+		}
+		
+		#purchaseBtn{
+			width: 80px;
+			height: 25px;
+			margin-top: 10px;
+		}
+		
 		.itemThumbNails {
 			width: 100px;
 		}
@@ -54,14 +78,16 @@
 	</style>
 </head>
 <body>
-	<h2>결제</h2>
+	<div id="purchaseWrap">
+	<h2>결제</h2><hr>
 	<c:choose>
 		<c:when test="${not empty ordNos}">
+			<div class = "contents">
 			<form method="post" action="${cp }/member/payment">
-				<fieldset id="fieldset">
+				<fieldset class="fieldset">
 					<legend>배송지 정보</legend>
 					받으시는 분<br>
-					<input type="text" name = "recName" value = "${recName}" readonly = "readonly"><br>
+					<input type="text" name = "recName" value = "${recName}"><br>
 					전화 번호<br>
 					<input type="text" name = "recTel" value = "${recTel}"><br>
 					우편 번호<br>
@@ -72,7 +98,7 @@
 					<input type="text" name = "recAdr2" value = "${recAdr2}"><br>
 				</fieldset>
 				<br>
-				<fieldset id="fieldset">
+				<fieldset class="fieldset">
 					<c:forEach var = "i" begin = "0" end = "${ordNos.size()-1}">
 					<input type="hidden" name="ordNos" value="${ordNos[i]}" id = "ordNos">
 					</c:forEach>
@@ -85,15 +111,16 @@
 					배송비:
 					<fmt:formatNumber value = "${delFee}" type = "number"/>
 					<input type="hidden" name = "delFee" value = "${delFee}" >
-					x <fmt:formatNumber value = "${ordItemPerBr.size()}" type = "number"/>
-					= <fmt:formatNumber value = "${delFee*ordItemPerBr.size()}" type = "number"/>원
-					<input type="hidden" name = "totDelFee" value = "${delFee*ordItemPerBr.size()}"> <br>
+					x <fmt:formatNumber value = "${ordNos.size()}" type = "number"/>
+					= <fmt:formatNumber value = "${delFee*ordNos.size()}" type = "number"/>원
+					<input type="hidden" name = "totDelFee" value = "${delFee*ordNos.size()}"> <br>
 					<hr>
 					결제 예정 금액<br>
-					<fmt:formatNumber value="${totAmt - discAmt + delFee*ordItemPerBr.size()}" type="number"/>원
+					<fmt:formatNumber value="${totAmt - discAmt + delFee*ordNos.size()}" type="number"/>원
 				</fieldset>
-				<input type="submit" value="결제하기">
+				<input type="submit" value="결제하기" id = "purchaseBtn">
 			</form>
+			</div>
 		</c:when>
 		<c:otherwise>
 		<div class = "nothing">
@@ -101,5 +128,6 @@
 		</div>
 		</c:otherwise>
 	</c:choose>
+	</div>
 </body>
 </html>
