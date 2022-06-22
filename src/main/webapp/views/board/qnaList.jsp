@@ -41,10 +41,10 @@
 							<c:when test="${dto.secret=='true' }">
 								<c:choose>
 									<c:when test="${dto.mbrId == id || role == 'admin' || role == 'admin0'}">
-										<td><a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }" style="color: #979897 ;">비밀글로 설정되었습니다.</a></td>
+										<td><a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }" style="color: #979897 ;">🔒비밀글로 설정되었습니다.</a></td>
 									</c:when>
 									<c:otherwise>
-										<td><a href="" style="color: #979897 ;" onclick="alert('본인글만 확일할 수 있습니다.')">비밀글로 설정되었습니다.</a></td>
+										<td><a href="" style="color: #979897 ;" onclick="alert('본인글만 확일할 수 있습니다.')">🔒비밀글로 설정되었습니다.</a></td>
 									</c:otherwise>
 								</c:choose>
 							</c:when>
