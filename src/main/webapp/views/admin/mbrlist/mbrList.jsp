@@ -62,8 +62,8 @@
                     <option value="mbrId" <c:if test="${field=='mbrId' }">selected</c:if>>회원아이디</option>
                     <option value="mbrName" <c:if test="${field=='mbrName' }">selected</c:if>>회원이름</option>
                 </select>
-                <input type="text" name="keyword" value="${keyword }">
-                <input type="submit" value="검색">
+                <input type="text" name="keyword" value="${keyword }" id="mbrList_search">
+                <input type="submit" value="검색" id="mbrList_search_btn">
             </form>
         </div>
         <a href="${cp }/admin/mbrlist" id="idTag">전체글 보기</a>&nbsp;|

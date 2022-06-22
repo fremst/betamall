@@ -1,39 +1,38 @@
 @charset "UTF-8";
 
 #mbrListWrap {
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 15px;
-    margin-left: 40px;
     align-content: center;
-
 }
 
 #mbrListTitle {
-    margin-left: 20px;
     margin-bottom: 10px;
 }
 
 #mbrList {
-    margin-left: 20px;
     text-align: center;
+    height: 350px;
 }
 
 #mbrTable {
-    width: 1000px;
+    width: 1010px;
     align-content: center;
+    height: 100%;
 }
 
 
 .mbrInfo_header {
-    height: 20px;
+    height: 25px;
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;
+    font-size: 18px;
 }
 
 
 .mbrInfo {
     font-size: 14px;
-    margin-right: 30px;
+    margin-bottom: 5px;
     border-bottom: 1px solid gray;
 }
 
@@ -41,12 +40,42 @@
     text-align: center;
     align-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#rowNum {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+#SrowNum {
+    margin-left: 5px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+#searchMbr {
     margin-bottom: 10px;
+    align-content: center;
+}
+
+#searchMbr>select {
+    width: 100px;
+    font-size: 15px;
+}
+
+#mbrList_search {
+    width: 200px;
+    font-size: 15px;
+}
+
+#mbrList_search_btn {
+    width: 50px;
+    font-size: 15px;
 }
 
 #mbrPageNav {
     text-align: center;
     align-content: center;
-    margin-left: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
