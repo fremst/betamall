@@ -62,4 +62,40 @@ public class OrdItemDao {
 		return 0;
 	}
 
+	public int reviewinsert(OrdItemDto dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "update orditem set review=?, rate=?, revdate=current_date where ordno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getReview());
+			pstmt.setInt(2, dto.getRate());
+			pstmt.setInt(3, dto.getOrdNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+	}
+	
+	public int reviewdelete(int ordNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql = "update orditem set review=null, rate=null, revdate=null where ordno=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, ordNo);
+			return pstmt.executeUpdate();
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, null);
+		}		
+	}
 }

@@ -66,6 +66,14 @@
 	<label id="detImg">상세이미지</label><br>
 	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
 	</div>
+	
+	---------------------------------------------------------
+	<div>
+		
+	
+	
+	</div>
+
 </body>
 <script type="text/javascript">
 	function deleteItem() {
