@@ -13,64 +13,68 @@
 <body>
 <div id="salesListWrap">
     <h2 id="salesListTitle">매출 조회</h2>
-    
-	<h3>검색 조건</h3>
+    <hr>
     <fieldset id="serachCondition">
+	   	<legend><h3 id = "title">검색 조건</h3></legend>
 		<form action="${cp}/admin/sales/list" method="post">
-		<div id="category">
-	    	<input type="checkbox" id="catName" name="catNameChk">
-			<label for="catName">분류명</label>
-				<div>
-					&emsp;<input type="radio" name="cat" value="mcat" checked="checked">
-					<label for="mcatName">대분류</label>
-					<select name="mcatName">
-						<c:forEach var="mcat" items="${mcatList}">
-							<option value="${mcat.mcatName}">${mcat.mcatName}</option>
-						</c:forEach>
-					</select>
-					<br>
-					&emsp;<input type="radio" name = "cat" value = "scat">
-					<label for="scatName">소분류</label>
-					<select name="scatName">
-						<c:forEach var="scat" items="${scatList}">
-							<option value="${scat.scatName}">${scat.scatName}</option>
-						</c:forEach>
-					</select>
-				</div>
-    	</div>
-    	<div id = "branch">
-			<input type="checkbox" id="brName" name="brNameChk">
-			<label for="brName">지점명</label>
-			<select name="brName">
-				<c:forEach var="br" items="${branchList}">
-					<option value="${br.brName}">${br.brName}</option>
-				</c:forEach>
-			</select>
+		<div id="textArea">
+			<div id="category">
+		    	<input type="checkbox" id="catName" name="catNameChk">
+				<label for="catName">분류명</label>
+					<div>
+						&emsp;<input type="radio" name="cat" value="mcat" checked="checked">
+						<label for="mcatName">대분류</label>
+						<select name="mcatName">
+							<c:forEach var="mcat" items="${mcatList}">
+								<option value="${mcat.mcatName}">${mcat.mcatName}</option>
+							</c:forEach>
+						</select>
+						<br>
+						&emsp;<input type="radio" name = "cat" value = "scat">
+						<label for="scatName">소분류</label>
+						<select name="scatName">
+							<c:forEach var="scat" items="${scatList}">
+								<option value="${scat.scatName}">${scat.scatName}</option>
+							</c:forEach>
+						</select>
+					</div>
+	    	</div>
+	    	<div id = "branch">
+				<input type="checkbox" id="brName" name="brNameChk">
+				<label for="brName">지점명</label>
+				<select name="brName">
+					<c:forEach var="br" items="${branchList}">
+						<option value="${br.brName}">${br.brName}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div id = "orderDate">
+				<input type="checkbox" id="ordDate" name="ordDateChk">
+				<label for="ordDate">주문일</label>
+				<input type="date" name="ordStartDate" id="ordStartDate">
+				~
+				<input type="date" name="ordEndDate" id="ordEndDate">
+			</div>
+			<div id = "paymentDate">
+				<input type="checkbox" id="pmtDate" name="pmtDateChk">
+				<label for="pmtDate">결제일</label>
+				<input type="date" name="pmtStartDate" id="pmtStartDate">
+				~
+				<input type="date" name="pmtEndDate" id="pmtEndDate">
+			</div>
+			<div id="item">
+				<input type="checkbox" id="itemName" name="itemNameChk">
+				<label for="itemName">상품명</label>
+				<input type="text" name="itemName">
+			</div>
 		</div>
-		<div id = "orderDate">
-			<input type="checkbox" id="ordDate" name="ordDateChk">
-			<label for="ordDate">주문일</label>
-			<input type="date" name="ordStartDate">
-			~
-			<input type="date" name = "ordEndDate">
+		<div id="btnArea">
+			<input type="submit" value = "검색" name = "itemName" id="searchBtn">
+			<input type="button" value = "전체 보기" name = "itemName" id="allBtn" onclick="location.href='${cp}/admin/sales/list'">
 		</div>
-		<div id = "paymentDate">
-			<input type="checkbox" id="pmtDate" name="pmtDateChk">
-			<label for = "pmtDate">결제일</label>
-			<input type="date" name="pmtStartDate">
-			~
-			<input type="date" name="pmtEndDate">
-		</div>
-		<div id="item">
-			<input type="checkbox" id="itemName" name="itemNameChk">
-			<label for="itemName">상품명</label>
-			<input type="text" name="itemName">
-		</div>
-			<input type="submit" value = "검색" name = "itemName">
-			<input type="button" value = "전체 보기" name = "itemName">
 		</form>
     </fieldset>
-    
+    <br>
     <h3>조회 결과</h3>
     <div id="salesList">
         <c:set var="cp" value="${pageContext.request.contextPath }"/>
@@ -154,4 +158,29 @@
     --%>
 </div>
 </body>
+<script type="text/javascript">
+
+	let ordStartDate = document.getElementById('ordStartDate');
+	let ordEndDate = document.getElementById('ordEndDate');
+	let pmtStartDate = document.getElementById('pmtStartDate');
+	let pmtEndDate = document.getElementById('pmtEndDate');
+	
+	ordStartDate.addEventListener('change', function() {
+	    if (ordStartDate.value)
+	    	ordEndDate.min = ordStartDate.value;
+	}, false);
+	pmtStartDate.addEventListener('change', function() {
+	    if (pmtStartDate.value)
+	    	pmtEndDate.min = pmtStartDate.value;
+	}, false);
+	pmtEndDate.addEventListener('change', function() {
+	    if (pmtEndDate.value)
+	    	pmtStartDate.max = pmtEndDate.value;
+	}, false);
+	ordEndDate.addEventListener('change', function() {
+	    if (ordEndDate.value)
+	    	ordStartDate.max = ordEndDate.value;
+	}, false);
+		
+</script>
 </html>

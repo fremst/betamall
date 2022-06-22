@@ -36,25 +36,24 @@ public class SalesListController extends HttpServlet {
         
         if(req.getParameter("ordDateChk")!=null) {
         	if(!req.getParameter("ordStartDate").equals("")) {
-        		query += "AND ORDDATE >= TO_DATE('" + req.getParameter("ordStartDate") + "','YYYY-MM-DD') ";
+        		query += "AND ORDDATE >= TRUNC(TO_DATE('" + req.getParameter("ordStartDate") + "','YYYY-MM-DD'),'DD') ";
         	}
         	if(!req.getParameter("ordEndDate").equals("")) {
-        		query += "AND ORDDATE <= TO_DATE('" + req.getParameter("ordEndDate") + "','YYYY-MM-DD') ";
+        		query += "AND ORDDATE < TRUNC(TO_DATE('" + req.getParameter("ordEndDate") + "','YYYY-MM-DD'),'DD')+1 ";
         	}
         }
+
         if(req.getParameter("pmtDateChk")!=null) {
         	if(!req.getParameter("pmtStartDate").equals("")) {
-        		query += "AND PMTDATE >= TO_DATE('" + req.getParameter("pmtStartDate") + "','YYYY-MM-DD') ";
+        		query += "AND PMTDATE >= TRUNC(TO_DATE('" + req.getParameter("pmtStartDate") + "','YYYY-MM-DD'),'DD') ";
         	}
         	if(!req.getParameter("pmtEndDate").equals("")) {
-        		query += "AND PMTDATE <= TO_DATE('" + req.getParameter("pmtEndDate") + "','YYYY-MM-DD') ";
+        		query += "AND ORDDATE < TRUNC(TO_DATE('" + req.getParameter("pmtEndDate") + "','YYYY-MM-DD'),'DD')+1 ";
         	}
         }
         if(req.getParameter("itemNameChk")!=null) {
     		query += "AND ITEMNAME LIKE '%" + req.getParameter("itemName") + "%'";
         }
-        
-        System.out.println(query);
     	
     	SalesInfoDao salesInfoDao = SalesInfoDao.getInstance();
         ArrayList<SalesInfoDto> salesInfoList = salesInfoDao.selectByQuery(query);
@@ -65,6 +64,7 @@ public class SalesListController extends HttpServlet {
         req.setAttribute("branchList", BranchDao.getInstance().selectAll());
 
         req.setAttribute("mainPage", "/views/admin/sales/salesList.jsp");
+        req.setAttribute("mainPageTitle", "Betamall - 매출 조회");
         req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
     }
 }

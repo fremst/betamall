@@ -5,17 +5,44 @@
     margin-bottom: 15px;
     margin-left: 40px;
     align-content: center;
-
 }
 
 #salesListTitle {
-    margin-left: 20px;
     margin-bottom: 10px;
 }
 
+#title{
+	text-align: center;
+}
+
 #salesList {
-    margin-left: 20px;
     text-align: center;
+}
+
+#serachCondition{
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 5px 20px 15px 15px;
+}
+
+#textArea{
+	width: 400px;
+}
+
+#btnArea{
+	float: right;
+}
+
+#searchBtn{
+	width: 50px;
+	height: 25px;
+}
+
+#allBtn{
+	width: 70px;
+	height: 25px;
 }
 
 #salesTable {
@@ -23,15 +50,14 @@
     align-content: center;
 }
 
-
 .salesInfo_header {
-    height: 20px;
+    height: 25px;
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;
 }
 
-
 .salesInfo {
+	height: 25px;
     font-size: 14px;
     margin-right: 30px;
     border-bottom: 1px solid gray;
