@@ -25,10 +25,46 @@ public class MbrPmtController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+//		ArrayList<ItemDto> ordItemList = new ArrayList<ItemDto>();
+//    	ArrayList<BranchDto> ordBrList = new ArrayList<BranchDto>();
+//    	ArrayList<Integer> ordCntList = new ArrayList<Integer>();
+//    	ArrayList<Integer> ordItemPerBr = new ArrayList<Integer>();
+//		
+//		TreeMap<ArrayList<Integer>, Integer> cart = new TreeMap<ArrayList<Integer>, Integer>(new Comparator<ArrayList<Integer>>() {
+//			@Override
+//			public int compare(ArrayList<Integer> ordKey1, ArrayList<Integer> ordKey2) {
+//				
+//				int brNo1 = ordKey1.get(0);
+//				int itemNo1 = ordKey1.get(1);
+//				int brNo2 = ordKey2.get(0);
+//				int itemNo2 = ordKey2.get(1);
+//				
+//				if(brNo1 != brNo2) {
+//					return brNo1 - brNo2; 
+//				}else {
+//					return itemNo1 - itemNo2;
+//				}
+//			}
+//		});
+//		
+//		ArrayList<Integer> ordKey = new ArrayList<>(Arrays.asList(brNo, itemNo));
+//		if(cart.get(ordKey) == null) {
+//			cart.put(ordKey, ordCnt);
+//		}else {
+//			cart.put(ordKey, cart.get(ordKey) + ordCnt);
+//		}
+//		
+//		req.setAttribute("ordBrList", ordBrList);
+//		req.setAttribute("ordItemList", ordItemList);
+//		req.setAttribute("ordCntList", ordCntList);
+//		req.setAttribute("ordItemPerBr", ordItemPerBr);
+		
+    	
 		OrderDao ordDao = OrderDao.getInstance();
 		OrdItemDao ordItemDao = OrdItemDao.getInstance();
 		
 		HttpSession session = req.getSession();
+		
 		MemberDao mbrDao = MemberDao.getInstance();
 		String mbrId = (String)session.getAttribute("id");
 		int mbrNo = mbrDao.selectById(mbrId).getMbrNo();
@@ -99,8 +135,9 @@ public class MbrPmtController extends HttpServlet{
 			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
 			mbrDao.update(mbrDto);
 		}
-		
-		session.removeAttribute("cart");
+    	
+    	session.removeAttribute("cart");
+		session.removeAttribute("IpOrd");
 		resp.sendRedirect(req.getContextPath() + "/item/search");
 		
 	}

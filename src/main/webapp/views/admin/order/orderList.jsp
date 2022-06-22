@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="orderListWrap">
-    <h2 id="orderListTitle">${brName} 주문 관리</h2>
+    <h2 id="orderListTitle">주문 관리</h2>
 	<h3>검색 조건</h3>
 	<form action="${cp}/admin/order/list" method="get">
 		<input type="checkbox" id="ordSta" name="ordStaChk" checked="checked">

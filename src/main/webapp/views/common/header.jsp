@@ -11,7 +11,8 @@
 	<div class="headers">
 		<div class="search_area">
 			<form action = "${cp}/item/search">
-				<input type="search" name=itemName placeholder="상품명 입력" id="search">
+				<input type="hidden" name=field value="itemName">
+				<input type="search" name=keyword placeholder="상품명 입력" id="search">
 				<input type="submit" value="검색" id="search_btn">
 			</form>
 		</div>
@@ -39,22 +40,25 @@
 					<li><a href="${cp }/login">로그인</a></li>
 					<li><a href="${cp }/join/termsofuse">회원가입</a></li>
 				</c:if>
-				<c:choose>
-					<c:when test="${(role == 'admin0' || role == 'admin') && empty adminPage}">
-						<li><a href="${cp}/admin/item/list">관리자페이지</a></li>
-					</c:when>
-				</c:choose>
 			</ul>
 		</div>
 	</div>
-	<div class ="quickMenu">
-		<a href = "${cp}/member/mypage"><img src = "${cp}/resources/images/mypage.png" width = "30px"></a>
-		<a href = "${cp}/member/cart"><img src = "${cp}/resources/images/cart.png" width = "30px"></a>
-	</div>
+		<div class ="quickMenu">
+		<c:choose>
+			<c:when test="${role == 'admin0' || role == 'admin' }">
+				<a href = "${cp}/admin/item/list"><img src = "${cp}/resources/images/adminpage.png" width = "30px"></a>
+			</c:when>
+			<c:otherwise>
+				<a href = "${cp}/member/mypage"><img src = "${cp}/resources/images/mypage.png" width = "30px"></a>
+				<a href = "${cp}/member/cart"><img src = "${cp}/resources/images/cart.png" width = "30px"></a>
+			</c:otherwise>
+		</c:choose>
+		</div>
 	<div class="cate">
 		<ul class="nav2">
 			<c:choose>
 				<c:when test="${role == 'member' || empty adminPage}">
+						<li><a href="${cp}/item/search">전체</a></li>
 					<c:forEach var="i" begin="0" end="${mcatNames.size()-1}">
 						<li><a href="${cp}/item/search?field=mcatName&keyword=${mcatNames[i]}">${mcatNames[i]}</a></li>
 					</c:forEach>

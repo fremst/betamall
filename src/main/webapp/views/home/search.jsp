@@ -156,7 +156,7 @@
 				                <c:when test="${iDto.stkCnt>0}">
 					                <td>
 					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur"
-					                	class="pcBtns" onclick="addCart()">장바구니</a><br><br>
+					                	class="pcBtns" onclick="return addCart()">장바구니</a><br><br>
 					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart"
 					                	class="pcBtns" onclick="return purchase()">바로구매</a>
 					                </td>
@@ -183,20 +183,35 @@
 
 function addCart(){
 	if(${empty id}){
-		alert('로그인이 필요한 기능입니다.')
+		alert('로그인이 필요한 서비스입니다.')
+		return true;
 	}else{
-		alert('장바구니에 성공적으로 담겼습니다.')
+		if(${IpOrd == 'true'}){
+			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
+			 	location.href="${cp}/member/payment";
+			}
+		}else{
+			alert('장바구니에 성공적으로 담겼습니다.')
+			return true;
+		}
 	}
+	return false;
 }
 
 function purchase(){
 	if(${empty id}){
-		alert('로그인이 필요한 기능입니다.')
+		alert('로그인이 필요한 서비스입니다.');
 		return true;
 	}else{
-		return confirm('바로 구매 하시겠습니까?')
+		if(${IpOrd == 'true'}){
+			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
+			 	location.href="${cp}/member/payment";
+			}
+		}else{
+			return confirm('바로 구매 하시겠습니까?');
+		}
 	}
+	return false;
 }
-
 </script>
 </html>

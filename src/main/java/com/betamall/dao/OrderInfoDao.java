@@ -63,4 +63,40 @@ public class OrderInfoDao {
 		}
 	}
 	
+	public OrderInfoDto selectByMbrNo(int mbrNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDARRD "
+					+ "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
+					+ "WHERE MBRNO = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return new OrderInfoDto(
+								rs.getInt("ORDNO"),
+								rs.getInt("ITEMNO"),
+								rs.getString("ITEMNAME"),
+								rs.getInt("ORDCNT"),
+								rs.getInt("PRICE"),
+								rs.getDate("ORDDATE"),
+								rs.getString("ORDSTA"),
+								rs.getString("MBRID"),
+								rs.getString("ORDNAME"),
+								rs.getString("ORDTEL"),
+								rs.getString("ORDARRD")
+								);
+			}
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
 }

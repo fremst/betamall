@@ -16,6 +16,7 @@ import com.betamall.dao.ItemDao;
 import com.betamall.dao.MemberDao;
 import com.betamall.dao.OrdItemDao;
 import com.betamall.dao.OrderDao;
+import com.betamall.dao.StockDao;
 import com.betamall.dto.BranchDto;
 import com.betamall.dto.ItemDto;
 import com.betamall.dto.OrdItemDto;
@@ -31,17 +32,12 @@ public class MbrCartController extends HttpServlet {
     	MemberDao mbrDao = MemberDao.getInstance();
     	ItemDao itemDao = ItemDao.getInstance();
     	BranchDao brDao = BranchDao.getInstance();
-    	OrderDao ordDao = OrderDao.getInstance();
     	
     	int mbrNo = mbrDao.selectById((String)session.getAttribute("id")).getMbrNo();
-    	
-    	System.out.println(ordDao.getIpOrdNos(mbrNo));
-    	
-    	if((ordDao.getIpOrdNos(mbrNo) != null) && (ordDao.getIpOrdNos(mbrNo).size() != 0)) {
-    		// session.setAttribute("inPurchase", "true");
+    	if(session.getAttribute("IpOrd") != null) {
     		resp.sendRedirect(req.getContextPath() + "/member/payment");
     	}else{
-    	
+    		
 	    	@SuppressWarnings("unchecked")
 	    	TreeMap<ArrayList<Integer>, Integer> cart = (TreeMap<ArrayList<Integer>, Integer>) session.getAttribute("cart");
 	    	
@@ -50,19 +46,32 @@ public class MbrCartController extends HttpServlet {
 	    	ArrayList<Integer> ordCntList = new ArrayList<Integer>();
 	    	ArrayList<Integer> ordItemPerBr = new ArrayList<Integer>();
 	    	
-	    	if(cart == null) {
-	    		System.out.println("담긴 상품 없음");
-	    	}else {
+	    	StockDao stkDao = StockDao.getInstance();
+	    	
+	    	if(cart != null) {
+	    		
 	    		req.setAttribute("mbrNo", mbrNo);
-	    		cart.forEach((k, v) -> {
+	    		cart.forEach((brNoNitemNo, ordCnt) -> {
 	    			
-	    			if(v > 0) {
-	    				ordBrList.add(brDao.select(k.get(0)));
-	    				ordItemList.add(itemDao.select(k.get(1)));
-	    				ordCntList.add(v);
+	    			int brNo = brNoNitemNo.get(0);
+    				int itemNo = brNoNitemNo.get(1);
+    				int stkCnt = stkDao.select(itemNo, brNo).getStkCnt();
+    				
+    				if(stkCnt < ordCnt) {
+    					ordCnt = stkCnt;
+    					cart.replace(brNoNitemNo, ordCnt);
+    				}
+    				
+	    			if(ordCnt > 0) {
+	    				BranchDto brDto = brDao.select(brNo);
+	    				ItemDto itemDto = itemDao.select(itemNo);
+	    				
+	    				ordBrList.add(brDto);
+	    				ordItemList.add(itemDto);
+	    				ordCntList.add(ordCnt);
 	    			}
-	    			req.setAttribute("ordItemList", ordItemList);
 	    			req.setAttribute("ordBrList", ordBrList);
+	    			req.setAttribute("ordItemList", ordItemList);
 	    			req.setAttribute("ordCntList", ordCntList);
 	    		});
 	    		
@@ -72,19 +81,8 @@ public class MbrCartController extends HttpServlet {
 	    			}else {
 	    				ordItemPerBr.set(ordItemPerBr.size()-1, ordItemPerBr.get(ordItemPerBr.size()-1)+1);
 	    			}
-
-	    			/* System.out.println("ordItemList\n"+ordItemList);
-	    			System.out.println("ordBrList\n"+ordBrList);
-	    			System.out.println("ordCntList\n"+ordCntList);
-	    			System.out.println("ordItemPerBr\n"+ordItemPerBr); */
 	    			req.setAttribute("ordItemPerBr", ordItemPerBr);
 	    		}
-	    		
-//	    		for(int i = 0; i < ordBrList.size(); i++) {
-//	    			if(ordItemPerBr.get(i) < 1) {
-//	    				
-//	    			}
-//	    		}
 
 	    		int totAmt = 0;
 	    		int discAmt = 0;
@@ -123,7 +121,7 @@ public class MbrCartController extends HttpServlet {
             if(n1 < 0) {
             	System.out.println("에러 발생");
             }
-        	
+            
         	String[] itemNos = req.getParameterValues("itemNofbr"+brNo);
         	String[] cntNos = req.getParameterValues("cntfbr"+brNo);
         	
@@ -136,12 +134,15 @@ public class MbrCartController extends HttpServlet {
             	OrdItemDto ordItemDto = new OrdItemDto(ordNo, itemNo, ordCnt, null, 0, null);
             	
             	int n2 = ordItemDao.insert(ordItemDto);
-            	
-                if(n2 < 0) {
+            	int n3 = StockDao.getInstance().changeStock(ordNo, -1);
+
+            	if(n2 < 0 || n3 < 0) {
                 	System.out.println("에러 발생");
                 }
         	}
     	}
+    	//req.getSession().removeAttribute("cart");
+    	req.getSession().setAttribute("IpOrd", "true");
     	resp.sendRedirect(req.getContextPath() + "/member/payment");
     }
 }

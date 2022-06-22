@@ -75,11 +75,10 @@ public class StockDao {
 			con = JdbcUtil.getCon();
 			String sql = "UPDATE STOCK ST "
 					+ "SET STKCNT = STKCNT + ?*(SELECT ORDCNT "
-					+                          "FROM ORDITEM "
-					+                          "WHERE ORDNO = ? AND ITEMNO = ST.ITEMNO) "
-					+ "WHERE BRNO = (SELECT \"ORDER\".BRNO FROM PMT, \"ORDER\""
-					+ 			    "WHERE PMT.ORDNO=\"ORDER\".ORDNO AND PMT.ORDNO = ?) "
-					+ "AND ITEMNO IN (SELECT ORDITEM.ITEMNO FROM PMT, ORDITEM WHERE PMT.ORDNO = ORDITEM.ORDNO AND PMT.ORDNO = ?)";
+					+ "                          FROM ORDITEM "
+					+ "                          WHERE ORDNO = ? AND ITEMNO = ST.ITEMNO) "
+					+ "WHERE BRNO = (SELECT BRNO FROM \"ORDER\" WHERE ORDNO = ?) "
+					+ "  AND ITEMNO IN (SELECT ITEMNO FROM ORDITEM WHERE ORDNO = ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, sign);
 			pstmt.setInt(2, ordNo);
@@ -93,5 +92,32 @@ public class StockDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}
 	}
+	
+//	public int changeStock(int ordNo, int sign) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		try {
+//			con = JdbcUtil.getCon();
+//			String sql = "UPDATE STOCK ST "
+//					+ "SET STKCNT = STKCNT + ?*(SELECT ORDCNT "
+//					+                          "FROM ORDITEM "
+//					+                          "WHERE ORDNO = ? AND ITEMNO = ST.ITEMNO) "
+//					+ "WHERE BRNO = (SELECT \"ORDER\".BRNO FROM PMT, \"ORDER\""
+//					+ 			    "WHERE PMT.ORDNO=\"ORDER\".ORDNO AND PMT.ORDNO = ?) "
+//					+ "AND ITEMNO IN (SELECT ORDITEM.ITEMNO FROM PMT, ORDITEM WHERE PMT.ORDNO = ORDITEM.ORDNO AND PMT.ORDNO = ?)";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, sign);
+//			pstmt.setInt(2, ordNo);
+//			pstmt.setInt(3, ordNo);
+//			pstmt.setInt(4, ordNo);
+//			return pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return -1;
+//		} finally {
+//			JdbcUtil.close(con, pstmt, rs);
+//		}
+//	}
 	
 }

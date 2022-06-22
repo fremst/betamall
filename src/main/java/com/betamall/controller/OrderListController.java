@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.betamall.dao.BranchDao;
 import com.betamall.dao.ManagerDao;
-import com.betamall.dao.OrderDao;
 import com.betamall.dao.OrderInfoDao;
 import com.betamall.dto.ManagerDto;
-import com.betamall.dto.OrderDto;
 import com.betamall.dto.OrderInfoDto;
+import com.betamall.service.ChangeOrder;
 
 @WebServlet("/admin/order/list")
 @SuppressWarnings("serial")
@@ -47,10 +46,8 @@ public class OrderListController extends HttpServlet {
     	if(sordNo != null) {
     		int ordNo = Integer.parseInt(sordNo);
         	String ordSta = req.getParameter("ordSta");
-        	OrderDao orderDao = OrderDao.getInstance();
-        	OrderDto orderDto = orderDao.select(ordNo);
-        	orderDto.setOrdSta(ordSta);
-        	int n = orderDao.update(orderDto);
+        	int n = ChangeOrder.changeOrdSta(ordNo, ordSta);
+        	
         	if(n>0) {
         		resp.sendRedirect(req.getContextPath() + "/admin/order/list");
         	}
@@ -58,4 +55,5 @@ public class OrderListController extends HttpServlet {
     		resp.sendRedirect(req.getContextPath() + "/admin/order/list");
     	}
     }
+	
 }
