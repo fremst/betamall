@@ -14,14 +14,24 @@
 	<label>내용</label><br>
 	<textarea rows="10" cols="100" name="qnaCon" readonly="readonly">${dto.qnaCon }</textarea><br>
 	<c:choose>
+		<c:when test="${idto.itemName==null }">
+		</c:when>
+		<c:otherwise>
+			<h2>${idto.itemName }</h2>
+			<img src="${cp}/resources/uploads/admin/item/${idto.tImg }" style='width: 500px; height:500px'><br>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
 		<c:when test="${dto.qnaFile==null }">
 		</c:when>
 		<c:otherwise>
 			<img src="${cp}/resources/uploads/admin/board/${dto.qnaFile }" style='width: 500px; height:500px'><br>
 		</c:otherwise>
 	</c:choose>
-	<button onclick="location.href='${cp }/board/qnaupdate?qnaNo=${dto.qnaNo}'">수정</button>
-	<button id="del" onclick="deleteCheck()">삭제</button>
+	<c:if test="${role == 'admin0' || role == 'admin' || dto.mbrNo == mbrNo }">
+		<button onclick="location.href='${cp }/board/qnaupdate?qnaNo=${dto.qnaNo}'">수정</button>
+		<button id="del" onclick="deleteCheck()">삭제</button>
+	</c:if>
 	<button onclick="location.href='${cp }/board/qnalist'">목록으로</button>
 </body>
 <script type="text/javascript">

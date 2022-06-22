@@ -19,7 +19,7 @@ public class NoticeDeleteController extends HttpServlet{
 		BoardDao dao=BoardDao.getInstance();
 		int n = dao.delete(brdNo);
 		if(n>0) {
-			req.setAttribute("code","success");
+			req.setAttribute("code","noticedelete");
 		}else {
 			req.setAttribute("code","fail");
 		}

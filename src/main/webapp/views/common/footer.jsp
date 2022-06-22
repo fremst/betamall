@@ -22,7 +22,7 @@
 	</div>
 	<div class="customer_center">
 		<p style="color: black;">
-		고객센터 바로가기 ><br>
+		<a href="${cp}/board/list" style="color: black;">고객센터 바로가기 ></a><br>
 		</p>
 		<p style="color: white; font-size:12px;">						
 			운영시간 오전 10시 ~ 오후 5시 (주말, 공휴일 휴무)<br>

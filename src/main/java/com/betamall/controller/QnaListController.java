@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.QnaDao;
 import com.betamall.dto.QnaDto;
@@ -45,6 +46,12 @@ public class QnaListController extends HttpServlet{
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("field", field);
 		req.setAttribute("keyword", keyword);
+		
+		HttpSession session = req.getSession();
+		String role = (String)session.getAttribute("role");
+		String id = (String)session.getAttribute("id");
+		req.setAttribute("role", role);
+		req.setAttribute("id", id);
 
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 목록");
 		req.setAttribute("mainPage", "/views/board/qnaList.jsp");

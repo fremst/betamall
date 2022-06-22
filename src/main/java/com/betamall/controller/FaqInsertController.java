@@ -36,7 +36,6 @@ public class FaqInsertController extends HttpServlet{
 		ManagerDao mdao = ManagerDao.getInstance();
 		ManagerDto mdto = mdao.selectById(mgrId);
 		int mgrNo = mdto.getMgrNo();
-		// 접속자가 회원인 경우 예외 처리
 		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/board");
@@ -67,7 +66,7 @@ public class FaqInsertController extends HttpServlet{
 		int n = dao.insert(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","success");
+			req.setAttribute("code","faqinsert");
 		}else {
 			req.setAttribute("code","fail");
 		}

@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betamall.dao.ManagerDao;
+import com.betamall.dao.ItemDao;
 import com.betamall.dao.MemberDao;
 import com.betamall.dao.QnaDao;
-import com.betamall.dto.ManagerDto;
+import com.betamall.dto.ItemDto;
 import com.betamall.dto.MemberDto;
 import com.betamall.dto.QnaDto;
 
@@ -26,17 +26,22 @@ public class QnaDetailController extends HttpServlet{
 		QnaDto dto = dao.select(qnaNo);
 		req.setAttribute("dto", dto);
 		
+		int itemNo=Integer.parseInt(req.getParameter("itemNo"));
+		ItemDao iDao=ItemDao.getInstance();
+		ItemDto iDto=iDao.select(itemNo);
+		req.setAttribute("idto", iDto);
+		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("id")!=null) {
-			String Id = (String)session.getAttribute("id");
-			ManagerDao mdao = ManagerDao.getInstance();
-			ManagerDto mdto = mdao.selectById(Id);
-			MemberDao memberdao = MemberDao.getInstance();
-			MemberDto memberdto = memberdao.selectById(Id);
-			int mgrNo = mdto.getMgrNo();
-			int mbrNo =  memberdto.getMbrNo();
-			req.setAttribute("mgrNo", mgrNo);
-			req.setAttribute("mbrNo", mbrNo);
+		if(session.getAttribute("role")!=null) {
+			if(session.getAttribute("role") == "member") {
+				String Id = (String)session.getAttribute("id");
+				MemberDao mdao = MemberDao.getInstance();
+				MemberDto mdto = mdao.selectById(Id);
+				int mbrNo =  mdto.getMbrNo();
+				req.setAttribute("mbrNo", mbrNo);
+			}
+			String role = (String)session.getAttribute("role");
+			req.setAttribute("role", role);
 		}
 		
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 보기");

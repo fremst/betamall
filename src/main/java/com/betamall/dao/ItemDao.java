@@ -251,4 +251,36 @@ public class ItemDao {
 			JdbcUtil.close(con,pstmt,null);
 		}
 	}
+	
+	public ArrayList<ItemDto> selectAll(){
+		String sql="select * from item";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			ArrayList<ItemDto> list=new ArrayList<ItemDto>();
+			while(rs.next()) {
+				int itemNo=rs.getInt("ITEMNO");
+				int mcatNo=rs.getInt("MCATNO");
+				int scatNo=rs.getInt("SCATNO");
+				String itemName=rs.getString("ITEMNAME");
+				String tImg=rs.getString("TIMG");
+				String detImg=rs.getString("DETIMG");
+				String hash=rs.getString("HASH");
+				int price = rs.getInt("PRICE");
+				boolean itemDel=rs.getBoolean("ITEMDEL");
+				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}
 }

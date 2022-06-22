@@ -19,7 +19,7 @@ public class FaqDeleteController extends HttpServlet{
 		BoardDao dao=BoardDao.getInstance();
 		int n = dao.delete(brdNo);
 		if(n>0) {
-			req.setAttribute("code","success");
+			req.setAttribute("code","faqdelete");
 		}else {
 			req.setAttribute("code","fail");
 		}

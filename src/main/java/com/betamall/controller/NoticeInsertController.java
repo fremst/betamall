@@ -37,7 +37,6 @@ public class NoticeInsertController extends HttpServlet{
 		ManagerDao mdao = ManagerDao.getInstance();
 		ManagerDto mdto = mdao.selectById(mgrId);
 		int mgrNo = mdto.getMgrNo();
-		// 접속자가 회원인 경우 예외 처리
 		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/board");
@@ -71,11 +70,11 @@ public class NoticeInsertController extends HttpServlet{
 		int n = dao.insert(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","success");
+			req.setAttribute("code","noticeinsert");
 		}else {
 			req.setAttribute("code","fail");
 		}
-		
+
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
 		req.setAttribute("mainPage", "/views/board/result.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
