@@ -34,7 +34,7 @@ public class QnaDao {
 					+ "("
 					+ "    select aa.*,rownum rnum from"
 					+ "    ("
-					+ "	      select * from qna where "+ field + " like '%"+ keyword + "%'"
+					+ "	      select * from qna q inner join member m on q.mbrno=m.mbrno where "+ field + " like '%"+ keyword + "%'"
 					+ "	      order by qnano desc"
 					+ "    )aa"
 					+ ") "
@@ -50,6 +50,7 @@ public class QnaDao {
 			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
 			ArrayList<QnaDto> list=new ArrayList<QnaDto>();
+			MemberDao dao=MemberDao.getInstance();
 			while(rs.next()) {
 				int qnaNo=rs.getInt("qnano");
 				int mbrNo=rs.getInt("mbrNo");
@@ -62,7 +63,7 @@ public class QnaDao {
 				Date qnaWdate=rs.getDate("qnawdate");
 				Date qnaMdate=rs.getDate("qnamdate");
 				boolean qnaDel=rs.getBoolean("qnadel");
-				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel);
+				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel, dao.select(mbrNo).getMbrId());
 				list.add(dto);
 			}
 			return list;
@@ -106,7 +107,7 @@ public class QnaDao {
 			String sql="insert into qna values(seq_qna.nextval,?,?,?,?,?,?,?,current_date,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,dto.getMbrNo());
-			pstmt.setInt(2,dto.getItemNo());
+			pstmt.setObject(2,dto.getItemNo());
 			pstmt.setString(3,dto.getQnaCat());
 			pstmt.setString(4,dto.getQnaTitle());
 			pstmt.setString(5,dto.getQnaCon());
@@ -165,6 +166,29 @@ public class QnaDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setBoolean(1, true);
 			pstmt.setInt(2, qnaNo);
+			return pstmt.executeUpdate();
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, null);
+		}		
+	}
+	
+	public int update(QnaDto dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="update qna set itemno=?, qnacat=?, qnatitle=?, qnacon=?, qnafile=?, secret=?, qnamdate=current_date where qnano=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setObject(1, dto.getItemNo());
+			pstmt.setString(2, dto.getQnaCat());
+			pstmt.setString(3, dto.getQnaTitle());
+			pstmt.setString(4, dto.getQnaCon());
+			pstmt.setString(5, dto.getQnaFile());
+			pstmt.setBoolean(6, dto.isSecret());
+			pstmt.setInt(7, dto.getQnaNo());
 			return pstmt.executeUpdate();
 		}catch(SQLException s) {
 			s.printStackTrace();

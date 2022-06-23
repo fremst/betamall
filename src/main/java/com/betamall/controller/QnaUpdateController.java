@@ -22,16 +22,20 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/qnainsert")
-public class QnaInsertController extends HttpServlet{
+@WebServlet("/board/qnaupdate")
+public class QnaUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int qnaNo=Integer.parseInt(req.getParameter("qnaNo"));
+		QnaDao dao=QnaDao.getInstance();
+		QnaDto dto = dao.select(qnaNo);
 		ItemDao idao = ItemDao.getInstance();
 		ArrayList<ItemDto> idto = idao.selectAll();
-		req.setAttribute("idto", idto);
 		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
-		req.setAttribute("mainPage", "/views/board/qnaInsertForm.jsp");
+		req.setAttribute("dto", dto);
+		req.setAttribute("idto", idto);
+		req.setAttribute("mainPageTitle", "Betamall - 게시글 수정");
+		req.setAttribute("mainPage", "/views/board/qnaModForm.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 	
@@ -45,7 +49,7 @@ public class QnaInsertController extends HttpServlet{
 		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/board");
-		
+
 		MultipartRequest mr = new MultipartRequest(
 			req,
 			saveDir,
@@ -54,7 +58,8 @@ public class QnaInsertController extends HttpServlet{
 			new DefaultFileRenamePolicy()
 		);
 		
-		Integer itemNo = (mr.getParameter("itemNo") == null) ? null : Integer.parseInt(mr.getParameter("itemNo"));
+		int qnaNo = Integer.parseInt(mr.getParameter("qnaNo"));
+		int itemNo = (mr.getParameter("itemNo") == null) ? null : Integer.parseInt(mr.getParameter("itemNo"));
 		String qnaCat = mr.getParameter("qnaCat");
 		String qnaTitle = mr.getParameter("qnaTitle");
 		String qnaCon = mr.getParameter("qnaCon");
@@ -69,19 +74,21 @@ public class QnaInsertController extends HttpServlet{
 			saveFileName= qnaCat + "+" + qnaTitle + fileExt;
 			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		}
-		QnaDto dto = new QnaDto(0, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, saveFileName, secret, null, null, false);
+		
+		QnaDto dto = new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, saveFileName, secret, null, null, false);
 		QnaDao dao = QnaDao.getInstance();
-
-		int n = dao.insert(dto);
+		int n=dao.update(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","qnainsert");
+			req.setAttribute("dto", dto);
+			req.setAttribute("mainPageTitle", "Betamall - 게시글 상세 보기");
+			req.setAttribute("mainPage", "/views/board/qnaDetail.jsp?qnaNo="+qnaNo);
+			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}else {
-			req.setAttribute("code","fail");
+			req.setAttribute("dto", dto);
+			req.setAttribute("mainPageTitle", "Betamall - 게시글 상세 보기");
+			req.setAttribute("mainPage", "/views/board/qnaDetail.jsp?qnaNo="+qnaNo);
+			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 		}
-		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
 	}
 }

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class QnaDto {
 	private int qnaNo;
 	private int mbrNo;
-	private int itemNo;
+	private Integer itemNo;
 	private String qnaCat;
 	private String qnaTitle;
 	private String qnaCon;
@@ -14,10 +14,11 @@ public class QnaDto {
 	private Date qnaWdate;
 	private Date qnaMdate; 
 	private boolean qnaDel;
+	private String mbrId;
 	
 	public QnaDto() {}
 
-	public QnaDto(int qnaNo, int mbrNo, int itemNo, String qnaCat, String qnaTitle, String qnaCon, String qnaFile,
+	public QnaDto(int qnaNo, int mbrNo, Integer itemNo, String qnaCat, String qnaTitle, String qnaCon, String qnaFile,
 			boolean secret, Date qnaWdate, Date qnaMdate, boolean qnaDel) {
 		super();
 		this.qnaNo = qnaNo;
@@ -33,6 +34,23 @@ public class QnaDto {
 		this.qnaDel = qnaDel;
 	}
 
+	public QnaDto(int qnaNo, int mbrNo, Integer itemNo, String qnaCat, String qnaTitle, String qnaCon, String qnaFile,
+			boolean secret, Date qnaWdate, Date qnaMdate, boolean qnaDel, String mbrId) {
+		super();
+		this.qnaNo = qnaNo;
+		this.mbrNo = mbrNo;
+		this.itemNo = itemNo;
+		this.qnaCat = qnaCat;
+		this.qnaTitle = qnaTitle;
+		this.qnaCon = qnaCon;
+		this.qnaFile = qnaFile;
+		this.secret = secret;
+		this.qnaWdate = qnaWdate;
+		this.qnaMdate = qnaMdate;
+		this.qnaDel = qnaDel;
+		this.mbrId = mbrId;
+	}
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
@@ -49,11 +67,11 @@ public class QnaDto {
 		this.mbrNo = mbrNo;
 	}
 
-	public int getItemNo() {
+	public Integer getItemNo() {
 		return itemNo;
 	}
 
-	public void setItemNo(int itemNo) {
+	public void setItemNo(Integer itemNo) {
 		this.itemNo = itemNo;
 	}
 
@@ -121,12 +139,21 @@ public class QnaDto {
 		this.qnaDel = qnaDel;
 	}
 
+	public String getMbrId() {
+		return mbrId;
+	}
+
+	public void setMbrId(String mbrId) {
+		this.mbrId = mbrId;
+	}
+
 	@Override
 	public String toString() {
 		return "QnaDto [qnaNo=" + qnaNo + ", mbrNo=" + mbrNo + ", itemNo=" + itemNo + ", qnaCat=" + qnaCat
 				+ ", qnaTitle=" + qnaTitle + ", qnaCon=" + qnaCon + ", qnaFile=" + qnaFile + ", secret=" + secret
-				+ ", qnaWdate=" + qnaWdate + ", qnaMdate=" + qnaMdate + ", qnaDel=" + qnaDel + "]";
+				+ ", qnaWdate=" + qnaWdate + ", qnaMdate=" + qnaMdate + ", qnaDel=" + qnaDel + ", mbrId=" + mbrId + "]";
 	}
 
+	
 	
 }

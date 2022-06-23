@@ -31,7 +31,7 @@
 						</c:when>
 						<c:when test="${role == 'member'}">
 							<li><span>환영합니다! ${id}님</span></li>
-							<li><a href="#">고객센터</a></li>
+							<li><a href="${cp}/board/list">고객센터</a></li>
 						</c:when>
 					</c:choose>
 					<li><a href="${cp }/logout">로그아웃</a></li>

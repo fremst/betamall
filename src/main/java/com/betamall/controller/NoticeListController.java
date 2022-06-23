@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.BoardDao;
 import com.betamall.dto.BoardDto;
@@ -37,6 +38,10 @@ public class NoticeListController extends HttpServlet{
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
+		
+		HttpSession session = req.getSession();
+		String role = (String)session.getAttribute("role");
+		req.setAttribute("role", role);
 		
 		req.setAttribute("list", list);
 		req.setAttribute("pageCount", pageCount);

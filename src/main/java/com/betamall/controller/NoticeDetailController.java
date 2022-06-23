@@ -25,12 +25,15 @@ public class NoticeDetailController extends HttpServlet{
 		req.setAttribute("dto", dto);
 		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("id")!=null) {
+		if(session.getAttribute("role")=="member" || session.getAttribute("role")=="admin0") {
 			String mgrId = (String)session.getAttribute("id");
 			ManagerDao mdao = ManagerDao.getInstance();
 			ManagerDto mdto = mdao.selectById(mgrId);
 			int mgrNo = mdto.getMgrNo();
 			req.setAttribute("mgrNo", mgrNo);
+		}else if(session.getAttribute("role")!=null) {
+			String role = (String)session.getAttribute("role");
+			req.setAttribute("role", role);
 		}
 		
 		req.setAttribute("mainPageTitle", "Betamall - 게시글 보기");

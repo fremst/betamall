@@ -19,7 +19,7 @@ public class QnaDeleteController extends HttpServlet{
 		QnaDao dao=QnaDao.getInstance();
 		int n = dao.delete(qnaNo);
 		if(n>0) {
-			req.setAttribute("code","success");
+			req.setAttribute("code","qnadelete");
 		}else {
 			req.setAttribute("code","fail");
 		}

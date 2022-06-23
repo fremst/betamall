@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>게시글 등록</h1>
-	<form method="post" action="${cp }/board/qnainsert" enctype="multipart/form-data" name="insertForm">
+	<h1>게시글 수정</h1>
+	<form method="post" action="${cp }/board/qnaupdate" enctype="multipart/form-data" name="uadateForm">
+		<input type="text" name="qnaNo" value="${dto.qnaNo }" style="display: none">
 		카테고리 <select name="qnaCat" id="category" onchange="changeSelect()">
 			<option value="입고">입고</option>
 			<option value="배송">배송</option>
@@ -17,14 +18,14 @@
 		</select><br>
 		<select name="itemNo" id="itemNo">
 			<c:forEach var="idto" items="${idto }">
-				<option value="${idto.itemNo }" >${idto.itemName }</option>
+				<option value="${idto.itemNo }">${idto.itemName }</option>
 			</c:forEach>
 		</select>
 		비밀글 <input type="checkbox" name="secret"><br>
 		제목<br>
-		<input type="text" name="qnaTitle" id="qnaTitle"><br>
+		<input type="text" name="qnaTitle" id="qnaTitle" value="${dto.qnaTitle }"><br>
 		내용<br>
-		<textarea rows="10" cols="100" name="qnaCon" id="qnaCon"></textarea><br>
+		<textarea rows="10" cols="100" name="qnaCon" id="qnaCon">${dto.qnaCon }</textarea><br>
 		첨부파일<br>
 		<div class = "fileField">
 	    	<label for = "uploadedFile">첨부파일</label>
@@ -32,9 +33,9 @@
 	       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
 	        <div id = "thumbNailImg">
 	        </div>
-        </div>    
+        </div>  
 		<input type="button" value="취소" onclick="window.history.back()">
-		<input type="button" value="등록" onclick=checkSpace()>
+		<input type="button" value="수정" id="update" onclick="updateCheck()">
 	</form>
 </body>
 	<script type="text/javascript">
@@ -49,8 +50,8 @@
 				itemNo.disabled = true;
 			} 
 		}
-
-		function checkSpace() {
+		
+		function updateCheck() {
 			let qnaTitle=document.getElementById("qnaTitle");
 			let qnaCon=document.getElementById("qnaCon");
 			if(qnaTitle.value=='' || qnaTitle.value==null) {
@@ -60,7 +61,11 @@
 				alert("내용을 입력해주세요.")
 				return false;
 			}else {
-				document.insertForm.submit();
+				if(confirm("정말 수정하시겠습니까?")==true) {
+					document.uadateForm.submit();
+				}else {
+					return false;
+				}
 			}
 		}
 		
