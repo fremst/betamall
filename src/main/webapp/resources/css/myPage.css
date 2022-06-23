@@ -1,20 +1,18 @@
 @charset "UTF-8";
 
+main.main {
+    width: 1450px;
+    height: auto;
+    text-align: left;
+}
+
 #myPageWrap {
     margin-top: 20px;
     padding-bottom: 5px;
-    width: 1000px;
-    height: 700px;
-    align-content: center;
+    width: 90%;
+    height: auto;
 }
 
-#gradePageWrap {
-    margin-top: 20px;
-    padding-bottom: 5px;
-    width: 1000px;
-    height: 350px;
-    align-content: center;
-}
 
 #errBox {
     color: red;
@@ -24,28 +22,66 @@
 #formSide {
     width: 20%;
     height: auto;
+    text-align: left;
     float: left;
-    margin-left: 80px;
 }
 
 #formMain {
-    width: 65%;
+    width: 75%;
+    align-content: center;
     height: auto;
-    float: right;
-    padding-left: 40px;
+    float: left;
 }
 
 #formArea {
+    width: 80%;
     height: auto;
     margin-top: 10px;
     margin-left: 50px;
-    padding-left: 20px;
+    padding-left: 40px;
+    margin-bottom: 30px;
+}
+
+#ordFormArea {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding-left: 10px;
+    text-align: center;
+    align-content: center;
 }
 
 #gradeArea {
     width: 100%;
     height: 150px;
     margin-top: 10px;
+}
+
+#ordListSearch {
+    width: 60%;
+    margin-left: 200px;
+    height: auto;
+    margin-top: 20px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+#deliArea {
+    text-align: center;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+#ordListTable {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+#ordImg {
+    width: 150px;
+    height: 150px;
 }
 
 #gradeArea1 {
@@ -80,23 +116,31 @@
     align-content: center;
 }
 
-#couponTitle {
-    text-align: left;
+#couponBox {
+    width: 90%;
+    text-align: center;
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 
 #couponTable {
-    width: 90%;
-    border-bottom: 1px solid gray;
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-
-#couponTable th {
-    margin-right: 5px;
+#ordListTable {
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-#couponTable td {
-    margin-right: 5px;
+.couponTitle {
+    height: 30px;
+    border-bottom: 2px solid gray;
 }
 
 .setForm {
@@ -142,8 +186,20 @@
     margin-top: 15px;
 }
 
-.couponInfo {
-    margin-top: 10px;
-    color: cadetblue;
-    margin-bottom: 20px;
+.delImg {
+    width: 80px;
+    height: 80px;
+}
+
+.deltitle {
+    padding-right: 80px;
+}
+
+.delInfo {
+    padding-right: 80px;
+}
+
+.odrBtn {
+    border-radius: 3px;
+    width: 80px;
 }
