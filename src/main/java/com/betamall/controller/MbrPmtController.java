@@ -130,7 +130,6 @@ public class MbrPmtController extends HttpServlet{
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
 			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recName, recFullAdr, recTel));
 
-			// 트리거로 처리 
 			MemberDto mbrDto = mbrDao.selectById(mbrId);
 			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
 			mbrDao.update(mbrDto);
@@ -138,7 +137,7 @@ public class MbrPmtController extends HttpServlet{
     	
     	session.removeAttribute("cart");
 		session.removeAttribute("IpOrd");
-		resp.sendRedirect(req.getContextPath() + "/item/search");
+		resp.sendRedirect(req.getContextPath() + "/member/ordList");
 		
 	}
 }

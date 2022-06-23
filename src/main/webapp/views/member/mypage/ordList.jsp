@@ -46,7 +46,7 @@
                         <tr>
                             <th class="deltitle">배송중</th>
                             <th class="deltitle">배송완료</th>
-                            <th class="deltitle">주문취소</th>
+                            <th class="deltitle">결제취소</th>
                         </tr>
                         <tr>
                             <td class="delInfo"><img src="${cp}/resources/images/delivery.png" class="delImg">
@@ -88,10 +88,9 @@
                                 원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
                             <td>${ord.ordSta}</td>
                             <c:choose>
-                                <c:when test="${ord.ordSta =='결제대기'}">
-                                    <td><input type="submit" value="주문취소" class="odrBtn"
-                                               formaction="${cp}/cancelPurchase">
-                                        <input type="hidden" value="결제취소" name="ordSta">
+                                <c:when test="${ord.ordSta =='결제대기'}">   
+                                    <td><input type="button" value="주문취소" class="odrBtn"
+                                               onclick='location.href="${cp}/cancelPurchase"'>
                                     </td>
                                 </c:when>
                                 <c:when test="${ord.ordSta =='결제완료'}">
