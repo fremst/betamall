@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.ManagerDao;
 import com.betamall.dao.MemberDao;
+import com.betamall.dao.OrderDao;
 
 @WebServlet("/login")
 @SuppressWarnings("serial")
@@ -34,6 +35,15 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();// 세션객체 얻어오기
             session.setAttribute("id", id);
             session.setAttribute("role", "member");
+            
+            int mbrNo = MemberDao.getInstance().selectById(id).getMbrNo();
+            session.setAttribute("mbrNo", mbrNo);
+            
+            OrderDao ordDao = OrderDao.getInstance();
+            if((ordDao.getIpOrdNos(mbrNo) != null) && (ordDao.getIpOrdNos(mbrNo).size() != 0)) {
+            	session.setAttribute("IpOrd", "true");
+            }
+            
             resp.sendRedirect(req.getContextPath() + "/home");
         } else if (mgrdao.isManager(id, pwd) != null) {
             HttpSession session = req.getSession();

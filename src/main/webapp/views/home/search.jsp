@@ -152,10 +152,21 @@
 			                <td class = "itemPrice">
 			                	<fmt:formatNumber value="${iDto.price}" type="number"/> 원
 			                </td>
-			                <td>
-			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur" class = "pcBtns" onclick="alert('장바구니에 성공적으로 담겼습니다.')">장바구니</a><br><br>
-			                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart" class = "pcBtns" onclick="return confirm('바로 구매 하시겠습니까?')">바로구매</a>
-			                </td>
+			                <c:choose>
+				                <c:when test="${iDto.stkCnt>0}">
+					                <td>
+					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur"
+					                	class="pcBtns" onclick="return addCart()">장바구니</a><br><br>
+					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart"
+					                	class="pcBtns" onclick="return purchase()">바로구매</a>
+					                </td>
+				                </c:when>
+				                <c:otherwise>
+				                	<td>
+				                		재고 없음
+				                	</td>
+			                	</c:otherwise>
+			                </c:choose>
 	            		</tr>
 	            	</c:forEach>
 	        </table>
@@ -168,4 +179,39 @@
        </c:choose>
     </div>
 </body>
+<script type="text/javascript">
+
+function addCart(){
+	if(${empty id}){
+		alert('로그인이 필요한 서비스입니다.')
+		return true;
+	}else{
+		if(${IpOrd == 'true'}){
+			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
+			 	location.href="${cp}/member/payment";
+			}
+		}else{
+			alert('장바구니에 성공적으로 담겼습니다.')
+			return true;
+		}
+	}
+	return false;
+}
+
+function purchase(){
+	if(${empty id}){
+		alert('로그인이 필요한 서비스입니다.');
+		return true;
+	}else{
+		if(${IpOrd == 'true'}){
+			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
+			 	location.href="${cp}/member/payment";
+			}
+		}else{
+			return confirm('바로 구매 하시겠습니까?');
+		}
+	}
+	return false;
+}
+</script>
 </html>

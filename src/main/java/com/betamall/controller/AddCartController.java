@@ -56,6 +56,9 @@ public class AddCartController extends HttpServlet{
 		if(cart.get(ordKey) == null) {
 			cart.put(ordKey, ordCnt);
 		}else {
+			if(ordCnt == 0) {
+				cart.put(ordKey, 0);
+			}
 			cart.put(ordKey, cart.get(ordKey) + ordCnt);
 		}
 		

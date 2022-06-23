@@ -25,10 +25,46 @@ public class MbrPmtController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+//		ArrayList<ItemDto> ordItemList = new ArrayList<ItemDto>();
+//    	ArrayList<BranchDto> ordBrList = new ArrayList<BranchDto>();
+//    	ArrayList<Integer> ordCntList = new ArrayList<Integer>();
+//    	ArrayList<Integer> ordItemPerBr = new ArrayList<Integer>();
+//		
+//		TreeMap<ArrayList<Integer>, Integer> cart = new TreeMap<ArrayList<Integer>, Integer>(new Comparator<ArrayList<Integer>>() {
+//			@Override
+//			public int compare(ArrayList<Integer> ordKey1, ArrayList<Integer> ordKey2) {
+//				
+//				int brNo1 = ordKey1.get(0);
+//				int itemNo1 = ordKey1.get(1);
+//				int brNo2 = ordKey2.get(0);
+//				int itemNo2 = ordKey2.get(1);
+//				
+//				if(brNo1 != brNo2) {
+//					return brNo1 - brNo2; 
+//				}else {
+//					return itemNo1 - itemNo2;
+//				}
+//			}
+//		});
+//		
+//		ArrayList<Integer> ordKey = new ArrayList<>(Arrays.asList(brNo, itemNo));
+//		if(cart.get(ordKey) == null) {
+//			cart.put(ordKey, ordCnt);
+//		}else {
+//			cart.put(ordKey, cart.get(ordKey) + ordCnt);
+//		}
+//		
+//		req.setAttribute("ordBrList", ordBrList);
+//		req.setAttribute("ordItemList", ordItemList);
+//		req.setAttribute("ordCntList", ordCntList);
+//		req.setAttribute("ordItemPerBr", ordItemPerBr);
+		
+    	
 		OrderDao ordDao = OrderDao.getInstance();
 		OrdItemDao ordItemDao = OrdItemDao.getInstance();
 		
 		HttpSession session = req.getSession();
+		
 		MemberDao mbrDao = MemberDao.getInstance();
 		String mbrId = (String)session.getAttribute("id");
 		int mbrNo = mbrDao.selectById(mbrId).getMbrNo();
@@ -40,8 +76,7 @@ public class MbrPmtController extends HttpServlet{
 		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(mbrNo);
 		
 		for(int ordNo:ordNos) {
-			OrderDto ordDto = ordDao.select(ordNo);
-			totAmt = ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee;
+			totAmt += ordItemDao.getTotPmt(ordNo)-discAmt+delFee;
 		}
 		
 		MemberDto mbrDto = mbrDao.selectById(mbrId);
@@ -81,25 +116,28 @@ public class MbrPmtController extends HttpServlet{
 		int delFee = Integer.parseInt(req.getParameter("delFee"));
 		String[] sordNos = req.getParameterValues("ordNos");
 		
+		String recName = req.getParameter("recName");
+		String recTel = req.getParameter("recTel");
+		
     	for(int i = 0; i< sordNos.length; i++) {
     		
     		int ordNo = Integer.parseInt(sordNos[i]);
     		
-			String recTel = req.getParameter("recTel");
 			String recFullAdr = "(" + req.getParameter("recpostno") + ") " + req.getParameter("recAdr") + req.getParameter("recAdr1") + req.getParameter("recAdr2");
 			
 			OrderDto ordDto = ordDao.select(ordNo);
 			pmtDao.insert(new PmtDto(ordNo, ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee, "카드", null));
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
-			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recFullAdr, recTel));
+			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recName, recFullAdr, recTel));
 
 			// 트리거로 처리 
 			MemberDto mbrDto = mbrDao.selectById(mbrId);
 			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
 			mbrDao.update(mbrDto);
 		}
-		
-		session.removeAttribute("cart");
+    	
+    	session.removeAttribute("cart");
+		session.removeAttribute("IpOrd");
 		resp.sendRedirect(req.getContextPath() + "/item/search");
 		
 	}
