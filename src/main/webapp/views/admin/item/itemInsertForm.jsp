@@ -22,7 +22,8 @@
 	}
 	System.out.println(scatNames);
 --%>
-
+<c:choose>
+	<c:when test="${role == 'admin0' }">
 	<h2>상품 등록</h2>
     <form id="form" name="form" method="post" enctype="multipart/form-data" action="${cp }/admin/item/insert">
     	 <!-- 파일업로드를 위해 추가하는 타입 -->
@@ -45,7 +46,7 @@
             </tr>
             <tr>
                 <td>상품명</td>
-                <td><input name="itemName"></td>
+                <td><input name="itemName" required></td>
             </tr>
             <tr>
                 <td>해쉬태그</td>
@@ -53,16 +54,17 @@
             </tr>
             <tr>
                 <td>가격</td>
-                <td><input name="price"></td>
+                <td><input name="price" required></td>
             </tr>
             <tr>
                 <td>썸네일</td>
-                <td><input type="file" name="tImg"></td>
+                <td><input type="file" id="tImg" name="tImg" accept="image/*" onchange="setThumbnail(event)" required></td>
+            	<td><div id= "thumbNailImg"></div></td>
             </tr>
             
             <tr>
                 <td>상세이미지</td>
-                <td><input type="file" name="detImg"></td>
+                <td><input type="file" name="detImg" required></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
@@ -73,14 +75,26 @@
             </tr>
         </table>
     </form>
+   </c:when>
+   <c:otherwise>
+   		<button onclick="location.href='${cp }/home'">홈으로</button>
+   </c:otherwise>
+</c:choose>
+
 </body>
 <script type="text/javascript">
-	function checkChange(n) {
-		console.log(n);
-		console.log(22);
-		//if(document.getElementById('scatNo1').value != n){
-			document.getElementById('scatNo'+n).setAttribute("hidden", "false");
-		//}
+
+	function setThumbnail(event) {
+	    let reader = new FileReader();
+	
+	    reader.onload = function(event) {
+	        let img = document.createElement("img");
+	        img.setAttribute("src", event.target.result);
+	        img.setAttribute("id", "tImg");
+	        document.querySelector("div#thumbNailImg").innerHTML = "<p class = 'thumbNailMsg'>[미리 보기]</p>";
+	        document.querySelector("div#thumbNailImg").appendChild(img);
+	    };
+	    reader.readAsDataURL(event.target.files[0]);
 	}
 </script>
 </html>
