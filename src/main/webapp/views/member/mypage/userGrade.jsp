@@ -15,10 +15,10 @@
     <div id="formSide">
         <h3>마이 페이지</h3>
         <ul>
-            <li><a href="${cp }/member/update">-나의 정보 수정</a></li>
-            <li><a href="${cp}/member/ordList">-주문/배송 조회</a></li>
-            <li><a href=#>-내글보기</a></li>
-            <li><a href="${cp }/member/userGrade">-등급/쿠폰 조회</a></li>
+            <li class="sidemenu"><a href="${cp }/member/update">- 나의 정보 수정</a></li>
+            <li class="sidemenu"><a href="${cp}/member/ordList">- 주문/배송 조회</a></li>
+            <li class="sidemenu"><a href=#>- 내글보기</a></li>
+            <li class="sidemenu"><a href="${cp }/member/userGrade">- 등급/쿠폰 조회</a></li>
         </ul>
     </div>
     <div id="formMain">
@@ -43,23 +43,29 @@
             <div id="couponArea">
                 <fieldset id="couponBox">
                     <legend><h3>보유쿠폰</h3></legend>
-                    <div id="errBox">${errMsg}</div>
-                    <table id="couponTable">
-                        <tr>
-                            <th class="couponTitle">쿠폰이름</th>
-                            <th class="couponTitle">보유수량</th>
-                            <th class="couponTitle">사용기한</th>
-                            <th class="couponTitle">결제최소금액</th>
-                        </tr>
-                        <c:forEach var="m" items="${mbrCouponInfoDtos}">
-                            <tr>
-                                <td>${m.cond}</td>
-                                <td>${m.mbrCpnCnt}</td>
-                                <td>${m.period} ~ ${m.expDate}</td>
-                                <td>${m.minord}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                    <c:choose>
+                        <c:when test="${errMsg != null}">
+                            <div id="errBox">${errMsg}</div>
+                        </c:when>
+                        <c:otherwise>
+                            <table id="couponTable">
+                                <tr>
+                                    <th class="couponTitle">쿠폰이름</th>
+                                    <th class="couponTitle">보유수량</th>
+                                    <th class="couponTitle">사용기한</th>
+                                    <th class="couponTitle">결제최소금액</th>
+                                </tr>
+                                <c:forEach var="m" items="${mbrCouponInfoDtos}">
+                                    <tr>
+                                        <td>${m.cond}</td>
+                                        <td>${m.mbrCpnCnt}</td>
+                                        <td>${m.period} ~ ${m.expDate}</td>
+                                        <td>${m.minord}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
                 </fieldset>
             </div>
         </fieldset>
