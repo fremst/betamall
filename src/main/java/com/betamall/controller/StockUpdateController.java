@@ -3,7 +3,6 @@ package com.betamall.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,6 @@ public class StockUpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// itemNo를 QueryString으로 받는다.
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
 		
 		ManagerDao mgrDao = ManagerDao.getInstance();

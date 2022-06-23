@@ -143,7 +143,7 @@
 					                		${iDto.brName} ${iDto.stkCnt}개
 					               		</c:when>
 					               		<c:otherwise>
-					               			없음<br>
+					               			(입고전)<br>
 					               		</c:otherwise>
 				               		</c:choose>
 		        				</span><br>

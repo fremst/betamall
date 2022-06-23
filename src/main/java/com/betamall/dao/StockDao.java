@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.betamall.controller.MgrDeleteController;
-import com.betamall.dto.ManagerDto;
 import com.betamall.dto.StockDto;
 import com.betamall.util.JdbcUtil;
 

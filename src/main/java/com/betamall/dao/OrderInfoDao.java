@@ -1,14 +1,12 @@
 package com.betamall.dao;
 
-import com.betamall.dto.OrdItemDto;
-import com.betamall.dto.OrderInfoDto;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.betamall.dto.OrderInfoDto;
 import com.betamall.util.JdbcUtil;
 
 public class OrderInfoDao {

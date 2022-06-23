@@ -12,19 +12,16 @@ import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.BranchDao;
 import com.betamall.dao.ItemDao;
+import com.betamall.dao.McatDao;
+import com.betamall.dao.OrdItemDao;
+import com.betamall.dao.ScatDao;
 import com.betamall.dao.StockDao;
 import com.betamall.dto.BranchDto;
 import com.betamall.dto.ItemDto;
-import com.betamall.dto.StockDto;
-
-import com.betamall.dao.OrdItemDao;
-import com.betamall.dto.ItemDto;
-import com.betamall.dto.OrdItemDto;
-import com.betamall.dao.McatDao;
-import com.betamall.dao.ScatDao;
-import com.betamall.dto.ItemDto;
 import com.betamall.dto.McatDto;
+import com.betamall.dto.OrdItemDto;
 import com.betamall.dto.ScatDto;
+import com.betamall.dto.StockDto;
 
 
 
@@ -35,6 +32,10 @@ public class ItemDetailController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
+
+		ItemDao dao = ItemDao.getInstance();
+		ItemDto dto = dao.select(itemNo);
+		req.setAttribute("dto", dto);
 
 		StockDao stkDao = StockDao.getInstance();
 		ArrayList<StockDto> stkDtos = stkDao.selectByItemNo(itemNo);
@@ -47,16 +48,17 @@ public class ItemDetailController extends HttpServlet{
 		}
 		req.setAttribute("brDtos", brDtos);
 		
-		OrdItemDao odao=OrdItemDao.getInstance();
+		OrdItemDao odao = OrdItemDao.getInstance();
 		ArrayList<OrdItemDto> list=odao.list(itemNo);
 		req.setAttribute("list", list);
+		
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 		String role = (String)session.getAttribute("role");
 		req.setAttribute("id", id);
 		req.setAttribute("role", role);
 
-	  McatDao mcatDao = McatDao.getInstance();
+		McatDao mcatDao = McatDao.getInstance();
 		ScatDao scatDao = ScatDao.getInstance();
 		
 		ArrayList<McatDto> mcatList = mcatDao.selectAll();

@@ -20,12 +20,14 @@ label {
 	font-size: 20px;
 	margin-bottom:10px;
 }
+
 input {
 	outline: none;
   	border: none;
   	width:150px;
   	font-size:18px;
 }
+
 .context {
 	display: flex;
 	margin-top: 50px;

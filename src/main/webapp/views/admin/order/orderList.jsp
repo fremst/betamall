@@ -95,7 +95,7 @@
                     <td class="orderInfo">${order.mbrId}</td>
                     <td class="orderInfo">${order.ordName}</td>
                     <td class="orderInfo">${order.ordTel}</td>
-                    <td class="orderInfo">${order.ordAddr}</td>
+                    <td class="orderInfo">${order.ordAdr}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -108,38 +108,6 @@
     	</c:choose>
         
     </div>
-    <%--
-    <div id="mbrListNum">
-        <c:forEach var="i" begin="${startPage }" end="${endPage }">
-            <c:choose>
-                <c:when test="${i==pageNum}">
-                    <a href="${cp }/admin/mbrlist?pageNum=${i}&field=${field}&keyword=${keyword}">
-                        <span id="SrowNum">${i }</span>
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${cp}/admin/mbrlist?pageNum=${i }&field=${field}&keyword=${keyword}">
-                        <span id="rowNum">${i }</span>
-                    </a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </div>
-    <div id="mbrPageNav">
-        <div>
-            <form method="post" action="${cp }/admin/mbrlist" id="searchMbr">
-                <select name="field">
-                    <option value="mbrId" <c:if test="${field=='mbrId' }">selected</c:if>>회원아이디</option>
-                    <option value="mbrName" <c:if test="${field=='mbrName' }">selected</c:if>>회원이름</option>
-                </select>
-                <input type="text" name="keyword" value="${keyword }">
-                <input type="submit" value="검색">
-            </form>
-        </div>
-        <a href="${cp }/admin/mbrlist" id="idTag">전체글 보기</a>&nbsp;|
-        <a href="${cp }/home" id="pwdTag">Home</a>
-    </div>
-    --%>
 </div>
 </body>
 </html>

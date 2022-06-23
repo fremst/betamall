@@ -24,7 +24,7 @@
 				<th>해시태그</th>
 				<th>가격</th>
 				<th>판매여부</th>
-				<th>재고</th>
+				<th colspan = 2>재고 관리</th>
 			</tr>
 	
 			<c:forEach var="itemDto" items="${list}">
@@ -59,10 +59,10 @@
 						<c:otherwise>
 							<c:forEach var="stockDto" items="${stockList}">									
 								<c:if test="${itemDto.itemNo == stockDto.itemNo}">
-									${stockDto.stkCnt}|								
+									${stockDto.stkCnt}								
 								</c:if>
 							</c:forEach>
-								<a href="${cp }/admin/stock/update?itemNo=${itemDto.itemNo}">수정</a>
+								<td><a href="${cp }/admin/stock/update?itemNo=${itemDto.itemNo}">수정</a></td>
 						</c:otherwise>
 					</c:choose>
 					</td>

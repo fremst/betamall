@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../../resources/css/layout.css">
+<link rel="stylesheet" href="${cp}/resources/css/layout.css">
 <!DOCTYPE html>
 <header>
 <!--header-->

@@ -70,11 +70,11 @@
 							<c:when test="${dto.itemDel eq 'false' }">
 							<input type="text" value="판매중" readonly="readonly">
 							<button onclick="deleteItem()">판매중단</button><br>
-							<button onclick="location.href='${cp }/admin/item/list'">목록으로</button>
+							<button onclick="history.back()">목록으로</button>
 							</c:when>
 							<c:otherwise>
 							<input type="text" value="판매중단" readonly="readonly"><br>
-							<button onclick="location.href='${cp }/admin/item/list'">목록으로</button>
+							<button onclick="history.back()">목록으로</button>
 							</c:otherwise>
 						</c:choose>
 				</c:when>
@@ -84,11 +84,11 @@
 						<c:choose>
 							<c:when test="${dto.itemDel eq 'false' }">
 							<input type="text" value="판매중" readonly="readonly"><br>
-							<button onclick="location.href='${cp }/admin/item/list'">목록으로</button>
+							<button onclick="history.back()">목록으로</button>
 							</c:when>
 							<c:otherwise>
 							<input type="text" value="판매중단" readonly="readonly"><br>
-							<button onclick="location.href='${cp }/admin/item/list'">목록으로</button>
+							<button onclick="history.back()">목록으로</button>
 							</c:otherwise>
 						</c:choose>
 				</c:when>
@@ -101,6 +101,7 @@
 			<fieldset id="purchaseBox">
 					<legend><h3>구매하기</h3></legend>
 					<c:forEach var="i" begin="0" end="${brDtos.size()-1}">
+						<c:if test="${stkDtos[i].stkCnt>0}">
 						<form action="${cp}/member/addcart" method="get" id="purchaseForm">
 						<h3>${brDtos[i].brName}</h3>
 						(재고<fmt:formatNumber value="${stkDtos[i].stkCnt}" type="number"/>개) <br>
@@ -123,6 +124,7 @@
 							<input type="hidden" name="brNo" value="${brDtos[i].brNo}">
 							<input type="hidden" name="itemNo" value="${dto.itemNo}">
 						</form>
+						</c:if>
 					</c:forEach>
 			</fieldset>
 		</c:when>
