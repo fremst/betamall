@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+#salesListWrap {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 40px;
+    align-content: center;
+}
+
+#salesListTitle {
+    margin-bottom: 10px;
+}
+
+#title{
+	text-align: center;
+}
+
+#salesList {
+    text-align: center;
+}
+
+#serachCondition{
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 5px 20px 15px 15px;
+}
+
+#textArea{
+	width: 400px;
+}
+
+#btnArea{
+	float: right;
+}
+
+#searchBtn{
+	width: 50px;
+	height: 25px;
+}
+
+#allBtn{
+	width: 70px;
+	height: 25px;
+}
+
+#salesTable {
+    width: 1000px;
+    align-content: center;
+}
+
+.salesInfo_header {
+    height: 25px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.salesInfo {
+	height: 25px;
+    font-size: 14px;
+    margin-right: 30px;
+    border-bottom: 1px solid gray;
+}
+
+#salesListNum {
+    text-align: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#salesPageNav {
+    text-align: center;
+    align-content: center;
+    margin-left: 50px;
+    margin-bottom: 10px;
+}

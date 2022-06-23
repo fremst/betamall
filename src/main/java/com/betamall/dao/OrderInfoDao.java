@@ -1,13 +1,13 @@
 package com.betamall.dao;
 
 import com.betamall.dto.OrderInfoDto;
-import com.betamall.util.JdbcUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.betamall.util.JdbcUtil;
 
 public class OrderInfoDao {
 
@@ -185,5 +185,4 @@ public class OrderInfoDao {
             JdbcUtil.close(con, pstmt, rs);
         }
     }
-
 }

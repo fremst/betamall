@@ -12,39 +12,85 @@
 	<style type="text/css">
 	
 		.main{
-			width: 1024px;
+			width: 1100px;
 			height: auto;
 			margin: auto;
 			margin-bottom: 27px;
 		}
 		
+		.fieldset{
+			width: 97%;
+			margin-top:20px;
+			padding-top:10px;
+			padding-right:20px;
+			padding-bottom:10px;
+			padding-left:20px;
+		}
+		
 		.itemThumbNails {
 			width: 100px;
 		}
+		
 		.itemList {
 			width: 1050px;
 			margin: auto;
 		}
+		
 		.itemNo{
-		width: 80px;
+			width: 80px;
 		}
+		
 		.itemImg{
 			width: 200px;
 		}
+		
 		.itemName{
 			width: 600px;
 			text-align: left;
 		}
+		
 		.itemPrice{
 			width: 100px;
 		}
-		.purchase{
-			width: 100px;
+		
+		.itemCnt{
+			width: 120px;
 		}
+		
 	    .itemThumbNails{
 	        width: 150px;
 	        height: 150px;
 	    }
+	    
+	    .btns{
+			width: 400px;
+			margin: auto;
+			margin-top: 10px;
+			text-align: center;
+	    }
+	    
+	  	.purchaseBtn{
+			width: 100px;
+			height: 35px;
+			margin: 10px;
+			color: aliceblue;
+			font-size: 15px;
+			background-color: #2C8FED;
+			border: 1px;
+			border-radius: 5px;
+		}
+		
+		.cancelBtn{
+			width: 120px;
+			height: 35px;
+			margin: 10px;
+			color: black;
+			font-size: 15px;
+			background-color: #4B484B3A;
+			border: 1px;
+			border-radius: 5px;
+		}
+	    
 	    .nothing{
 	    	height: 768px;
 	    	vertical-align: center;
@@ -53,7 +99,6 @@
     	}
 	</style>
 </head>
-
 <body>
 	<h2>장바구니</h2>
 	<hr>
@@ -65,8 +110,8 @@
 					<c:forEach begin="0" end = "${ordBrList.size()-1}" varStatus="brSts">
 						<c:if test="${brSts.first or (ordBrList[brSts.index].brNo != ordBrList[brSts.index-1].brNo)}">
 							<c:set var = "oipbInd" value = "${oipbInd+1}"/>
-							<fieldset id="fieldset">
-								<legend>${ordBrList[brSts.index].getBrName()}</legend>
+							<fieldset class="fieldset">
+								<legend><h3>${ordBrList[brSts.index].getBrName()}</h3></legend>
 								<input type="hidden" value="${ordBrList[brSts.index].getBrNo()}" name="brNo">
 								<table align="center" style="text-align: center">
 									<tbody id="orderList">
@@ -74,8 +119,10 @@
 											<th>상품 번호</th>
 											<th>상품 이미지</th>
 											<th>상품명</th>
-											<th>정가</th>
-											<th>수량</th>
+											<th>정  가</th>
+											<th>수  량</th>
+											<th>총  액</th>
+											<th><th>
 										</tr>
 										<c:forEach begin = "${brSts.index}" end = "${brSts.index+ordItemPerBr[oipbInd-1]-1}" varStatus="itemSts">
 											<c:if test = "${itemSts.first or (ordBrList[itemSts.index].brNo == ordBrList[itemSts.index-1].brNo)}">
@@ -95,9 +142,23 @@
 													<td class="itemPrice">
 														<fmt:formatNumber value="${ordItemList[itemSts.index].price}" type="number"/> 원
 													</td>
-													<td>
+													<td class="itemCnt">
+														<a href="${cp}/member/addcart?brNo=${ordBrList[itemSts.index].brNo}&itemNo=${ordItemList[itemSts.index].itemNo}&ordCnt=-1&status=cart">
+														<b>－</b>
+														</a>
 														<fmt:formatNumber value="${ordCntList[itemSts.index]}" type="number" /> 개
 														<input type="hidden" value="${ordCntList[itemSts.index]}" name="cntfbr${ordBrList[brSts.index].getBrNo()}">
+														<a href="${cp}/member/addcart?brNo=${ordBrList[itemSts.index].brNo}&itemNo=${ordItemList[itemSts.index].itemNo}&ordCnt=1&status=cart">
+														<b>＋</b>
+														</a>
+													</td>
+													<td class="itemCnt">
+														<fmt:formatNumber value="${ordItemList[itemSts.index].price*ordCntList[itemSts.index]}" type="number" /> 원
+													</td>
+													<td>
+														<a href="${cp}/member/addcart?brNo=${ordBrList[itemSts.index].brNo}&itemNo=${ordItemList[itemSts.index].itemNo}&ordCnt=0&status=cart">
+														Ⅹ
+														</a>
 													</td>
 												</tr>
 											</c:if>
@@ -108,8 +169,8 @@
 						</c:if>
 					</c:forEach>
 					<input type="hidden" name="mbrNo" value="${mbrNo}" id="mbrNo"><br>
-					<fieldset id="fieldset">
-						<legend>결제 금액</legend>
+					<fieldset class="fieldset">
+						<legend><h3>결제 금액</h3></legend>
 						총 주문 금액:
 						<fmt:formatNumber value="${totAmt}" type="number"/>원<br>
 						<input type="hidden" value="${totAmt}" name="totAmt">
@@ -125,7 +186,10 @@
 						결제 예정 금액<br>
 						<fmt:formatNumber value="${totAmt - discAmt + delFee*ordItemPerBr.size()}" type="number"/>원
 					</fieldset>
-					<input type="submit" value="구매하기">
+					<div class = "btns">
+						<input type="button" value="계속 쇼핑하기" class="cancelBtn" onclick="location.href='${cp}/item/search'">
+						<input type="submit" value="구매하기" class="purchaseBtn">
+					</div>
 				</div>
 			</form>
 		</c:when>

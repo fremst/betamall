@@ -163,6 +163,6 @@ public class OrderInfoDto {
                 ", ordTel='" + ordTel + '\'' +
                 ", ordAddr='" + ordAddr + '\'' +
                 ", tImg='" + tImg + '\'' +
-                '}';
+                '}\n';
     }
 }
