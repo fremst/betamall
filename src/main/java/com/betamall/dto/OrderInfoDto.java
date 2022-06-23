@@ -17,9 +17,7 @@ public class OrderInfoDto {
     private String ordAddr;
     private String tImg;
 
-    public OrderInfoDto() {
-    }
-
+    public OrderInfoDto() {}
 
     public OrderInfoDto(int ordNo, int itemNo, String itemName, int ordCnt, int price, Date ordDate, String ordSta,
                         String mbrId, String ordName, String ordTel, String ordAddr) {
@@ -148,21 +146,10 @@ public class OrderInfoDto {
         this.tImg = tImg;
     }
 
-    @Override
-    public String toString() {
-        return "OrderInfoDto{" +
-                "ordNo=" + ordNo +
-                ", itemNo=" + itemNo +
-                ", itemName='" + itemName + '\'' +
-                ", ordCnt=" + ordCnt +
-                ", price=" + price +
-                ", ordDate=" + ordDate +
-                ", ordSta='" + ordSta + '\'' +
-                ", mbrId='" + mbrId + '\'' +
-                ", ordName='" + ordName + '\'' +
-                ", ordTel='" + ordTel + '\'' +
-                ", ordAddr='" + ordAddr + '\'' +
-                ", tImg='" + tImg + '\'' +
-                '}\n';
-    }
+	@Override
+	public String toString() {
+		return "OrderInfoDto [ordNo=" + ordNo + ", itemNo=" + itemNo + ", itemName=" + itemName + ", ordCnt=" + ordCnt
+				+ ", price=" + price + ", ordDate=" + ordDate + ", ordSta=" + ordSta + ", mbrId=" + mbrId + ", ordName="
+				+ ordName + ", ordTel=" + ordTel + ", ordAddr=" + ordAddr + ", tImg=" + tImg + "]\n";
+	}
 }

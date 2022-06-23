@@ -8,13 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betamall.dao.ItemDao;
 import com.betamall.dao.OrdItemDao;
-import com.betamall.dto.ItemDto;
-import com.betamall.dto.OrdItemDto;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/reviewinsert")
+@WebServlet("/board/reviewdelete")
 public class ReviewDeleteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

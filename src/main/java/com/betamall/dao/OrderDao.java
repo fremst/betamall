@@ -24,7 +24,7 @@ public class OrderDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "INSERT INTO \"ORDER\"(ORDNO, MBRNO, BRNO, ORDDATE, ORDSTA, ORDNAME, ORDARRD, ORDTEL) "
+			String sql = "INSERT INTO \"ORDER\"(ORDNO, MBRNO, BRNO, ORDDATE, ORDSTA, ORDNAME, ORDADR, ORDTEL) "
 					   + "VALUES(?, ?, ?, CURRENT_DATE, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			
@@ -37,7 +37,7 @@ public class OrderDao {
 			pstmt.setInt(3, ordDto.getBrNo());
 			pstmt.setString(4, ordDto.getOrdSta());
 			pstmt.setString(5, ordDto.getOrdName());
-			pstmt.setString(6, ordDto.getOrdArrd());
+			pstmt.setString(6, ordDto.getOrdAdr());
 			pstmt.setString(7, ordDto.getOrdTel());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -68,7 +68,7 @@ public class OrderDao {
 						rs.getDate("ORDDATE"),
 						rs.getString("ORDSTA"),
 						rs.getString("ORDNAME"),
-						rs.getString("ORDARRD"),
+						rs.getString("ORDADR"),
 						rs.getString("ORDTEL")
 					);
 			}
@@ -86,14 +86,14 @@ public class OrderDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "UPDATE \"ORDER\" SET MBRNO = ?, BRNO = ?, ORDDATE = ?, ORDSTA = ?, ORDNAME = ?, ORDARRD = ?, ORDTEL = ? WHERE ORDNO = ?";
+			String sql = "UPDATE \"ORDER\" SET MBRNO = ?, BRNO = ?, ORDDATE = ?, ORDSTA = ?, ORDNAME = ?, ORDADR = ?, ORDTEL = ? WHERE ORDNO = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, ordDto.getMbrNo());
 			pstmt.setInt(2, ordDto.getBrNo());
 			pstmt.setDate(3, ordDto.getOrdDate());
 			pstmt.setString(4, ordDto.getOrdSta());
 			pstmt.setString(5, ordDto.getOrdName());
-			pstmt.setString(6, ordDto.getOrdArrd());
+			pstmt.setString(6, ordDto.getOrdAdr());
 			pstmt.setString(7, ordDto.getOrdTel());
 			pstmt.setInt(8, ordDto.getOrdNo());
 			return pstmt.executeUpdate();

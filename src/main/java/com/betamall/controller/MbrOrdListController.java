@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 @WebServlet("/member/ordList")
 public class MbrOrdListController extends HttpServlet {
     @Override

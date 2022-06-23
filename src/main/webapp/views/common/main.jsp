@@ -13,7 +13,12 @@
 </head>
 <body>
 	<main>
-		<div id="main_banner_img"><img src="${cp }/resources/images/mainBanner.png"></div>
+	
+		<div id="main_banner_img">
+			<a href="${cp }/item/search?field=mcatName&keyword=수납">
+				<img src="${cp }/resources/images/mainBanner.png">
+			</a>
+		</div>
 		
 		<!--이미지 슬라이드-->
 		<div class="slider">

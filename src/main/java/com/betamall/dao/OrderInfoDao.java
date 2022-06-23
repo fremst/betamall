@@ -29,7 +29,7 @@ public class OrderInfoDao {
         }
         try {
             con = JdbcUtil.getCon();
-            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDARRD "
+            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDADR "
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE BRNO = ? ";
             sql += query;
@@ -51,7 +51,7 @@ public class OrderInfoDao {
                                 rs.getString("MBRID"),
                                 rs.getString("ORDNAME"),
                                 rs.getString("ORDTEL"),
-                                rs.getString("ORDARRD")
+                                rs.getString("ORDADR")
                         )
                 );
             }
@@ -70,7 +70,7 @@ public class OrderInfoDao {
         ResultSet rs = null;
         try {
             con = JdbcUtil.getCon();
-            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDARRD "
+            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDADR "
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE MBRNO = ? ";
             pstmt = con.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class OrderInfoDao {
                         rs.getString("MBRID"),
                         rs.getString("ORDNAME"),
                         rs.getString("ORDTEL"),
-                        rs.getString("ORDARRD")
+                        rs.getString("ORDADR")
                 );
             }
             return null;
@@ -106,7 +106,7 @@ public class OrderInfoDao {
         ResultSet rs = null;
         try {
             con = JdbcUtil.getCon();
-            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDARRD , TIMG "
+            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDADR , TIMG "
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE MBRNO = ? "
                     + "ORDER BY ORDNO DESC";
@@ -127,7 +127,7 @@ public class OrderInfoDao {
                                 rs.getString("MBRID"),
                                 rs.getString("ORDNAME"),
                                 rs.getString("ORDTEL"),
-                                rs.getString("ORDARRD"),
+                                rs.getString("ORDADR"),
                                 rs.getString("TIMG")
                         )
                 );
@@ -150,7 +150,7 @@ public class OrderInfoDao {
         }
         try {
             con = JdbcUtil.getCon();
-            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDARRD , TIMG "
+            String sql = "SELECT ORDNO, ITEMNO, ITEMNAME, ORDCNT, PRICE, ORDDATE, ORDSTA, MBRID, ORDNAME, ORDTEL, ORDADR , TIMG "
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE MBRNO = ? ";
             sql += query;
@@ -172,7 +172,7 @@ public class OrderInfoDao {
                                 rs.getString("MBRID"),
                                 rs.getString("ORDNAME"),
                                 rs.getString("ORDTEL"),
-                                rs.getString("ORDARRD"),
+                                rs.getString("ORDADR"),
                                 rs.getString("TIMG")
                         )
                 );

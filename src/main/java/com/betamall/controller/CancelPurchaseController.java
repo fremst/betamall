@@ -17,9 +17,9 @@ import com.betamall.service.ChangeOrder;
 @WebServlet("/cancelPurchase")
 @SuppressWarnings("serial")
 public class CancelPurchaseController extends HttpServlet{
-	
+	// doPost로 수정
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
 		OrderDao ordDao = OrderDao.getInstance();

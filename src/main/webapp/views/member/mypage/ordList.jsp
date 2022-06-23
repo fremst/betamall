@@ -64,7 +64,7 @@
                     ~
                     <input type="date" name="ordEndDate">
                     <input type="submit" value="검색" name="itemName" class="odrBtn">
-                    <input type="button" value="전체 보기" name="itemName" class="odrBtn">
+                    <input type="button" value="전체 보기" name="itemName" class="odrBtn" onclick="location.href='${cp}/member/ordList'">
                 </form>
             </fieldset>
             <hr>
@@ -83,9 +83,9 @@
                         <tr>
                             <td>${ord.ordNo}
                                 <input type="hidden" value="${ord.ordNo}" name="ordNo"></td>
-                            <td><img src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></td>
-                            <td>${ord.itemName}<br><fmt:formatNumber value="${ord.price}" type="number"/>
-                                원 / ${ord.ordCnt}개<br>${ord.ordDate}
+                            <td><a href = "${cp}/item/detail?itemNo=${ord.itemNo}"><img src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></a></td>
+                            <td><a href = "${cp}/item/detail?itemNo=${ord.itemNo}">${ord.itemName}</a><br><fmt:formatNumber value="${ord.price}" type="number"/>
+                                원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
                             <td>${ord.ordSta}</td>
                             <c:choose>
                                 <c:when test="${ord.ordSta =='결제대기'}">

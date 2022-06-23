@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,26 +11,25 @@
     <link rel="stylesheet" href="${cp}/resources/css/myPage.css">
 </head>
 <body>
-<div id="gradePageWrap">
+<div id="myPageWrap">
     <div id="formSide">
         <h3>마이 페이지</h3>
         <ul>
-            <li><a href="${cp }/member/update">나의 정보 수정</a></li>
-            <li><a href="${cp}/member/cart">장바구니/결제</a></li>
-            <li><a href=#>주문/배송 조회</a></li>
-            <li><a href=#>내글보기</a></li>
-            <li><a href="${cp }/member/userGrade">등급/쿠폰 조회</a></li>
+            <li><a href="${cp }/member/update">-나의 정보 수정</a></li>
+            <li><a href="${cp}/member/ordList">-주문/배송 조회</a></li>
+            <li><a href=#>-내글보기</a></li>
+            <li><a href="${cp }/member/userGrade">-등급/쿠폰 조회</a></li>
         </ul>
     </div>
     <div id="formMain">
         <fieldset id="formArea">
-            <legend> 회원등급/쿠폰조회</legend>
+            <legend><h3>회원등급/쿠폰조회</h3></legend>
             <div id="gradeArea">
                 <div id="gradeArea1">
                     <p>${id}님의 등급</p>
                     <p id="userGrade">${mbrDto.mbrGrade}</p>
                     <p>결제 누적 금액</p>
-                    <p>${mbrDto.totAmt}</p>
+                    <p><fmt:formatNumber value="${mbrDto.totAmt}" type="number"/> 원</p>
                 </div>
                 <div id="gradeArea2">
                     <ul>
@@ -41,25 +41,26 @@
                 </div>
             </div>
             <div id="couponArea">
-                <h3 id="couponTitle">보유쿠폰</h3>
-                <div id="errBox">${errMsg}</div>
-                <c:forEach var="m" items="${mbrCouponInfoDtos}">
+                <fieldset id="couponBox">
+                    <legend><h3>보유쿠폰</h3></legend>
+                    <div id="errBox">${errMsg}</div>
                     <table id="couponTable">
                         <tr>
-                            <th>쿠폰이름</th>
-
-                            <th>보유수량</th>
-                            <th>사용기한</th>
-                            <th>결제최소금액</th>
+                            <th class="couponTitle">쿠폰이름</th>
+                            <th class="couponTitle">보유수량</th>
+                            <th class="couponTitle">사용기한</th>
+                            <th class="couponTitle">결제최소금액</th>
                         </tr>
-                        <tr>
-                            <td>${m.cond}</td>
-                            <td>${m.mbrCpnCnt}</td>
-                            <td>${m.period} ~ ${m.expDate}</td>
-                            <td>${m.minord}</td>
-                        </tr>
+                        <c:forEach var="m" items="${mbrCouponInfoDtos}">
+                            <tr>
+                                <td>${m.cond}</td>
+                                <td>${m.mbrCpnCnt}</td>
+                                <td>${m.period} ~ ${m.expDate}</td>
+                                <td>${m.minord}</td>
+                            </tr>
+                        </c:forEach>
                     </table>
-                </c:forEach>
+                </fieldset>
             </div>
         </fieldset>
     </div>

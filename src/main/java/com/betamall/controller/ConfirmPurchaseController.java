@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 @WebServlet("/confirmPurchase")
 public class ConfirmPurchaseController extends HttpServlet {
     @Override

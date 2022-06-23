@@ -74,7 +74,6 @@
 				</c:when>
 				<c:when test="${role == 'admin'}">
 					<li><a href="${cp}/admin/item/list">등록 상품 조회</a></li>
-					<li><a href="${cp}/admin/stock/list">재고 관리</a></li>
 					<li><a href="${cp}/admin/order/list">주문 관리</a></li>
 					<li><a href="${cp}/admin/sales/list">매출 조회</a></li>
 					<li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>

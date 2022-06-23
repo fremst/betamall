@@ -21,6 +21,7 @@
 		<c:when test="${not empty list }">
 			<table border="1" width="750">
 			<tr>
+				<th>글번호</th>
 				<th>카테고리</th>
 				<th>제목</th>
 				<th>작성자</th>
@@ -28,6 +29,7 @@
 			</tr>
 			<c:forEach var="dto" items="${list }">
 				<tr>
+					<td>${dto.qnaNo}</td>
 				<c:choose>
 					<c:when test="${dto.qnaDel=='true' || fn:contains(dto.mbrId, '-')=='true' }">
 						<td style="color: #979897;">-</td>

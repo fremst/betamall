@@ -10,20 +10,21 @@ public class OrderDto {
 	private Date ordDate;
 	private String ordSta;
 	private String ordName;
-	private String ordArrd;
+	private String ordAdr;
 	private String ordTel;
 	
 	public OrderDto() {}
 
-	public OrderDto(int ordNo, int mbrNo, int brNo, Date ordDate, String ordSta, String ordName, String ordArrd,
+	public OrderDto(int ordNo, int mbrNo, int brNo, Date ordDate, String ordSta, String ordName, String ordAdr,
 			String ordTel) {
+		
 		this.ordNo = ordNo;
 		this.mbrNo = mbrNo;
 		this.brNo = brNo;
 		this.ordDate = ordDate;
 		this.ordSta = ordSta;
 		this.ordName = ordName;
-		this.ordArrd = ordArrd;
+		this.ordAdr = ordAdr;
 		this.ordTel = ordTel;
 	}
 
@@ -75,12 +76,12 @@ public class OrderDto {
 		this.ordName = ordName;
 	}
 
-	public String getOrdArrd() {
-		return ordArrd;
+	public String getOrdAdr() {
+		return ordAdr;
 	}
 
-	public void setOrdArrd(String ordArrd) {
-		this.ordArrd = ordArrd;
+	public void setOrdAdr(String ordAdr) {
+		this.ordAdr = ordAdr;
 	}
 
 	public String getOrdTel() {
@@ -94,10 +95,7 @@ public class OrderDto {
 	@Override
 	public String toString() {
 		return "OrderDto [ordNo=" + ordNo + ", mbrNo=" + mbrNo + ", brNo=" + brNo + ", ordDate=" + ordDate + ", ordSta="
-				+ ordSta + ", ordName=" + ordName + ", ordArrd=" + ordArrd + ", ordTel=" + ordTel + ", getOrdNo()="
-				+ getOrdNo() + ", getMbrNo()=" + getMbrNo() + ", getBrNo()=" + getBrNo() + ", getOrdDate()="
-				+ getOrdDate() + ", getOrdSta()=" + getOrdSta() + ", getOrdName()=" + getOrdName() + ", getOrdArrd()="
-				+ getOrdArrd() + ", getOrdTel()=" + getOrdTel() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]\n";
+				+ ordSta + ", ordName=" + ordName + ", ordAdr=" + ordAdr + ", ordTel=" + ordTel + "]\n";
 	}
+	
 }

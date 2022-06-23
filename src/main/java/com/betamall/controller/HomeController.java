@@ -18,8 +18,7 @@ import com.betamall.dto.ItemDto;
 public class HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
+
 		ItemDao itemDao = ItemDao.getInstance();
 		int itemCnt = itemDao.getCountNDel();
 		ArrayList<ItemDto> itemDtos = itemDao.selectNDel(itemCnt-3, itemCnt);

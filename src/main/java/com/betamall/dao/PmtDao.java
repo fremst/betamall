@@ -56,7 +56,7 @@ public class PmtDao {
 //						rs.getInt("BRNO"),
 //						rs.getDate("ORDDATE"),
 //						rs.getString("ORDSTA"),
-//						rs.getString("ORDARRD"),
+//						rs.getString("ORDADR"),
 //						rs.getString("ORDTEL")
 //					);
 //			}

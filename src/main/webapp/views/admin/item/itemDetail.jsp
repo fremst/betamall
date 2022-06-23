@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 			<input type="text" value="${dto.scatNo }" readonly="readonly"><br>
 			
 			<label>가격</label>
-			<input type="text" value="${dto.price }원" readonly="readonly"><br>
+			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" readonly="readonly"><br>
 			<label>해시태그</label>
 			<input type="text" value="${dto.hash }" readonly="readonly"><br>
 			<c:choose>
