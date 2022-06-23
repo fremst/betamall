@@ -184,4 +184,37 @@ public class OrdItemDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}		
 	}
+	
+	public ArrayList<OrdItemDto> mylist(int mbrNo){
+		String sql=	"SELECT * FROM ORDITEM OI INNER JOIN \"ORDER\" OD ON OI.ORDNO=OD.ORDNO WhERE MBRNO=? AND REVIEW IS NOT NULL ORDER BY REVDATE DESC";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
+			rs=pstmt.executeQuery();
+			ArrayList<OrdItemDto> list=new ArrayList<OrdItemDto>();
+			OrderDao dao=OrderDao.getInstance();
+			MemberDao mdao=MemberDao.getInstance();
+			while(rs.next()) {
+				int ordNo=rs.getInt("ordno");
+				int itemNo=rs.getInt("itemno");
+				int ordCnt=rs.getInt("ordCnt");
+				String review=rs.getString("review");
+				int	rate=rs.getInt("rate");
+				Date revDate=rs.getDate("revDate");
+				String mbrId=mdao.select(dao.select(ordNo).getMbrNo()).getMbrId();
+				OrdItemDto dto=new OrdItemDto(ordNo, itemNo, ordCnt, review, rate, revDate, mbrId) ;
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
 }
