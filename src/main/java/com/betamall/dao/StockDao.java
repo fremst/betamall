@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.betamall.dto.StockDto;
 import com.betamall.util.JdbcUtil;
@@ -67,6 +68,35 @@ public class StockDao {
 		}
 	}
 	
+	public ArrayList<StockDto> selectByItemNo(int itemNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT * FROM STOCK WHERE ITEMNO = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemNo);
+			rs = pstmt.executeQuery();
+			ArrayList<StockDto> stkDtos = new ArrayList<StockDto>();
+			while (rs.next()) {
+				stkDtos.add(
+						new StockDto(
+									rs.getInt("ITEMNO"),
+									rs.getInt("BRNO"),
+									rs.getInt("STKCNT")
+								)
+							);
+			}
+			return stkDtos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
 	public int changeStock(int ordNo, int sign) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -92,32 +122,5 @@ public class StockDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}
 	}
-	
-//	public int changeStock(int ordNo, int sign) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		try {
-//			con = JdbcUtil.getCon();
-//			String sql = "UPDATE STOCK ST "
-//					+ "SET STKCNT = STKCNT + ?*(SELECT ORDCNT "
-//					+                          "FROM ORDITEM "
-//					+                          "WHERE ORDNO = ? AND ITEMNO = ST.ITEMNO) "
-//					+ "WHERE BRNO = (SELECT \"ORDER\".BRNO FROM PMT, \"ORDER\""
-//					+ 			    "WHERE PMT.ORDNO=\"ORDER\".ORDNO AND PMT.ORDNO = ?) "
-//					+ "AND ITEMNO IN (SELECT ORDITEM.ITEMNO FROM PMT, ORDITEM WHERE PMT.ORDNO = ORDITEM.ORDNO AND PMT.ORDNO = ?)";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setInt(1, sign);
-//			pstmt.setInt(2, ordNo);
-//			pstmt.setInt(3, ordNo);
-//			pstmt.setInt(4, ordNo);
-//			return pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return -1;
-//		} finally {
-//			JdbcUtil.close(con, pstmt, rs);
-//		}
-//	}
-	
+
 }
