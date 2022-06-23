@@ -10,7 +10,9 @@
 <link rel = "stylesheet" href="${cp}/resources/css/itemForm.css">
 </head>
 <body>
-	<h1>상품 상세 페이지</h1>
+	<c:choose>
+		<c:when test="${role == 'admin' }">
+	<h1>재고 등록/수정</h1>
 	
 	<div class="context">
 		<div class="tImg">
@@ -34,6 +36,7 @@
 			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" readonly="readonly"><br>
 			<label>해시태그</label>
 			<input type="text" value="${dto.hash }" readonly="readonly"><br>
+			<%--
 			<c:choose>
 				<c:when test="${role == 'admin0' }">
 					<label>판매여부</label>
@@ -63,62 +66,75 @@
 							</c:otherwise>
 						</c:choose>
 				</c:when>
-			</c:choose>		
+			</c:choose>
+			 --%>
+			<form action="${cp}/admin/stock/update" method="post">
+				<input type="hidden" value="${dto.itemNo}" name="itemNo">
+				<input type="hidden" value="${brNo}" name="brNo">
+			<label>현재재고
+				<c:if test="${nullStk == 'true'}">
+					(입고전)
+				</c:if>
+			</label>
+				<c:choose>
+					<c:when test="${nullStk == 'true'}">
+						<input type="text" value="0" readonly="readonly" id="currStk"><br>
+					</c:when>
+					<c:otherwise>
+						<input type="text" value="${stkDto.stkCnt}" readonly="readonly" id="currStk"><br>
+					</c:otherwise>
+				</c:choose>
+				<label>증감량</label>
+				<input type="text" value="0" name="deltaStk" onkeyup="return changeStk()" id="deltaStk"><br>
+				<label>예상재고</label>
+				<input type="text" value="${stkDto.stkCnt}" readonly="readonly" id="nextStk"><br>
+				<input type="submit" onclick="return validateStk()" value="재고변경">
+			</form>
 		</div>
 	</div>
-	<div class ="quickMenu">
-		<a href = "#"><img src = "${cp}/resources/images/cart.png" height = "25px"> 장바구니에 담기</a>
-	</div>
-	
-	<div class="img">
-	<label id="detImg">상세이미지</label><br>
-	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
-	</div>
-	
-	------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	---------------------------------------------------------
 	<div>
-		<h1>후기</h1>
-		<c:choose>
-			<c:when test="${not empty list }">
-				<c:forEach var="list" items="${list }">
-					<form action="${cp }/reviewdelete" name="deleteForm">
-						<label>작성자</label>
-						<input type="text" value="${list.mbrId }" readonly="readonly"><br>
-						<label>작성일자</label>
-						<input type="text" value="${list.revDate }" readonly="readonly"><br>
-						<img src="${cp }/resources/uploads/admin/rate/${list.rate }.jpg"><br>
-						<input type="text" value="${list.review }" readonly="readonly"><br>
-						<input type="text" name="ordNo" value="${list.ordNo }" style="display: none">    
-		                <input type="text" name="itemNo" value="${list.itemNo }" style="display: none"> 
-		               	<c:if test="${list.mbrId == id || role == 'admin' || role == 'admin0'}">
-		                	<button id="del" onclick="del()">삭제</button>
-		             	</c:if>
-					</form>
-					--------------------------------------------------------------------------------------------------------------------------<br>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				등록된 후기가 없습니다.
-			</c:otherwise>
-		</c:choose>
+	</c:when>
+	<c:otherwise>
+	<button onclick="location.href='${cp }/admin/item/list'">목록으로</button>
+	</c:otherwise>
+</c:choose>	
+	
+	
 	</div>
 
 </body>
 <script type="text/javascript">
-	function deleteItem() {
-		if(confirm("판매를 중단하시겠습니까?")==true){
-			location.href='${cp}/admin/item/delete?itemNo=${dto.itemNo}';
-		}else{
+
+
+	function changeStk(){
+		let currStk = document.getElementById('currStk');
+		let nextStk = document.getElementById('nextStk');
+		let deltaStk = document.getElementById('deltaStk');
+		nextStk.value = parseInt(currStk.value) + parseInt(deltaStk.value);
+		
+		if (!(/[0-9]{1,3}/).test(deltaStk.value)) {
+			alert('숫자만 입력 가능합니다.');
+			deltaStk.value = 0;
 			return false;
+		}
+		
+		if(nextStk.value < 0){
+			alert('경고');
+			deltaStk.value = 0;
+			nextStk.value = parseInt(currStk.value) + parseInt(deltaStk.value);
 		}
 	}
 	
-	function del() {
-		if(confirm("정말 삭제하시겠습니까?")==true) {
-			document.deleteForm.submit();
-		}else {
+	function validateStk(){
+		let deltaStk = document.getElementById('deltaStk');
+		if (!(/[0-9]{1,3}/).test(deltaStk.value)) {
+			alert('숫자만 입력 가능합니다.');
+			deltaStk.value = 0;
 			return false;
 		}
 	}
+
 </script>
 </html>
