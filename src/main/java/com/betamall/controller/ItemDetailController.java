@@ -12,7 +12,7 @@ import com.betamall.dao.ItemDao;
 import com.betamall.dto.ItemDto;
 
 
-@WebServlet("/admin/item/detail")
+@WebServlet(urlPatterns = {"/admin/item/detail","/item/detail"})
 @SuppressWarnings("serial")
 public class ItemDetailController extends HttpServlet{
 	@Override
