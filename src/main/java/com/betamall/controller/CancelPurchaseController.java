@@ -17,20 +17,37 @@ import com.betamall.service.ChangeOrder;
 @WebServlet("/cancelPurchase")
 @SuppressWarnings("serial")
 public class CancelPurchaseController extends HttpServlet{
-	// doPost로 수정
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		HttpSession session = req.getSession();
-		OrderDao ordDao = OrderDao.getInstance();
 		
 		String mbrId = (String)session.getAttribute("id");
-		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(MemberDao.getInstance().selectById(mbrId).getMbrNo());
 		
+		OrderDao ordDao = OrderDao.getInstance();
+		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(MemberDao.getInstance().selectById(mbrId).getMbrNo());
 		for(int ordNo:ordNos) {
+			ChangeOrder.changeOrdSta(ordNo, "주문취소");
+		}
+		
+		session.removeAttribute("IpOrd");
+		if(req.getHeader("referer").endsWith("payment")) {
+			resp.sendRedirect(req.getContextPath() + "/member/cart");
+		}else{
+			resp.sendRedirect(req.getContextPath() + "/member/ordList");
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String sordNo = req.getParameter("ordNo");
+		
+		if(sordNo != null) {
+			int ordNo = Integer.parseInt(sordNo);
 			ChangeOrder.changeOrdSta(ordNo, "결제취소");
 		}
-		session.removeAttribute("IpOrd");
-		resp.sendRedirect(req.getContextPath() + "/item/search");
+		resp.sendRedirect(req.getContextPath() + "/member/ordList");
 	}
 }

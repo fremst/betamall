@@ -41,6 +41,38 @@ public class OrdItemDao {
 		}
 	}
 	
+	public ArrayList<OrdItemDto> selectByOrdNo(int ordNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT * FROM ORDITEM WHERE ORDNO = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ordNo);
+			rs = pstmt.executeQuery();
+			ArrayList<OrdItemDto> ordItemDtos = new ArrayList<OrdItemDto>();
+			while (rs.next()) {
+				ordItemDtos.add(
+						new OrdItemDto(
+								rs.getInt("ORDNO"),
+								rs.getInt("ITEMNO"),
+								rs.getInt("ORDCNT"),
+								rs.getString("REVIEW"),
+								rs.getInt("RATE"),
+								rs.getDate("REVDATE")
+								)
+						);
+			}
+			return ordItemDtos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
 	public int getTotPmt(int ordNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

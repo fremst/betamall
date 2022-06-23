@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.betamall.dao.BranchDao;
+import com.betamall.dao.ItemDao;
 import com.betamall.dao.MemberDao;
 import com.betamall.dao.OrdItemDao;
 import com.betamall.dao.OrderDao;
 import com.betamall.dao.PmtDao;
+import com.betamall.dto.ItemDto;
 import com.betamall.dto.MemberDto;
+import com.betamall.dto.OrdItemDto;
 import com.betamall.dto.OrderDto;
+import com.betamall.dto.OrderSheet;
 import com.betamall.dto.PmtDto;
 
 @WebServlet("/member/payment")
@@ -25,58 +30,46 @@ public class MbrPmtController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-//		ArrayList<ItemDto> ordItemList = new ArrayList<ItemDto>();
-//    	ArrayList<BranchDto> ordBrList = new ArrayList<BranchDto>();
-//    	ArrayList<Integer> ordCntList = new ArrayList<Integer>();
-//    	ArrayList<Integer> ordItemPerBr = new ArrayList<Integer>();
-//		
-//		TreeMap<ArrayList<Integer>, Integer> cart = new TreeMap<ArrayList<Integer>, Integer>(new Comparator<ArrayList<Integer>>() {
-//			@Override
-//			public int compare(ArrayList<Integer> ordKey1, ArrayList<Integer> ordKey2) {
-//				
-//				int brNo1 = ordKey1.get(0);
-//				int itemNo1 = ordKey1.get(1);
-//				int brNo2 = ordKey2.get(0);
-//				int itemNo2 = ordKey2.get(1);
-//				
-//				if(brNo1 != brNo2) {
-//					return brNo1 - brNo2; 
-//				}else {
-//					return itemNo1 - itemNo2;
-//				}
-//			}
-//		});
-//		
-//		ArrayList<Integer> ordKey = new ArrayList<>(Arrays.asList(brNo, itemNo));
-//		if(cart.get(ordKey) == null) {
-//			cart.put(ordKey, ordCnt);
-//		}else {
-//			cart.put(ordKey, cart.get(ordKey) + ordCnt);
-//		}
-//		
-//		req.setAttribute("ordBrList", ordBrList);
-//		req.setAttribute("ordItemList", ordItemList);
-//		req.setAttribute("ordCntList", ordCntList);
-//		req.setAttribute("ordItemPerBr", ordItemPerBr);
-		
-    	
-		OrderDao ordDao = OrderDao.getInstance();
-		OrdItemDao ordItemDao = OrdItemDao.getInstance();
-		
 		HttpSession session = req.getSession();
 		
 		MemberDao mbrDao = MemberDao.getInstance();
+		OrderDao ordDao = OrderDao.getInstance();
+		OrdItemDao ordItemDao = OrdItemDao.getInstance();
+		ItemDao itemDao = ItemDao.getInstance();
+		
 		String mbrId = (String)session.getAttribute("id");
 		int mbrNo = mbrDao.selectById(mbrId).getMbrNo();
+
+		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(mbrNo);
+		ArrayList<OrderSheet> orderSheets = new ArrayList<OrderSheet>();
+		
+		for(int ordNo:ordNos) {
+			String brName = BranchDao.getInstance().select(ordDao.select(ordNo).getBrNo()).getBrName();
+			ArrayList<OrdItemDto> ordItemDtos = ordItemDao.selectByOrdNo(ordNo);
+			for(OrdItemDto o:ordItemDtos) {
+
+				ItemDto itemDto = itemDao.select(o.getItemNo());
+				
+				orderSheets.add(new OrderSheet(
+						ordNo,
+						brName,
+						itemDto.getItemNo(),
+						itemDto.getItemName(),
+						itemDto.getPrice(),
+						o.getOrdCnt()
+						)
+					);
+			}
+		}
+
+		req.setAttribute("orderSheets", orderSheets);
 		
 		int totAmt = 0;
 		int discAmt = 0;
 		int delFee = 2500;
 		
-		ArrayList<Integer> ordNos = ordDao.getIpOrdNos(mbrNo);
-		
 		for(int ordNo:ordNos) {
-			totAmt += ordItemDao.getTotPmt(ordNo)-discAmt+delFee;
+			totAmt += ordItemDao.getTotPmt(ordNo);
 		}
 		
 		MemberDto mbrDto = mbrDao.selectById(mbrId);
@@ -130,7 +123,6 @@ public class MbrPmtController extends HttpServlet{
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
 			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recName, recFullAdr, recTel));
 
-			// 트리거로 처리 
 			MemberDto mbrDto = mbrDao.selectById(mbrId);
 			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
 			mbrDao.update(mbrDto);
@@ -138,7 +130,7 @@ public class MbrPmtController extends HttpServlet{
     	
     	session.removeAttribute("cart");
 		session.removeAttribute("IpOrd");
-		resp.sendRedirect(req.getContextPath() + "/item/search");
+		resp.sendRedirect(req.getContextPath() + "/member/ordList");
 		
 	}
 }

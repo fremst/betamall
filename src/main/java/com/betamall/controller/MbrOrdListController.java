@@ -40,7 +40,6 @@ public class MbrOrdListController extends HttpServlet {
         OrderInfoDto orderInfoDto = mbrOrderInfoDao.selectByMbrNo(mbrNo);
         ArrayList<OrderInfoDto> mbrOrderList = mbrOrderInfoDao.selectByMbrNQuery(mbrNo, query);
 
-
         req.setAttribute("mbrNo", mbrNo);
         req.setAttribute("query", query);
         req.setAttribute("mbrId", mbrId);

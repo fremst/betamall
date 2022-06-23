@@ -46,7 +46,7 @@
                         <tr>
                             <th class="deltitle">배송중</th>
                             <th class="deltitle">배송완료</th>
-                            <th class="deltitle">주문취소</th>
+                            <th class="deltitle">결제취소</th>
                         </tr>
                         <tr>
                             <td class="delInfo"><img src="${cp}/resources/images/delivery.png" class="delImg">
@@ -75,7 +75,8 @@
                     <div id="errBox">${errMsg}</div>
                 </c:when>
                 <c:otherwise>
-                    <table id="ordListTable">
+            
+           <table id="ordListTable">
                         <c:forEach var="ord" items="${mbrOrderList}" varStatus="status">
                             <tr>
                                 <th class="adrInfo"><h3>주문번호</h3></th>
@@ -100,7 +101,6 @@
                                                        formaction="${cp}/member/payment"><br>
                                                 <input type="submit" value="주문취소" class="odrBtn"
                                                        formaction="${cp}/cancelPurchase">
-                                                <input type="hidden" value="결제취소" name="ordSta">
                                             </td>
                                         </c:when>
                                         <c:when test="${ord.ordSta =='결제완료'}">

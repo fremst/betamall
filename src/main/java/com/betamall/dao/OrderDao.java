@@ -106,6 +106,24 @@ public class OrderDao {
 		}
 	}
 	
+	public int delete(int ordNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "DELETE FROM \"ORDER\" WHERE ORDNO = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ordNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+	}
+	
 	public int getOrdNo() {
 		Connection con = null;
 		PreparedStatement pstmt = null;

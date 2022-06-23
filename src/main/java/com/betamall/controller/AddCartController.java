@@ -65,10 +65,10 @@ public class AddCartController extends HttpServlet{
 		session.setAttribute("cart", cart);
 		
 		String status = req.getParameter("status");
-		if(status.equals("pur")) {
-			resp.sendRedirect(req.getHeader("referer"));
-		}else if(status.equals("cart")) {
+		if(status == null || status.equals("cart")) {
 			resp.sendRedirect(req.getContextPath() + "/member/cart");
+		}else if(status.equals("pur")) {
+			resp.sendRedirect(req.getHeader("referer"));
 		}
 	}
 }

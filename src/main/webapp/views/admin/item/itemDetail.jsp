@@ -8,6 +8,34 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel = "stylesheet" href="${cp}/resources/css/itemForm.css">
+<style type="text/css">
+
+#purchaseBox{
+	width: 800px;
+	padding: 20px;
+	margin: auto;
+}
+
+#purchaseForm {
+	width: 200px;
+	margin: 0;
+	display: inline-block;
+}
+
+.deltaBtns{
+	width: 30px;
+}
+
+.inputText{
+	width: 80px;
+}
+
+.btns{
+	width: 80px;
+
+}
+
+</style>
 </head>
 <body>
 	<h1>상품 상세 페이지</h1>
@@ -34,6 +62,7 @@
 			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" readonly="readonly"><br>
 			<label>해시태그</label>
 			<input type="text" value="${dto.hash }" readonly="readonly"><br>
+			
 			<c:choose>
 				<c:when test="${role == 'admin0' }">
 					<label>판매여부</label>
@@ -66,9 +95,41 @@
 			</c:choose>		
 		</div>
 	</div>
-	<div class ="quickMenu">
-		<a href = "#"><img src = "${cp}/resources/images/cart.png" height = "25px"> 장바구니에 담기</a>
-	</div>
+	
+	<c:choose>
+		<c:when test="${not empty stkDtos}"> 
+			<fieldset id="purchaseBox">
+					<legend><h3>구매하기</h3></legend>
+					<c:forEach var="i" begin="0" end="${brDtos.size()-1}">
+						<form action="${cp}/member/addcart" method="get" id="purchaseForm">
+						<h3>${brDtos[i].brName}</h3>
+						(재고<fmt:formatNumber value="${stkDtos[i].stkCnt}" type="number"/>개) <br>
+							<input type="button" value ="－" class="deltaBtns" onclick="subtractCnt(${i}, ${stkDtos[i].stkCnt})">  
+							<input type="text" id="DOrdCnt${i}" value="1" class="inputText" readonly>
+							<input type="button" value ="＋" class="deltaBtns" onclick="addCnt(${i}, ${stkDtos[i].stkCnt})"><br>
+							상품금액
+							<input type="text" id="DEachAmt${i}" value="<fmt:formatNumber value="${dto.price}" type="number"/>" class="inputText"> 원<br>
+							배송비
+							<input type="text" id="DDelAmt" value="<fmt:formatNumber value="${2500}" type="number"/>" class="inputText"> 원<br>
+							총액
+							<input type="text" id="DTotAmt${i}" value="<fmt:formatNumber value="${dto.price+2500}" type="number"/>" class="inputText"> 원<br>
+							<input type="submit" value="구매하기" onclick="return purchase()" class="btns">
+							
+							<input type="hidden" id="ordCnt${i}" name="ordCnt" value="1">
+							<input type="hidden" id="eachAmt${i}" value="${dto.price}">
+							<input type="hidden" id="delAmt" value="${2500}">
+							<input type="hidden" id="totAmt${i}" value="${dto.price+2500}">
+							
+							<input type="hidden" name="brNo" value="${brDtos[i].brNo}">
+							<input type="hidden" name="itemNo" value="${dto.itemNo}">
+						</form>
+					</c:forEach>
+			</fieldset>
+		</c:when>
+		<c:otherwise>
+			재고가 없습니다.
+		</c:otherwise>
+	</c:choose>
 	
 	<div class="img">
 	<label id="detImg">상세이미지</label><br>
@@ -112,7 +173,69 @@
 			return false;
 		}
 	}
+
+  
+	function addCnt(m, n){
+		let ordCnt = document.getElementById('ordCnt'+m);
+		let eachAmt = document.getElementById('eachAmt'+m);
+		let delAmt = document.getElementById('delAmt');
+		let totAmt = document.getElementById('totAmt'+m);
+		
+		let DOrdCnt = document.getElementById('DOrdCnt'+m);
+		let DEachAmt = document.getElementById('DEachAmt'+m);
+		let DDelAmt = document.getElementById('DDelAmt');
+		let DTotAmt = document.getElementById('DTotAmt'+m);
+		
+		if(parseInt(DOrdCnt.value) < n){
+			ordCnt.value = parseInt(ordCnt.value)+1;
+			eachAmt.value = ${dto.price}*parseInt(ordCnt.value);
+			totAmt.value = parseInt(eachAmt.value)+2500;
+			
+			DOrdCnt.value = parseInt(ordCnt.value).toLocaleString('en-US');
+			DEachAmt.value = parseInt(eachAmt.value).toLocaleString('en-US');
+			DTotAmt.value = parseInt(totAmt.value).toLocaleString('en-US');
+		}
+	}
 	
+	function subtractCnt(m, n){
+		let ordCnt = document.getElementById('ordCnt'+m);
+		let eachAmt = document.getElementById('eachAmt'+m);
+		let delAmt = document.getElementById('delAmt');
+		let totAmt = document.getElementById('totAmt'+m);
+		
+		let DOrdCnt = document.getElementById('DOrdCnt'+m);
+		let DEachAmt = document.getElementById('DEachAmt'+m);
+		let DDelAmt = document.getElementById('DDelAmt');
+		let DTotAmt = document.getElementById('DTotAmt'+m);
+		
+		if(parseInt(DOrdCnt.value) > 1){
+			ordCnt.value = parseInt(ordCnt.value)-1;
+			eachAmt.value = ${dto.price}*parseInt(ordCnt.value);
+			totAmt.value = parseInt(eachAmt.value)+2500;
+			
+			DOrdCnt.value = parseInt(ordCnt.value).toLocaleString('en-US');
+			DEachAmt.value = parseInt(eachAmt.value).toLocaleString('en-US');
+			DTotAmt.value = parseInt(totAmt.value).toLocaleString('en-US');
+		}
+	}
+
+	function purchase(){
+		if(${empty id}){
+			alert('로그인이 필요한 서비스입니다.');
+			return true;
+		}else{
+			if(${IpOrd == 'true'}){
+				if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
+				 	location.href="${cp}/member/payment";
+				}
+			}else{
+				return confirm('구매하시겠습니까?');
+			}
+		}
+		return false;
+	}
+	
+
 	function del() {
 		if(confirm("정말 삭제하시겠습니까?")==true) {
 			document.deleteForm.submit();
@@ -120,5 +243,6 @@
 			return false;
 		}
 	}
+
 </script>
 </html>

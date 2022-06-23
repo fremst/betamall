@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.betamall.dao.BranchDao;
 import com.betamall.dao.ItemDao;
+import com.betamall.dao.StockDao;
+import com.betamall.dto.BranchDto;
+import com.betamall.dto.ItemDto;
+import com.betamall.dto.StockDto;
+
 import com.betamall.dao.OrdItemDao;
 import com.betamall.dto.ItemDto;
 import com.betamall.dto.OrdItemDto;
@@ -21,6 +27,7 @@ import com.betamall.dto.McatDto;
 import com.betamall.dto.ScatDto;
 
 
+
 @WebServlet(urlPatterns = {"/admin/item/detail","/item/detail"})
 @SuppressWarnings("serial")
 public class ItemDetailController extends HttpServlet{
@@ -28,11 +35,17 @@ public class ItemDetailController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
+
+		StockDao stkDao = StockDao.getInstance();
+		ArrayList<StockDto> stkDtos = stkDao.selectByItemNo(itemNo);
+		req.setAttribute("stkDtos", stkDtos);
 		
-		ItemDao dao=ItemDao.getInstance();
-		ItemDto dto=dao.select(itemNo);
-    
-		req.setAttribute("dto", dto);
+		BranchDao brDao = BranchDao.getInstance();
+		ArrayList<BranchDto> brDtos = new ArrayList<BranchDto>();
+		for (StockDto s:stkDtos) {
+			brDtos.add(brDao.select(s.getBrNo()));
+		}
+		req.setAttribute("brDtos", brDtos);
 		
 		OrdItemDao odao=OrdItemDao.getInstance();
 		ArrayList<OrdItemDto> list=odao.list(itemNo);
@@ -42,7 +55,6 @@ public class ItemDetailController extends HttpServlet{
 		String role = (String)session.getAttribute("role");
 		req.setAttribute("id", id);
 		req.setAttribute("role", role);
-		
 
 	  McatDao mcatDao = McatDao.getInstance();
 		ScatDao scatDao = ScatDao.getInstance();
