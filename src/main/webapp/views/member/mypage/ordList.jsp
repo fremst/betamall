@@ -76,7 +76,7 @@
                 </c:when>
                 <c:otherwise>
                     <table id="ordListTable">
-                        <c:forEach var="ord" items="${mbrOrderList}">
+                        <c:forEach var="ord" items="${mbrOrderList}" varStatus="status">
                             <tr>
                                 <th class="adrInfo"><h3>주문번호</h3></th>
                                 <th class="adrInfo"></th>
@@ -91,13 +91,8 @@
                                 <tr>
                                     <td>${ord.ordNo}
                                         <input type="hidden" value="${ord.ordNo}" name="ordNo"></td>
-                                    <td><a href="${cp}/item/detail?itemNo=${ord.itemNo}"><img
-                                            src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></a></td>
-                                    <td>
-                                        <a href="${cp}/item/detail?itemNo=${ord.itemNo}"
-                                           id="itemTitle">${ord.itemName}</a><br><fmt:formatNumber
-                                            value="${ord.price}" type="number"/>
-                                        원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
+                                    <td><a href = "${cp}/item/detail?itemNo=${ord.itemNo}"><img src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></a></td>
+                                    <td><a href="${cp}/item/detail?itemNo=${ord.itemNo}" id="itemTitle">${ord.itemName}</a><br><fmt:formatNumber value="${ord.price}" type="number"/>원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
                                     <td>${ord.ordSta}</td>
                                     <c:choose>
                                         <c:when test="${ord.ordSta =='결제대기'}">
@@ -129,9 +124,17 @@
                                             </td>
                                         </c:when>
                                         <c:when test="${ord.ordSta =='구매확정'}">
-                                            <td><input type="submit" value="후기쓰기" class="odrBtn"
-                                                       formaction="${cp}/confirmPurchase"></td>
-                                        </c:when>
+                                        <td>
+                                    	<c:choose>
+                                    		<c:when test="${revDate[status.index] == null}">
+	                                    		<input type="button" value="후기작성" class="odrBtn" onclick='location.href="${cp}/reviewinsert?ordNo=${ord.ordNo }&itemNo=${ord.itemNo }"'>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		후기작성 완료
+	                                    	</c:otherwise>
+                                    	</c:choose>    
+                                    </td>
+                                </c:when>
                                     </c:choose>
                                 </tr>
                                 <tr class="adrInfo">

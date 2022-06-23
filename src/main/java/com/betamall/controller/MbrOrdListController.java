@@ -1,6 +1,7 @@
 package com.betamall.controller;
 
 import com.betamall.dao.MemberDao;
+import com.betamall.dao.OrdItemDao;
 import com.betamall.dao.OrderInfoDao;
 import com.betamall.dto.OrderInfoDto;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
@@ -44,7 +46,14 @@ public class MbrOrdListController extends HttpServlet {
         req.setAttribute("mbrId", mbrId);
         req.setAttribute("orderInfoDto", orderInfoDto);
         req.setAttribute("mbrOrderList", mbrOrderList);
-
+        
+        OrdItemDao idao=OrdItemDao.getInstance(); 
+        ArrayList<Date> revDate=new ArrayList<>();
+        for(int i=0;i<mbrOrderList.size();i++) {
+        	revDate.add(idao.checkreview(mbrOrderList.get(i).getOrdNo(), mbrOrderList.get(i).getItemNo()));
+        }
+        req.setAttribute("revDate", revDate);
+ 
         if (mbrOrderList.size() == 0) {
             req.setAttribute("errMsg", "주문하신 상품이 없습니다.");
         }

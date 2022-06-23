@@ -75,6 +75,65 @@ public class QnaDao {
 		}
 	}
 	
+	public ArrayList<QnaDto> mylist(int startRow,int endRow, String field,String keyword, int mbrNo){
+		String sql=	null;
+		if(field==null || field.equals("")) {
+			sql="select * from "
+					+ "("
+					+ "    select aa.*,rownum rnum from"
+					+ "    ("
+					+ "	      select * from qna "
+					+ "	      where mbrNo=? "
+					+ "	      order by qnano desc"
+					+ "    )aa"
+					+ ") "
+					+ "where rnum>=? and rnum<=?";
+		}else {
+			sql="select * from "
+					+ "("
+					+ "    select aa.*,rownum rnum from"
+					+ "    ("
+					+ "	      select * from qna q inner join member m on q.mbrno=m.mbrno where "+ field + " like '%"+ keyword + "%' and mbrNo=?"
+					+ "	      order by qnano desc"
+					+ "    )aa"
+					+ ") "
+					+ "where rnum>=? and rnum<=?";
+			}
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<QnaDto> list=new ArrayList<QnaDto>();
+			MemberDao dao=MemberDao.getInstance();
+			while(rs.next()) {
+				int qnaNo=rs.getInt("qnano");
+				int itemNo=rs.getInt("itemNo");
+				String qnaCat=rs.getString("qnacat");
+				String qnaTitle=rs.getString("qnatitle");
+				String qnaCon=rs.getString("qnacon");
+				String qnaFile=rs.getString("qnafile");
+				boolean secret=rs.getBoolean("secret");
+				Date qnaWdate=rs.getDate("qnawdate");
+				Date qnaMdate=rs.getDate("qnamdate");
+				boolean qnaDel=rs.getBoolean("qnadel");
+				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel, dao.select(mbrNo).getMbrId());
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
 	public int getCount(String field, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -86,6 +145,31 @@ public class QnaDao {
 				sql += " where "+ field +" like '%"+ keyword + "%' ";
 			}	
 			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
+	
+	public int mygetCount(String field, String keyword, int mbrNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select count(*) from qna where mbrno=?";
+			if(field!=null && !field.equals("")) {
+				sql += " and "+ field +" like '%"+ keyword + "%' ";
+			}	
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1);

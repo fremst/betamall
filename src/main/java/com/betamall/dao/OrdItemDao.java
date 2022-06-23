@@ -1,9 +1,11 @@
 package com.betamall.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.betamall.dto.OrdItemDto;
 import com.betamall.util.JdbcUtil;
@@ -67,11 +69,12 @@ public class OrdItemDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "update orditem set review=?, rate=?, revdate=current_date where ordno=?";
+			String sql = "update orditem set review=?, rate=?, revdate=current_date where ordno=? and itemNo=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getReview());
 			pstmt.setInt(2, dto.getRate());
 			pstmt.setInt(3, dto.getOrdNo());
+			pstmt.setInt(4, dto.getItemNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,14 +85,15 @@ public class OrdItemDao {
 		}
 	}
 	
-	public int reviewdelete(int ordNo) {
+	public int reviewdelete(int ordNo, int itemNo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql = "update orditem set review=null, rate=null, revdate=null where ordno=?";
+			String sql = "update orditem set review=null, rate=null where ordno=? and itemNo=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, ordNo);
+			pstmt.setInt(2, itemNo);
 			return pstmt.executeUpdate();
 		}catch(SQLException s) {
 			s.printStackTrace();
@@ -97,5 +101,120 @@ public class OrdItemDao {
 		}finally {
 			JdbcUtil.close(con, pstmt, null);
 		}		
+	}
+	
+	public Date checkreview(int ordNo, int itemNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "select revdate from orditem where ordno=? and itemNo=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ordNo);
+			pstmt.setInt(2, itemNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getDate("revdate");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+		return null;
+	}
+	
+	public ArrayList<OrdItemDto> list(int itemNo){
+		String sql=	"select * from orditem where itemno=? and review is not null order by revdate desc";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, itemNo);
+			rs=pstmt.executeQuery();
+			ArrayList<OrdItemDto> list=new ArrayList<OrdItemDto>();
+			OrderDao dao=OrderDao.getInstance();
+			MemberDao mdao=MemberDao.getInstance();
+			while(rs.next()) {
+				int ordNo=rs.getInt("ordno");
+				int ordCnt=rs.getInt("ordCnt");
+				String review=rs.getString("review");
+				int	rate=rs.getInt("rate");
+				Date revDate=rs.getDate("revDate");
+				String mbrId=mdao.select(dao.select(ordNo).getMbrNo()).getMbrId();
+				OrdItemDto dto=new OrdItemDto(ordNo, itemNo, ordCnt, review, rate, revDate, mbrId) ;
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+	
+	public OrdItemDto select(int ordNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select * from orditem where ordno=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, ordNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int itemNo=rs.getInt("itemNo");
+				int ordCnt=rs.getInt("ordCnt");
+				String review=rs.getString("review");
+				int rate=rs.getInt("rate");
+				Date revDate=rs.getDate("revDate");
+				OrdItemDto dto=new OrdItemDto(ordNo, itemNo, ordCnt, review, rate, revDate);
+				return dto;
+			}
+			return null;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
+	
+	public ArrayList<OrdItemDto> mylist(int mbrNo){
+		String sql=	"SELECT * FROM ORDITEM OI INNER JOIN \"ORDER\" OD ON OI.ORDNO=OD.ORDNO WhERE MBRNO=? AND REVIEW IS NOT NULL ORDER BY REVDATE DESC";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, mbrNo);
+			rs=pstmt.executeQuery();
+			ArrayList<OrdItemDto> list=new ArrayList<OrdItemDto>();
+			OrderDao dao=OrderDao.getInstance();
+			MemberDao mdao=MemberDao.getInstance();
+			while(rs.next()) {
+				int ordNo=rs.getInt("ordno");
+				int itemNo=rs.getInt("itemno");
+				int ordCnt=rs.getInt("ordCnt");
+				String review=rs.getString("review");
+				int	rate=rs.getInt("rate");
+				Date revDate=rs.getDate("revDate");
+				String mbrId=mdao.select(dao.select(ordNo).getMbrNo()).getMbrId();
+				OrdItemDto dto=new OrdItemDto(ordNo, itemNo, ordCnt, review, rate, revDate, mbrId) ;
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
 	}
 }

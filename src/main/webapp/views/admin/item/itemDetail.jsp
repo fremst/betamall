@@ -75,11 +75,32 @@
 	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
 	</div>
 	
-	---------------------------------------------------------
+	------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	<div>
-		
-	
-	
+		<h1>후기</h1>
+		<c:choose>
+			<c:when test="${not empty list }">
+				<c:forEach var="list" items="${list }">
+					<form action="${cp }/reviewdelete" name="deleteForm">
+						<label>작성자</label>
+						<input type="text" value="${list.mbrId }" readonly="readonly"><br>
+						<label>작성일자</label>
+						<input type="text" value="${list.revDate }" readonly="readonly"><br>
+						<img src="${cp }/resources/uploads/admin/rate/${list.rate }.jpg"><br>
+						<input type="text" value="${list.review }" readonly="readonly"><br>
+						<input type="text" name="ordNo" value="${list.ordNo }" style="display: none">    
+		                <input type="text" name="itemNo" value="${list.itemNo }" style="display: none"> 
+		               	<c:if test="${list.mbrId == id || role == 'admin' || role == 'admin0'}">
+		                	<button id="del" onclick="del()">삭제</button>
+		             	</c:if>
+					</form>
+					--------------------------------------------------------------------------------------------------------------------------<br>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				등록된 후기가 없습니다.
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 </body>
@@ -88,6 +109,14 @@
 		if(confirm("판매를 중단하시겠습니까?")==true){
 			location.href='${cp}/admin/item/delete?itemNo=${dto.itemNo}';
 		}else{
+			return false;
+		}
+	}
+	
+	function del() {
+		if(confirm("정말 삭제하시겠습니까?")==true) {
+			document.deleteForm.submit();
+		}else {
 			return false;
 		}
 	}

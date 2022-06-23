@@ -166,9 +166,33 @@ public class BoardDao {
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
-			String sql="select count(*) from board";
+			String sql="select count(*) from board where brdcat in('공지', '이벤트')";
 			if(field!=null && !field.equals("")) {
-				sql += " where "+ field +" like '%"+ keyword + "%' ";
+				sql += " and "+ field +" like '%"+ keyword + "%' ";
+			}	
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
+	
+	public int faqgetCount(String field, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select count(*) from board where brdcat in('회원가입', '주문결제', '배송')";
+			if(field!=null && !field.equals("")) {
+				sql += " and "+ field +" like '%"+ keyword + "%' ";
 			}	
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();

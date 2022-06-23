@@ -51,7 +51,7 @@ public class OrderInfoDto {
         this.ordAdr = ordAdr;
         this.tImg = tImg;
     }
-
+    
     public int getOrdNo() {
         return ordNo;
     }
