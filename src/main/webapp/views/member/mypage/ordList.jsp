@@ -78,7 +78,7 @@
                     <th>진행상태</th>
                     <th></th>
                 </tr>
-                <c:forEach var="ord" items="${mbrOrderList}">
+                <c:forEach var="ord" items="${mbrOrderList}" varStatus="status">
                     <form method="post">
                         <tr>
                             <td>${ord.ordNo}
@@ -113,8 +113,16 @@
                                     </td>
                                 </c:when>
                                 <c:when test="${ord.ordSta =='구매확정'}">
-                                    <td><input type="submit" value="후기쓰기" class="odrBtn"
-                                               formaction="${cp}/confirmPurchase"></td>
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${revDate[status.index] == null}">
+	                                    		<input type="button" value="후기작성" class="odrBtn" onclick='location.href="${cp}/reviewinsert?ordNo=${ord.ordNo }&itemNo=${ord.itemNo }"'>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		후기작성 완료
+	                                    	</c:otherwise>
+                                    	</c:choose>    
+                                    </td>
                                 </c:when>
                             </c:choose>
                         </tr>

@@ -49,7 +49,7 @@ public class OrderInfoDto {
         this.ordAddr = ordAddr;
         this.tImg = tImg;
     }
-
+    
     public int getOrdNo() {
         return ordNo;
     }

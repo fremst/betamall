@@ -31,7 +31,7 @@ public class FaqListController extends HttpServlet{
 		int endRow=startRow+9;					
 		BoardDao dao=BoardDao.getInstance();
 		ArrayList<BoardDto> list=dao.faqList(startRow, endRow, field, keyword);
-		int pageCount=(int)Math.ceil(dao.getCount(field,keyword)/10.0);		
+		int pageCount=(int)Math.ceil(dao.faqgetCount(field,keyword)/10.0);		
 		
 		int startPage=(pageNum-1)/10*10+1;		
 		int endPage=startPage+9;		
