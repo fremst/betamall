@@ -32,7 +32,11 @@ public class CancelPurchaseController extends HttpServlet{
 		}
 		
 		session.removeAttribute("IpOrd");
-		resp.sendRedirect(req.getContextPath() + "/member/cart");
+		if(req.getHeader("referer").endsWith("payment")) {
+			resp.sendRedirect(req.getContextPath() + "/member/cart");
+		}else{
+			resp.sendRedirect(req.getContextPath() + "/member/ordList");
+		}
 	}
 
 	@Override

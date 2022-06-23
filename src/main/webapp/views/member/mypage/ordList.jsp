@@ -69,7 +69,12 @@
             </fieldset>
             <hr>
             <c:set var="cp" value="${pageContext.request.contextPath }"/>
-            <div id="errBox">${errMsg}</div>
+            <c:choose>
+                <c:when test="${errMsg != null}">
+                    <div id="errBox">${errMsg}</div>
+                </c:when>
+                <c:otherwise>
+            
             <table id="ordListTable">
                 <tr>
                     <th>주문번호</th>
@@ -112,14 +117,16 @@
                                     </td>
                                 </c:when>
                                 <c:when test="${ord.ordSta =='구매확정'}">
-                                    <td><input type="submit" value="후기쓰기" class="odrBtn"
-                                               formaction="${cp}/confirmPurchase"></td>
+                                    <td><input type="button" value="후기작성" class="odrBtn"
+                                               onclick='location.href="${cp}/confirmPurchase"'>
                                 </c:when>
                             </c:choose>
                         </tr>
                     </form>
                 </c:forEach>
-            </table>
+           		</table>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
