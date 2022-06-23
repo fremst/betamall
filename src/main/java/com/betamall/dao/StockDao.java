@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.betamall.controller.MgrDeleteController;
+import com.betamall.dto.ManagerDto;
 import com.betamall.dto.StockDto;
 import com.betamall.util.JdbcUtil;
 
@@ -68,7 +70,7 @@ public class StockDao {
 		}
 	}
 	
-	public ArrayList<StockDto> selectByItemNo(int itemNo) {
+public ArrayList<StockDto> selectByItemNo(int itemNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,6 +91,51 @@ public class StockDao {
 							);
 			}
 			return stkDtos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}
+	}
+
+	public int update(StockDto stkDto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "UPDATE STOCK SET STKCNT =? WHERE ITEMNO = ? AND BRNO = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, stkDto.getStkCnt());
+			pstmt.setInt(2, stkDto.getItemNo());
+			pstmt.setInt(3, stkDto.getBrNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(con);
+		}
+	}
+	
+
+	public ArrayList<StockDto> selectByBrNo(int brNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = JdbcUtil.getCon();
+			String sql = "SELECT * FROM STOCK WHERE BRNO = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, brNo);
+			rs = pstmt.executeQuery();
+			ArrayList<StockDto> list = new ArrayList<StockDto>();
+			while (rs.next()) {
+				StockDto stkDto = new StockDto(rs.getInt("ITEMNO"),rs.getInt("BRNO"),rs.getInt("STKCNT"));
+				list.add(stkDto);
+			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -122,5 +169,4 @@ public class StockDao {
 			JdbcUtil.close(con, pstmt, rs);
 		}
 	}
-
 }

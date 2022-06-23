@@ -19,7 +19,6 @@ public class ItemDao {
 	public static ItemDao getInstance() {
 		return instance;
 	}
-	
 	public ItemDto select(int inputItemNo){
 		String sql="select * from item where itemno = ?";
 		Connection con=null;
@@ -39,7 +38,12 @@ public class ItemDao {
 				String itemName=rs.getString("ITEMNAME");
 				String tImg=rs.getString("TIMG");
 				String detImg=rs.getString("DETIMG");
-				String hash=rs.getString("HASH");
+				//String hash=rs.getString("HASH");
+				String hash = "";
+				if(rs.getString("HASH")!=null) {
+					hash = '#' + rs.getString("HASH").replace(","," #");
+				}
+				//
 				int price = rs.getInt("PRICE");
 				boolean itemDel=rs.getBoolean("ITEMDEL");
 				dto = new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
@@ -79,7 +83,74 @@ public class ItemDao {
 				String itemName=rs.getString("ITEMNAME");
 				String tImg=rs.getString("TIMG");
 				String detImg=rs.getString("DETIMG");
-				String hash=rs.getString("HASH");
+				//String hash=rs.getString("HASH");
+				String hash = "";
+				if(rs.getString("HASH")!=null) {
+					hash = '#' + rs.getString("HASH").replace(","," #");
+				}
+				//
+				int price = rs.getInt("PRICE");
+				boolean itemDel=rs.getBoolean("ITEMDEL");
+				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			JdbcUtil.close(con,pstmt,rs);
+		}
+	}	
+	public ArrayList<ItemDto> selectByKeyword(int startRow, int endRow, String field, String keyword){
+		String sql=	null;
+		if(field==null || field.equals("")) {
+			sql="select * from"
+					+ "("
+					+"		select aa.*, rownum rnum from"
+					+"		("
+					+"			select * from item"
+					+"			order by itemno "
+					+"		) aa"
+					+"	)where rnum>=? and rnum<=?";
+		}else {
+			sql="select * "
+				+ "from( "
+				+ "    select aa.*, rownum rnum from "
+				+ "        (select * "
+				+ "         from item i join scat s "
+				+ "         on s.scatno = i.scatno "
+				+ "         inner join mcat m "
+				+ "         on i.mcatno = m.mcatno and i.mcatno = s.mcatno "
+				+ "         WHERE " + field + " LIKE '%" + keyword + "%' "
+				+ "         order by itemno "
+				+ "        ) aa "
+				+ ")where rnum >= ? and rnum <= ?";
+		}
+				
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<ItemDto> list=new ArrayList<ItemDto>();
+			while(rs.next()) {
+				int itemNo=rs.getInt("ITEMNO");
+				int mcatNo=rs.getInt("MCATNO");
+				int scatNo=rs.getInt("SCATNO");
+				String itemName=rs.getString("ITEMNAME");
+				String tImg=rs.getString("TIMG");
+				String detImg=rs.getString("DETIMG");
+				//String hash=rs.getString("HASH");
+				String hash = "";
+				if(rs.getString("HASH")!=null) {
+					hash = '#' + rs.getString("HASH").replace(","," #");
+				}
+				//
 				int price = rs.getInt("PRICE");
 				boolean itemDel=rs.getBoolean("ITEMDEL");
 				ItemDto dto=new ItemDto(itemNo, mcatNo, scatNo, itemName, tImg, detImg, hash, price, itemDel);
@@ -135,19 +206,26 @@ public class ItemDao {
 			JdbcUtil.close(con,pstmt,rs);
 		}
 	}
-	
-	public int getCount() {
+	public int getCount(String field, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="select count(*) from item";
 		ResultSet rs=null;
 		try {
 			con=JdbcUtil.getCon();
+			String sql="select count(*) from item "
+					+  " i join scat s "
+					+  " on s.scatno = i.scatno "
+					+  " inner join mcat m "
+					+  " on i.mcatno = m.mcatno and i.mcatno = s.mcatno ";
+			if(field!=null && !field.equals("")) {
+				sql += "where " + field + " like '%" + keyword + "%'";
+			}
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			rs.next();
-			int cnt=rs.getInt(1); //1번째 칼럼값 얻어오기
-			return cnt;
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
 		}catch(SQLException s) {
 			s.printStackTrace();
 			return -1;

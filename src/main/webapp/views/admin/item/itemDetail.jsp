@@ -46,11 +46,18 @@
 		</div>
 		<div class="list">
 			<label id="itemName">${dto.itemName }</label><br>
-			<label>대분류</label>
-			<input type="text" value="${dto.mcatNo }" readonly="readonly"><br>
-			<label>소분류</label>
-			<input type="text" value="${dto.scatNo }" readonly="readonly"><br>
-			
+			<c:forEach var="mcatDto" items="${mcatList}">
+				<c:if test="${dto.mcatNo == mcatDto.mcatNo}">
+						<label>대분류</label>
+						<input type="text" value="${mcatDto.mcatName}" readonly="readonly"><br>
+					<c:forEach var="scatDto" items="${scatList}">
+					<c:if test="${(dto.mcatNo == scatDto.mcatNo) && (dto.scatNo == scatDto.scatNo)}">
+						<label>소분류</label>
+						<input type="text" value="${scatDto.scatName}" readonly="readonly"><br>
+					</c:if>
+					</c:forEach>
+				</c:if>
+			</c:forEach>
 			<label>가격</label>
 			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" readonly="readonly"><br>
 			<label>해시태그</label>
@@ -129,11 +136,32 @@
 	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
 	</div>
 	
-	---------------------------------------------------------
+	------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	<div>
-		
-	
-	
+		<h1>후기</h1>
+		<c:choose>
+			<c:when test="${not empty list }">
+				<c:forEach var="list" items="${list }">
+					<form action="${cp }/reviewdelete" name="deleteForm">
+						<label>작성자</label>
+						<input type="text" value="${list.mbrId }" readonly="readonly"><br>
+						<label>작성일자</label>
+						<input type="text" value="${list.revDate }" readonly="readonly"><br>
+						<img src="${cp }/resources/uploads/admin/rate/${list.rate }.jpg"><br>
+						<input type="text" value="${list.review }" readonly="readonly"><br>
+						<input type="text" name="ordNo" value="${list.ordNo }" style="display: none">    
+		                <input type="text" name="itemNo" value="${list.itemNo }" style="display: none"> 
+		               	<c:if test="${list.mbrId == id || role == 'admin' || role == 'admin0'}">
+		                	<button id="del" onclick="del()">삭제</button>
+		             	</c:if>
+					</form>
+					--------------------------------------------------------------------------------------------------------------------------<br>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				등록된 후기가 없습니다.
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 </body>
@@ -145,7 +173,8 @@
 			return false;
 		}
 	}
-	
+
+  
 	function addCnt(m, n){
 		let ordCnt = document.getElementById('ordCnt'+m);
 		let eachAmt = document.getElementById('eachAmt'+m);
@@ -206,5 +235,14 @@
 		return false;
 	}
 	
+
+	function del() {
+		if(confirm("정말 삭제하시겠습니까?")==true) {
+			document.deleteForm.submit();
+		}else {
+			return false;
+		}
+	}
+
 </script>
 </html>

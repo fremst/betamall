@@ -43,10 +43,10 @@
     <div id="formSide">
         <h3>마이 페이지</h3>
         <ul>
-            <li><a href="${cp }/member/update">-나의 정보 수정</a></li>
-            <li><a href="${cp}/member/ordList">-주문/배송 조회</a></li>
-            <li><a href=#>-내글보기</a></li>
-            <li><a href="${cp }/member/userGrade">-등급/쿠폰 조회</a></li>
+            <li class="sidemenu"><a href="${cp }/member/update">- 나의 정보 수정</a></li>
+            <li class="sidemenu"><a href="${cp}/member/ordList">- 주문/배송 조회</a></li>
+            <li class="sidemenu"><a href=${cp}/member/myposts>- 내글보기</a></li>
+            <li class="sidemenu"><a href="${cp }/member/userGrade">- 등급/쿠폰 조회</a></li>
         </ul>
     </div>
     <div id="formMain">

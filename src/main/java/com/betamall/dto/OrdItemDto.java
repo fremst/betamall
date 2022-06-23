@@ -10,6 +10,7 @@ public class OrdItemDto {
 	private String review;
 	private int rate;
 	private Date revDate;
+	private String mbrId;
 	
 	public OrdItemDto() {}
 	
@@ -20,6 +21,16 @@ public class OrdItemDto {
 		this.review = review;
 		this.rate = rate;
 		this.revDate = revDate;
+	}
+	
+	public OrdItemDto(int ordNo, int itemNo, int ordCnt, String review, int rate, Date revDate, String mbrId) {
+		this.ordNo = ordNo;
+		this.itemNo = itemNo;
+		this.ordCnt = ordCnt;
+		this.review = review;
+		this.rate = rate;
+		this.revDate = revDate;
+		this.mbrId = mbrId;
 	}
 
 	public int getOrdNo() {
@@ -70,9 +81,18 @@ public class OrdItemDto {
 		this.revDate = revDate;
 	}
 
+	public String getMbrId() {
+		return mbrId;
+	}
+
+	public void setMbrId(String mbrId) {
+		this.mbrId = mbrId;
+	}
+
 	@Override
 	public String toString() {
-		return "OrdItem [ordNo=" + ordNo + ", itemNo=" + itemNo + ", ordCnt=" + ordCnt + ", review=" + review
-				+ ", rate=" + rate + ", revDate=" + revDate + "]\n";
+		return "OrdItemDto [ordNo=" + ordNo + ", itemNo=" + itemNo + ", ordCnt=" + ordCnt + ", review=" + review
+				+ ", rate=" + rate + ", revDate=" + revDate + ", mbrId=" + mbrId + "]";
 	}
+
 }

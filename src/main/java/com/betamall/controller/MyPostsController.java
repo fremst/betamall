@@ -10,14 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betamall.dao.BoardDao;
-import com.betamall.dto.BoardDto;
+import com.betamall.dao.MemberDao;
+import com.betamall.dao.OrdItemDao;
+import com.betamall.dao.QnaDao;
+import com.betamall.dto.MemberDto;
+import com.betamall.dto.OrdItemDto;
+import com.betamall.dto.QnaDto;
 
-@WebServlet("/board/faqlist")
 @SuppressWarnings("serial")
-public class FaqListController extends HttpServlet{
+@WebServlet("/member/myposts")
+public class MyPostsController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		MemberDao mdao = MemberDao.getInstance();
+		MemberDto mdto = mdao.selectById(id);
+		int mbrNo = mdto.getMbrNo();
+		
+		String role = (String)session.getAttribute("role");
+		req.setAttribute("role", role);
+		req.setAttribute("id", id);
+		
 		req.setCharacterEncoding("utf-8");
 		String spageNum=req.getParameter("pageNum");	
 		String field=req.getParameter("field");
@@ -29,19 +43,15 @@ public class FaqListController extends HttpServlet{
 		}		
 		int startRow=(pageNum-1)*10+1;		
 		int endRow=startRow+9;					
-		BoardDao dao=BoardDao.getInstance();
-		ArrayList<BoardDto> list=dao.faqList(startRow, endRow, field, keyword);
-		int pageCount=(int)Math.ceil(dao.faqgetCount(field,keyword)/10.0);		
+		QnaDao dao=QnaDao.getInstance();
+		ArrayList<QnaDto> list=dao.mylist(startRow, endRow, field, keyword, mbrNo);
+		int pageCount=(int)Math.ceil(dao.mygetCount(field,keyword,mbrNo)/10.0);		
 		
 		int startPage=(pageNum-1)/10*10+1;		
 		int endPage=startPage+9;		
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
-		
-		HttpSession session = req.getSession();
-		String role = (String)session.getAttribute("role");
-		req.setAttribute("role", role);
 		
 		req.setAttribute("list", list);
 		req.setAttribute("pageCount", pageCount);
@@ -50,9 +60,13 @@ public class FaqListController extends HttpServlet{
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("field", field);
 		req.setAttribute("keyword", keyword);
-
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 목록");
-		req.setAttribute("mainPage", "/views/board/faqList.jsp");
+		
+		OrdItemDao odao=OrdItemDao.getInstance();
+		ArrayList<OrdItemDto> relist=odao.mylist(mbrNo);
+		req.setAttribute("relist", relist);
+		
+		req.setAttribute("mainPageTitle", "Betamall - 내글 목록");
+		req.setAttribute("mainPage", "/views/member/mypage/myPosts.jsp");
 		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
 }

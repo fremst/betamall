@@ -14,7 +14,7 @@ import com.betamall.dto.ItemDto;
 import com.betamall.dto.OrdItemDto;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/reviewinsert")
+@WebServlet("/reviewinsert")
 public class ReviewInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,10 +35,11 @@ public class ReviewInsertController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		int ordNo=Integer.parseInt(req.getParameter("ordNo"));
+		int itemNo=Integer.parseInt(req.getParameter("itemNo"));
 		int rate=Integer.parseInt(req.getParameter("rate"));
 		String review=req.getParameter("review");
 	
-		OrdItemDto dto = new OrdItemDto(ordNo, 0, 0, review, rate, null);
+		OrdItemDto dto = new OrdItemDto(ordNo, itemNo, 0, review, rate, null);
 		OrdItemDao dao = OrdItemDao.getInstance();
 		
 		int n = dao.reviewinsert(dto);

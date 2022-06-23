@@ -11,17 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.betamall.dao.OrdItemDao;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/reviewdelete")
+@WebServlet("/reviewdelete")
 public class ReviewDeleteController extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int ordNo=Integer.parseInt(req.getParameter("ordNo"));
-	
+		int itemNo=Integer.parseInt(req.getParameter("itemNo"));
 		OrdItemDao dao = OrdItemDao.getInstance();
-		
-		int n = dao.reviewdelete(ordNo);
-		
+		int n = dao.reviewdelete(ordNo, itemNo);
+
 		// 페이지 연결 후 아래부분 수정
 		if(n>0) {
 			req.setAttribute("code","success");
