@@ -15,10 +15,10 @@
     <div id="formSide">
         <h3>마이 페이지</h3>
         <ul>
-            <li><a href="${cp }/member/update">-나의 정보 수정</a></li>
-            <li><a href="${cp}/member/ordList">-주문/배송 조회</a></li>
-            <li><a href=#>-내글보기</a></li>
-            <li><a href="${cp }/member/userGrade">-등급/쿠폰 조회</a></li>
+            <li class="sidemenu"><a href="${cp }/member/update">- 나의 정보 수정</a></li>
+            <li class="sidemenu"><a href="${cp}/member/ordList">- 주문/배송 조회</a></li>
+            <li class="sidemenu"><a href=#>- 내글보기</a></li>
+            <li class="sidemenu"><a href="${cp }/member/userGrade">- 등급/쿠폰 조회</a></li>
         </ul>
     </div>
     <div id="formMain">
@@ -64,63 +64,103 @@
                     ~
                     <input type="date" name="ordEndDate">
                     <input type="submit" value="검색" name="itemName" class="odrBtn">
-                    <input type="button" value="전체 보기" name="itemName" class="odrBtn" onclick="location.href='${cp}/member/ordList'">
+                    <input type="button" value="전체 보기" name="itemName" class="odrBtn"
+                           onclick="location.href='${cp}/member/ordList'">
                 </form>
             </fieldset>
             <hr>
             <c:set var="cp" value="${pageContext.request.contextPath }"/>
-            <div id="errBox">${errMsg}</div>
-            <table id="ordListTable">
-                <tr>
-                    <th>주문번호</th>
-                    <th></th>
-                    <th>상품정보</th>
-                    <th>진행상태</th>
-                    <th></th>
-                </tr>
-                <c:forEach var="ord" items="${mbrOrderList}">
-                    <form method="post">
-                        <tr>
-                            <td>${ord.ordNo}
-                                <input type="hidden" value="${ord.ordNo}" name="ordNo"></td>
-                            <td><a href = "${cp}/item/detail?itemNo=${ord.itemNo}"><img src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></a></td>
-                            <td><a href = "${cp}/item/detail?itemNo=${ord.itemNo}">${ord.itemName}</a><br><fmt:formatNumber value="${ord.price}" type="number"/>
-                                원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
-                            <td>${ord.ordSta}</td>
-                            <c:choose>
-                                <c:when test="${ord.ordSta =='결제대기'}">
-                                    <td><input type="submit" value="주문취소" class="odrBtn"
-                                               formaction="${cp}/cancelPurchase">
-                                        <input type="hidden" value="결제취소" name="ordSta">
-                                    </td>
-                                </c:when>
-                                <c:when test="${ord.ordSta =='결제완료'}">
-                                    <td><input type="submit" value="결제취소" class="odrBtn"
-                                               formaction="${cp}/cancelPurchase">
-                                        <input type="hidden" value="결제취소" name="ordSta">
-                                    </td>
-                                </c:when>
-                                <c:when test="${ord.ordSta =='발송전'}">
-                                    <td><input type="submit" value="구매확정" class="odrBtn"
-                                               formaction="${cp}/confirmPurchase">
-                                        <input type="hidden" value="구매확정" name="ordSta">
-                                    </td>
-                                </c:when>
-                                <c:when test="${ord.ordSta =='배송완료'}">
-                                    <td><input type="submit" value="구매확정" class="odrBtn"
-                                               formaction="${cp}/confirmPurchase">
-                                        <input type="hidden" value="구매확정" name="ordSta">
-                                    </td>
-                                </c:when>
-                                <c:when test="${ord.ordSta =='구매확정'}">
-                                    <td><input type="submit" value="후기쓰기" class="odrBtn"
-                                               formaction="${cp}/confirmPurchase"></td>
-                                </c:when>
-                            </c:choose>
-                        </tr>
-                    </form>
-                </c:forEach>
-            </table>
+            <c:choose>
+                <c:when test="${errMsg != null}">
+                    <div id="errBox">${errMsg}</div>
+                </c:when>
+                <c:otherwise>
+                    <table id="ordListTable">
+                        <c:forEach var="ord" items="${mbrOrderList}">
+                            <tr>
+                                <th class="adrInfo"><h3>주문번호</h3></th>
+                                <th class="adrInfo"></th>
+                                <th class="adrInfo"><h3>상품정보</h3></th>
+                                <th class="adrInfo"><h3>진행상태</h3></th>
+                                <th class="adrInfo"></th>
+                            </tr>
+                            <form method="post">
+                                <tr>
+                                    <td colspan="5" id="adrInfoStart"></td>
+                                </tr>
+                                <tr>
+                                    <td>${ord.ordNo}
+                                        <input type="hidden" value="${ord.ordNo}" name="ordNo"></td>
+                                    <td><a href="${cp}/item/detail?itemNo=${ord.itemNo}"><img
+                                            src="${cp }/resources/uploads/admin/item/${ord.tImg}" id="ordImg"></a></td>
+                                    <td>
+                                        <a href="${cp}/item/detail?itemNo=${ord.itemNo}"
+                                           id="itemTitle">${ord.itemName}</a><br><fmt:formatNumber
+                                            value="${ord.price}" type="number"/>
+                                        원 / ${ord.ordCnt}개<br>${ord.ordDate}</td>
+                                    <td>${ord.ordSta}</td>
+                                    <c:choose>
+                                        <c:when test="${ord.ordSta =='결제대기'}">
+                                            <td><input type="submit" value="결제하기" class="odrBtn"
+                                                       formaction="${cp}/member/payment"><br>
+                                                <input type="submit" value="주문취소" class="odrBtn"
+                                                       formaction="${cp}/cancelPurchase">
+                                                <input type="hidden" value="결제취소" name="ordSta">
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${ord.ordSta =='결제완료'}">
+                                            <td><input type="submit" value="결제취소" class="odrBtn"
+                                                       formaction="${cp}/cancelPurchase">
+                                                <input type="hidden" value="결제취소" name="ordSta">
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${ord.ordSta =='발송전'}">
+                                            <td><input type="submit" value="구매확정" class="odrBtn"
+                                                       formaction="${cp}/confirmPurchase"
+                                                       onclick="if(!confirm('구매확정시 주문취소가 불가능 합니다. 구매확정 하시겠습니까?')) {return false;}">
+                                                <input type="hidden" value="구매확정" name="ordSta">
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${ord.ordSta =='배송완료'}">
+                                            <td><input type="submit" value="구매확정" class="odrBtn"
+                                                       formaction="${cp}/confirmPurchase"
+                                                       onclick="if(!confirm('구매확정시 주문취소가 불가능 합니다. 구매확정 하시겠습니까?')) {return false;}">
+                                                <input type="hidden" value="구매확정" name="ordSta">
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${ord.ordSta =='구매확정'}">
+                                            <td><input type="submit" value="후기쓰기" class="odrBtn"
+                                                       formaction="${cp}/confirmPurchase"></td>
+                                        </c:when>
+                                    </c:choose>
+                                </tr>
+                                <tr class="adrInfo">
+                                    <th colspan="5" id="adrInfoTitle"><h3>배송지정보</h3></th>
+                                </tr>
+                                <tr class="adrInfo">
+                                    <td></td>
+                                    <td>수령인</td>
+                                    <td class="adrInfos">${ord.ordName}</td>
+                                </tr>
+                                <tr class="adrInfo">
+                                    <td></td>
+                                    <td>배송지</td>
+                                    <td colspan="2" class="adrInfos">${ord.ordAdr}
+                                        <input type="hidden" value="${ord.ordAdr}" name="ordAdr"></td>
+                                </tr>
+                                <tr class="adrInfo">
+                                    <td></td>
+                                    <td>연락처</td>
+                                    <td class="adrInfos">${ord.ordTel}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" id="adrInfoEnd"></th>
+                                </tr>
+                            </form>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>

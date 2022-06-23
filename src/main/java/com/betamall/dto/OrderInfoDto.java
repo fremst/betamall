@@ -14,28 +14,15 @@ public class OrderInfoDto {
     private String mbrId;
     private String ordName;
     private String ordTel;
-    private String ordAddr;
+    private String ordAdr;
     private String tImg;
 
-    public OrderInfoDto() {}
-
-    public OrderInfoDto(int ordNo, int itemNo, String itemName, int ordCnt, int price, Date ordDate, String ordSta,
-                        String mbrId, String ordName, String ordTel, String ordAddr) {
-
-        this.ordNo = ordNo;
-        this.itemNo = itemNo;
-        this.itemName = itemName;
-        this.ordCnt = ordCnt;
-        this.price = price;
-        this.ordDate = ordDate;
-        this.ordSta = ordSta;
-        this.mbrId = mbrId;
-        this.ordName = ordName;
-        this.ordTel = ordTel;
-        this.ordAddr = ordAddr;
+    public OrderInfoDto() {
     }
 
-    public OrderInfoDto(int ordNo, int itemNo, String itemName, int ordCnt, int price, Date ordDate, String ordSta, String mbrId, String ordName, String ordTel, String ordAddr, String tImg) {
+    public OrderInfoDto(int ordNo, int itemNo, String itemName, int ordCnt, int price, Date ordDate, String ordSta,
+            String mbrId, String ordName, String ordTel, String ordAdr) {
+
         this.ordNo = ordNo;
         this.itemNo = itemNo;
         this.itemName = itemName;
@@ -46,7 +33,22 @@ public class OrderInfoDto {
         this.mbrId = mbrId;
         this.ordName = ordName;
         this.ordTel = ordTel;
-        this.ordAddr = ordAddr;
+        this.ordAdr = ordAdr;
+    }
+
+    public OrderInfoDto(int ordNo, int itemNo, String itemName, int ordCnt, int price, Date ordDate, String ordSta,
+            String mbrId, String ordName, String ordTel, String ordAdr, String tImg) {
+        this.ordNo = ordNo;
+        this.itemNo = itemNo;
+        this.itemName = itemName;
+        this.ordCnt = ordCnt;
+        this.price = price;
+        this.ordDate = ordDate;
+        this.ordSta = ordSta;
+        this.mbrId = mbrId;
+        this.ordName = ordName;
+        this.ordTel = ordTel;
+        this.ordAdr = ordAdr;
         this.tImg = tImg;
     }
 
@@ -130,12 +132,12 @@ public class OrderInfoDto {
         this.ordTel = ordTel;
     }
 
-    public String getOrdAddr() {
-        return ordAddr;
+    public String getOrdAdr() {
+        return ordAdr;
     }
 
-    public void setOrdAddr(String ordAddr) {
-        this.ordAddr = ordAddr;
+    public void setOrdAdr(String ordAdr) {
+        this.ordAdr = ordAdr;
     }
 
     public String gettImg() {
@@ -146,10 +148,10 @@ public class OrderInfoDto {
         this.tImg = tImg;
     }
 
-	@Override
-	public String toString() {
-		return "OrderInfoDto [ordNo=" + ordNo + ", itemNo=" + itemNo + ", itemName=" + itemName + ", ordCnt=" + ordCnt
-				+ ", price=" + price + ", ordDate=" + ordDate + ", ordSta=" + ordSta + ", mbrId=" + mbrId + ", ordName="
-				+ ordName + ", ordTel=" + ordTel + ", ordAddr=" + ordAddr + ", tImg=" + tImg + "]\n";
-	}
+    @Override
+    public String toString() {
+        return "OrderInfoDto [ordNo=" + ordNo + ", itemNo=" + itemNo + ", itemName=" + itemName + ", ordCnt=" + ordCnt
+                + ", price=" + price + ", ordDate=" + ordDate + ", ordSta=" + ordSta + ", mbrId=" + mbrId + ", ordName="
+                + ordName + ", ordTel=" + ordTel + ", ordAdr=" + ordAdr + ", tImg=" + tImg + "]\n";
+    }
 }
