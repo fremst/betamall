@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+#paymentWrap{
+	width: 70%;
+	height: auto;
+	margin: auto;
+	margin-bottom: 50px;
+}
+
+.ordListField,
+.delInfoField,
+.pmtInfoField{
+	width: 97%;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+}
+
+.legendText{
+	font-size: 19px;
+	font-weight: bold;
+}
+
+#orderList{
+	text-align: center;
+}
+
+.inputText{
+	margin: 3px;
+	padding: 2px;
+	padding-left: 5px;
+	width: 160px;
+	height: 20px;	
+	border-radius: 3px;	
+	border: solid 1px gray;
+}
+
+ 	.postBtn{
+	margin: 3px;
+	padding: 2px;
+	padding-left: 5px;
+	width: 100px;
+	height: 26px;	
+	border-radius: 3px;	
+	border: solid 1px gray;
+}
+
+.itemThumbNails {
+	width: 100px;
+}
+
+.itemImg{
+	width: 200px;
+}
+
+.itemName{
+	width: 600px;
+	text-align: left;
+}
+.itemPrice{
+	width: 100px;
+}
+
+.itemCnt{
+	width: 100px;
+}
+
+.totAmt{
+	width: 100px;
+}
+
+.brName{
+	width: 150px;
+}
+   
+.btnArea {
+	width: 400px;
+	margin: auto;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.purchaseBtn{
+	width: 100px;
+	height: 35px;
+	margin: 10px;
+	color: aliceblue;
+	font-size: 15px;
+	background-color: #2C8FED;
+	border: 1px;
+	border-radius: 5px;
+}
+
+.cancelBtn{
+	width: 100px;
+	height: 35px;
+	margin: 10px;
+	color: black;
+	font-size: 15px;
+	background-color: #4B484B3A;
+	border: 1px;
+	border-radius: 5px;
+}
+   
+.nothing{
+  	height: 768px;
+  	vertical-align: center;
+  	padding-top: 200px;
+  	text-align: center;
+}

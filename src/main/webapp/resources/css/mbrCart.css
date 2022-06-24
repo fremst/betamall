@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+#cartWrap{
+	width: 100%;
+	height: auto;
+	margin: auto;
+	margin-bottom: 50px;
+}
+
+.itemInfoField,
+.pmtInfoField {
+	width: 97%;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+}
+
+.legendText{
+	font-size: 19px;
+	font-weight: bold;
+}
+
+#orderList{
+	text-align: center;
+}
+
+.itemNo {
+	width: 80px;
+}
+
+.itemImg {
+	width: 200px;
+}
+
+.itemThumbNail {
+	width: 150px;
+	height: 150px;
+}
+
+.itemName {
+	width: 600px;
+	text-align: left;
+}
+
+.itemPrice {
+	width: 100px;
+}
+
+.itemCnt {
+	width: 120px;
+}
+
+.totAmt {
+	width: 50px;
+}
+
+.btnArea {
+	width: 400px;
+	margin: auto;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.orderBtn {
+	width: 100px;
+	height: 35px;
+	margin: 10px;
+	color: aliceblue;
+	font-size: 15px;
+	background-color: #2C8FED;
+	border: 1px;
+	border-radius: 5px;
+}
+
+.cancelBtn {
+	width: 120px;
+	height: 35px;
+	margin: 10px;
+	color: black;
+	font-size: 15px;
+	background-color: #4B484B3A;
+	border: 1px;
+	border-radius: 5px;
+}
+
+.nothing {
+	height: 768px;
+	vertical-align: center;
+	padding-top: 200px;
+	text-align: center;
+}
