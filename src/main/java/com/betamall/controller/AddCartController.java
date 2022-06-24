@@ -1,6 +1,7 @@
 package com.betamall.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 @WebServlet("/member/addcart")
 @SuppressWarnings("serial")
@@ -65,10 +68,19 @@ public class AddCartController extends HttpServlet{
 		session.setAttribute("cart", cart);
 		
 		String status = req.getParameter("status");
-		if(status == null || status.equals("cart")) {
+		
+		if(status == null || status.equals("pur")) {
 			resp.sendRedirect(req.getContextPath() + "/member/cart");
-		}else if(status.equals("pur")) {
-			resp.sendRedirect(req.getHeader("referer"));
+			
+		}else if (status.equals("search")){
+			resp.setContentType("text/plain;charset=utf-8");
+			PrintWriter pw = resp.getWriter();
+			
+			pw.print(new JSONObject().put("msg", "장바구니에 성공적으로 담겼습니다."));
+			pw.close();
+
+		}else {
+			resp.sendRedirect(req.getContextPath() + "/member/cart");
 		}
 	}
 }
