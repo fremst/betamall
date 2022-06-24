@@ -180,7 +180,7 @@
 							<fmt:formatNumber value = "${totAmt}" type = "number"/>원<br>
 							할인 금액:
 							<fmt:formatNumber value = "${discAmt}" type = "number"/>원<br>
-							<input type="hidden" name = "discAmt" value = "${discAmt}">
+							<input type="text" name = "discAmt" value = "${discAmt}">
 							배송비:
 							<fmt:formatNumber value = "${delFee}" type = "number"/>
 							<input type="hidden" name = "delFee" value = "${delFee}" >

@@ -33,7 +33,7 @@ public class OrderInfoDao {
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE BRNO = ? ";
             sql += query;
-            sql += "ORDER BY ORDNO DESC";
+            sql += "ORDER BY ORDNO DESC, ITEMNO ASC";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, brNo);
             rs = pstmt.executeQuery();
@@ -154,7 +154,7 @@ public class OrderInfoDao {
                     + "FROM (((\"ORDER\" INNER JOIN ORDITEM USING(ORDNO)) INNER JOIN ITEM USING(ITEMNO))) INNER JOIN MEMBER USING (MBRNO) "
                     + "WHERE MBRNO = ? ";
             sql += query;
-            sql += "ORDER BY ORDNO DESC";
+            sql += "ORDER BY ORDNO DESC, ITEMNO ASC";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, mbrNo);
             rs = pstmt.executeQuery();

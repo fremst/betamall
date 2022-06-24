@@ -47,15 +47,14 @@ public class MbrOrdListController extends HttpServlet {
         req.setAttribute("mbrOrderList", mbrOrderList);
         
         OrdItemDao idao=OrdItemDao.getInstance(); 
-        ArrayList<Date> revDate=new ArrayList<>();
-        for(int i=0;i<mbrOrderList.size();i++) {
-        	revDate.add(idao.checkreview(mbrOrderList.get(i).getOrdNo(), mbrOrderList.get(i).getItemNo()));
-        }
+        ArrayList<Date> revDate=idao.checkreview(mbrNo);
+
         req.setAttribute("revDate", revDate);
  
         if (mbrOrderList.size() == 0) {
             req.setAttribute("errMsg", "주문하신 상품이 없습니다.");
         }
+        
         req.setAttribute("mainPageTitle", "Betamall - 주문/배송조회");
         req.setAttribute("mainPage", "/views/member/mypage/ordList.jsp");
         req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);

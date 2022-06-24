@@ -105,10 +105,10 @@ public class MbrPmtController extends HttpServlet{
 		HttpSession session = req.getSession();
 		String mbrId = (String)session.getAttribute("id");
 		
-		int discAmt = Integer.parseInt(req.getParameter("discAmt"));
-		int delFee = Integer.parseInt(req.getParameter("delFee"));
+		int discAmt = 0;
+		int delFee = 0;
 		String[] sordNos = req.getParameterValues("ordNos");
-		
+
 		String recName = req.getParameter("recName");
 		String recTel = req.getParameter("recTel");
 		

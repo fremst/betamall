@@ -135,20 +135,22 @@ public class OrdItemDao {
 		}		
 	}
 	
-	public Date checkreview(int ordNo, int itemNo) {
+	public ArrayList<Date> checkreview(int mbrNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = JdbcUtil.getCon();
-			String sql = "select revdate from orditem where ordno=? and itemNo=?";
+			String sql = "select revdate from orditem INNER JOIN \"ORDER\" USING (ORDNO) WHERE MBRNO = ? ORDER BY ORDNO DESC, ITEMNO ASC";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, ordNo);
-			pstmt.setInt(2, itemNo);
+			pstmt.setInt(1, mbrNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return rs.getDate("revdate");
+			
+			ArrayList<Date> reviews = new ArrayList<Date>();
+			while(rs.next()) {
+				reviews.add(rs.getDate("revdate"));
 			}
+			return reviews;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

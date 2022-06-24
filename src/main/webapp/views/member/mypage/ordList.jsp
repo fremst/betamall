@@ -97,10 +97,11 @@
                                     <td>${ord.ordSta}</td>
                                     <c:choose>
                                         <c:when test="${ord.ordSta =='결제대기'}">
-                                            <td><input type="submit" value="결제하기" class="odrBtn"
-                                                       formaction="${cp}/member/payment"><br>
-                                                <input type="submit" value="주문취소" class="odrBtn"
-                                                       formaction="${cp}/cancelPurchase">
+                                            <td><input type="button" value="결제하기" class="odrBtn"
+                                                       onclick="location.href='${cp}/member/payment'"><br>
+                                                <input type="hidden" value="주문취소" name="ordSta">
+                                                <input type="button" value="주문취소" class="odrBtn"
+                                                	   onclick="location.href='${cp}/cancelPurchase'"><br>
                                             </td>
                                         </c:when>
                                         <c:when test="${ord.ordSta =='결제완료'}">
