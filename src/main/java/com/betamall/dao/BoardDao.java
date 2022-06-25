@@ -281,4 +281,40 @@ public class BoardDao {
 			JdbcUtil.close(con, pstmt, null);
 		}		
 	}
+	
+	public ArrayList<BoardDto> selectAll() {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = JdbcUtil.getCon();
+            String sql = "SELECT * FROM BOARD ORDER BY BRDNO";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            ArrayList<BoardDto> boardDtos = new ArrayList<>();
+            while (rs.next()) {
+                boardDtos.add(
+                        new BoardDto(
+                                rs.getInt("BRDNO"),
+                                rs.getInt("MGRNO"),
+                                rs.getString("BRDCAT"),
+                                rs.getString("BRDTITLE"),
+                                rs.getString("BRDCON"),
+                                rs.getString("BRDIMG"),
+                                rs.getDate("BRDWDATE"),
+                                rs.getDate("BRDMDATE"),
+                                rs.getDate("BRDSDATE"),
+                                rs.getDate("BRDFDATE"),
+                                rs.getBoolean("POPUP")
+                        )
+                );
+            }
+            return boardDtos;
+        } catch (SQLException s) {
+            s.printStackTrace();
+            return null;
+        } finally {
+            JdbcUtil.close(con, pstmt, rs);
+        }
+    }
 }

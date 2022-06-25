@@ -22,7 +22,7 @@ import com.betamall.dto.ItemDto;
 import com.betamall.dto.OrdItemDto;
 import com.betamall.dto.OrderDto;
 
-@WebServlet("/member/cart")
+@WebServlet("/member/cart2")
 @SuppressWarnings("serial")
 public class MbrCartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
