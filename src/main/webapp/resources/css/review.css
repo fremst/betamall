@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+#reviewTitle {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#reviewArea {
+    height: auto;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 85px;
+     margin-right: 85px;
+    margin-bottom: 30px;
+}
+
+#del {
+  float: right;
+}
+
+.info {
+	font-size: small;
+	width: 115px;
+}
+
+#writer {
+	margin-left: 10px;
+}
+
+input {
+	border: none;
+}

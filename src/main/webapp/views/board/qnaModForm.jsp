@@ -6,37 +6,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${cp}/resources/css/boardInsert.css">
 </head>
 <body>
-	<h1>게시글 수정</h1>
-	<form method="post" action="${cp }/board/qnaupdate" enctype="multipart/form-data" name="uadateForm">
-		<input type="text" name="qnaNo" value="${dto.qnaNo }" style="display: none">
-		카테고리 <select name="qnaCat" id="category" onchange="changeSelect()">
-			<option value="입고">입고</option>
-			<option value="배송">배송</option>
-			<option value="상품">상품</option>
-		</select><br>
-		<select name="itemNo" id="itemNo">
-			<c:forEach var="idto" items="${idto }">
-				<option value="${idto.itemNo }">${idto.itemName }</option>
-			</c:forEach>
-		</select>
-		비밀글 <input type="checkbox" name="secret"><br>
-		제목<br>
-		<input type="text" name="qnaTitle" id="qnaTitle" value="${dto.qnaTitle }"><br>
-		내용<br>
-		<textarea rows="10" cols="100" name="qnaCon" id="qnaCon">${dto.qnaCon }</textarea><br>
-		첨부파일<br>
-		<div class = "fileField">
-	    	<label for = "uploadedFile">첨부파일</label>
-	    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
-	       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
-	        <div id = "thumbNailImg">
-	        </div>
-        </div>  
-		<input type="button" value="취소" onclick="window.history.back()">
-		<input type="button" value="수정" id="update" onclick="updateCheck()">
-	</form>
+<div id="insertWrap">
+	<div id="formSide">
+	    <h3>게시글 등록</h3>
+	    <ul>
+	        <li class="sidemenu"><a href="${cp }/board/list">- 공지사항/이벤트</a></li>
+	        <li class="sidemenu"><a href="${cp }/board/faqlist">- FAQ</a></li>
+	        <li class="sidemenu"><a href="${cp }/board/qnalist">- Q&A</a></li>
+	    </ul>
+	</div>
+	<div id="insertMain">
+		<form method="post" action="${cp }/board/qnaupdate" enctype="multipart/form-data" name="uadateForm">
+			<input type="text" name="qnaNo" value="${dto.qnaNo }" style="display: none">
+			<div id="insertHeader">
+				<select name="qnaCat" id="category" onchange="changeSelect()" class="headerInfo">
+					<option value="입고">입고</option>
+					<option value="배송">배송</option>
+					<option value="상품">상품</option>
+				</select>
+				<input type="text" name="qnaTitle" id="qnaTitle" class="headerInfo" value="${dto.qnaTitle }">
+				<div id="popUp">
+					비밀글 <input type="checkbox" name="secret" id="secret" class="headerInfo">
+				</div>
+			</div>
+			<div>
+				<select name="itemNo" id="itemNo" style="margin-top: 15px; margin-left: 15px;">
+					<c:forEach var="idto" items="${idto }">
+						<option value="${idto.itemNo }" >${idto.itemName }</option>
+					</c:forEach>
+				</select>
+				<textarea rows="10" cols="145" name="qnaCon" id="qnaCon">${dto.qnaCon }</textarea><br>
+				<div class = "fileField">
+					첨부파일<br>
+			    	<label for = "uploadedFile">첨부파일</label>
+			    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
+			       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
+			        <div id = "thumbNailImg">
+			        </div> 
+			    </div>
+			</div>
+			<hr style="margin-top: 15px;">
+			<div id="nav">
+				<a onclick="window.history.back()" style="margin-left: 15px; cursor: pointer;">취소</a>&nbsp;|
+				<a onclick="updateCheck()" style="cursor: pointer;">수정</a>
+			</div>	
+		</form>
+	</div>
+</div>
 </body>
 	<script type="text/javascript">
 		function changeSelect() {
@@ -75,6 +94,7 @@
 	        reader.onload = function(event) {
 	          var img = document.createElement("img");
 	          img.setAttribute("src", event.target.result);
+	          img.setAttribute("id", "img");
 	          document.querySelector("div#thumbNailImg").innerHTML = "<p class = 'thumbNailMsg'>[미리 보기]</p>";
 	          document.querySelector("div#thumbNailImg").appendChild(img);
 	        };

@@ -6,34 +6,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${cp}/resources/css/boardInsert.css">
 </head>
 <body>
-	<form method="post" action="${cp }/reviewinsert" name="insertForm">
-		<input type="text" name="ordNo" value="${ordNo }" style="display: none">
-		<input type="text" name="itemNo" value="${dto.itemNo }" style="display: none">
-		상품명 
-		<p>${dto.itemName }</p>
-		평점 <select name="rate">
-			<option value="5" selected="selected">5점</option>
-			<option value="45">4.5점</option>
-			<option value="4">4점</option>
-			<option value="35">3.5점</option>
-			<option value="3">3점</option>
-			<option value="25">2.5점</option>
-			<option value="2">2점</option>
-			<option value="15">1.5점</option>
-			<option value="1">1점</option>
-			<option value="50">0.5점</option>
-		</select><br>
-		내용<br>
-		<textarea rows="10" cols="100" name="review" id="review"></textarea><br>
-		<input type="button" value="취소" onclick="window.history.back()">
-		<input type="button" value="등록" onclick=checkSpace()>
-	</form>
+	<div>
+		<div id="formSide">
+	        <h3>마이 페이지</h3>
+	        <ul>
+	            <li class="sidemenu"><a href="${cp }/member/update">- 나의 정보 수정</a></li>
+	            <li class="sidemenu"><a href="${cp}/member/ordList">- 주문/배송 조회</a></li>
+	            <li class="sidemenu"><a href="${cp}/member/myposts">- 내글보기</a></li>
+	            <li class="sidemenu"><a href="${cp }/member/userGrade">- 등급/쿠폰 조회</a></li>
+	        </ul>
+	    </div>
+		<div id="insertMain">
+			<form method="post" action="${cp }/reviewinsert" name="insertForm">
+				<input type="text" name="ordNo" value="${ordNo }" style="display: none">
+				<input type="text" name="itemNo" value="${dto.itemNo }" style="display: none">
+				<div id="insertHeader">
+					<input type="text" value="평점" style="margin-left: 15px; border: none; width: 25px;">
+					 <select name="rate" id="category" class="headerInfo">
+						<option value="5" selected="selected">5점</option>
+						<option value="45">4.5점</option>
+						<option value="4">4점</option>
+						<option value="35">3.5점</option>
+						<option value="3">3점</option>
+						<option value="25">2.5점</option>
+						<option value="2">2점</option>
+						<option value="15">1.5점</option>
+						<option value="1">1점</option>
+						<option value="50">0.5점</option>
+					</select>
+					<input type="text" value="${dto.itemName }" id="brdTitle" class="headerInfo" style="margin-left: 15px; border: none;">
+				</div>
+				<div>
+					<textarea rows="10" cols="145" name="review" id="brdCon" placeholder="내용"></textarea><br>
+					<div class = "fileField">
+						첨부파일<br>
+				    	<label for = "uploadedFile">첨부파일</label>
+				    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
+				       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
+				        <div id = "thumbNailImg">
+				        </div> 
+				    </div>
+				</div>
+				<hr style="margin-top: 15px;">
+				<div id="nav">
+					<a onclick="window.history.back()" style="margin-left: 15px; cursor: pointer;">취소</a>&nbsp;|
+					<a onclick="checkSpace()" style="cursor: pointer;">등록</a>
+				</div>	
+			</form>
+		</div>
+	</div>
 </body>
 	<script type="text/javascript">
 		function checkSpace() {
-			let review=document.getElementById("review");
+			let review=document.getElementById("brdCon");
 			if(review.value=='' || review.value==null) {
 				alert("후기내용을 입력해주세요.")
 				return false;
@@ -41,5 +69,18 @@
 				document.insertForm.submit();
 			}
 		}
+		
+		function setThumbnail(event) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(event) {
+	          var img = document.createElement("img");
+	          img.setAttribute("src", event.target.result);
+	          img.setAttribute("id", "img");
+	          document.querySelector("div#thumbNailImg").innerHTML = "<p class = 'thumbNailMsg'>[미리 보기]</p>";
+	          document.querySelector("div#thumbNailImg").appendChild(img);
+	        };
+	        reader.readAsDataURL(event.target.files[0]);
+	      }
 	</script>
 </html>
