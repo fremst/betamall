@@ -88,9 +88,11 @@
 		</table>
 	    <div id="pageNav">
 		</div>
-		<div id = "newBtnArea">
-		<input type="button" value = "새로 등록" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
-		</div>
+		<c:if test="${role == 'admin0'}">
+			<div id = "newBtnArea">
+				<input type="button" value = "등록하기" id="newBtn" onclick="location.href = '${cp}/admin/manager/insert'">
+			</div>
+		</c:if>
     </div>
 </body>
 </html>
