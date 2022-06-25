@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.OrdItemDao;
 
@@ -19,16 +20,22 @@ public class ReviewDeleteController extends HttpServlet{
 		int itemNo=Integer.parseInt(req.getParameter("itemNo"));
 		OrdItemDao dao = OrdItemDao.getInstance();
 		int n = dao.reviewdelete(ordNo, itemNo);
-
-		// 페이지 연결 후 아래부분 수정
-		if(n>0) {
-			req.setAttribute("code","success");
-		}else {
-			req.setAttribute("code","fail");
-		}
 		
-		req.setAttribute("mainPageTitle", "Betamall - 리뷰 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
+		
+		HttpSession session = req.getSession();
+		String role=(String)session.getAttribute("role");
+		if(n>0) {
+			if(role.equals("admin0") || role.equals("admin")) {
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}else {
+				resp.sendRedirect(req.getContextPath() + "/member/ordList");
+			}
+		}else {
+			if(role.equals("admin0") || role.equals("admin")) {
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}else {
+				resp.sendRedirect(req.getContextPath() + "/member/ordList");
+			}
+		}	
 	}
 }

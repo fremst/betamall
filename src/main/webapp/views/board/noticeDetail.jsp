@@ -6,27 +6,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${cp}/resources/css/boardDetail.css">
 </head>
 <body>
-	<h1>상세글보기</h1>
-	<label>제목</label><br>
-	<input type="text" value="${dto.brdTitle }" readonly="readonly"><br>
-	<label>내용</label><br>
-	<textarea rows="10" cols="100" name="brdContent" readonly="readonly">${dto.brdCon }</textarea><br>
-	<c:choose>
-		<c:when test="${dto.brdImg==null }">
-		</c:when>
-		<c:otherwise>
-			<img src="${cp}/resources/uploads/admin/board/${dto.brdImg }" style='width: 500px; height:500px'><br>
-		</c:otherwise>
-	</c:choose>
-	<c:choose>
-		<c:when test="${dto.mgrNo==mgrNo || mgrNo==0 }">
-			<button onclick="location.href='${cp }/board/update?brdNo=${dto.brdNo}'">수정</button>
-			<button id="del" onclick="deleteCheck()">삭제</button>
-		</c:when>
-	</c:choose>
-	<button onclick="location.href='${cp }/board/list'">목록으로</button>
+	<div id="detailWrap">
+		<div id="formSide">
+		    <h3>고객센터</h3>
+		    <ul>
+		        <li class="sidemenu"><a href="${cp }/board/list">- 공지사항/이벤트</a></li>
+		        <li class="sidemenu"><a href="${cp }/board/faqlist">- FAQ</a></li>
+		        <li class="sidemenu"><a href="${cp }/board/qnalist">- Q&A</a></li>
+		    </ul>
+		</div>
+		<div id="detailMain">
+			<div id="detailHeader">
+				<input type="text" value="${dto.brdTitle }" readonly="readonly" id="title">
+				<input type="text" value="${dto.brdWdate }" readonly="readonly" id="date">
+			</div>
+			<div id=detailCon>
+				<c:choose>
+					<c:when test="${dto.brdImg==null }">
+					</c:when>
+					<c:otherwise>
+						<img src="${cp}/resources/uploads/admin/board/${dto.brdImg }" id="img"><br>
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${not empty dto.brdSdate }">
+					<input type="text" value="이벤트 기간 : ${dto.brdSdate } ~ ${dto.brdFdate }" readonly="readonly" id="event"><br>
+				</c:if>
+				<div id="con">
+					${dto.brdCon }
+				</div>
+			</div>
+			<hr style="margin-top: 5px;">
+			<div id="nav">
+				<a href="${cp }/board/list" style="margin-left: 15px;">목록으로</a>
+				<c:if test="${dto.mgrNo==mgrNo || mgrNo==0 }">
+					&nbsp;|&nbsp;<a href="${cp }/board/update?brdNo=${dto.brdNo}" >수정</a>&nbsp;|
+					<a id="del" onclick="deleteCheck()" style="cursor: pointer;">삭제</a>
+				</c:if>
+			</div>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
 	function deleteCheck() {

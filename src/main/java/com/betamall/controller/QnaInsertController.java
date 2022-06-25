@@ -30,9 +30,15 @@ public class QnaInsertController extends HttpServlet{
 		ArrayList<ItemDto> idto = idao.selectAll();
 		req.setAttribute("idto", idto);
 		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
-		req.setAttribute("mainPage", "/views/board/qnaInsertForm.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		HttpSession session = req.getSession();
+		String role=(String)session.getAttribute("role");
+		if(role.equals("admin0") || role.equals("admin")) {
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
+		}else {
+			req.setAttribute("mainPageTitle", "Betamall - 게시글 작성");
+			req.setAttribute("mainPage", "/views/board/qnaInsertForm.jsp");
+			req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
+		}
 	}
 	
 	@Override
@@ -75,13 +81,9 @@ public class QnaInsertController extends HttpServlet{
 		int n = dao.insert(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","qnainsert");
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
 		}else {
-			req.setAttribute("code","fail");
-		}
-		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
+		}	
 	}
 }

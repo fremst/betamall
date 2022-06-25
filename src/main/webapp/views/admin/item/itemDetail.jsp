@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel = "stylesheet" href="${cp}/resources/css/itemForm.css">
+<link rel = "stylesheet" href="${cp}/resources/css/review.css">
 <style type="text/css">
 
 #purchaseBox{
@@ -137,31 +138,34 @@
 	<label id="detImg">상세이미지</label><br>
 	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
 	</div>
-	
-	------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	<div>
-		<h1>후기</h1>
+	<hr color="#707070">
+	<div id="reviewMain">
+		<h3 id="reviewTitle">후기</h3>
+		<hr color="#707070">
 		<c:choose>
 			<c:when test="${not empty list }">
 				<c:forEach var="list" items="${list }">
-					<form action="${cp }/reviewdelete" name="deleteForm">
-						<label>작성자</label>
-						<input type="text" value="${list.mbrId }" readonly="readonly"><br>
-						<label>작성일자</label>
-						<input type="text" value="${list.revDate }" readonly="readonly"><br>
-						<img src="${cp }/resources/uploads/admin/rate/${list.rate }.jpg"><br>
-						<input type="text" value="${list.review }" readonly="readonly"><br>
-						<input type="text" name="ordNo" value="${list.ordNo }" style="display: none">    
-		                <input type="text" name="itemNo" value="${list.itemNo }" style="display: none"> 
-		               	<c:if test="${list.mbrId == id || role == 'admin' || role == 'admin0'}">
-		                	<button id="del" onclick="del()">삭제</button>
-		             	</c:if>
-					</form>
-					--------------------------------------------------------------------------------------------------------------------------<br>
+					<fieldset id="reviewArea">
+						<form action="${cp }/reviewdelete" name="deleteForm">
+							<img src="${cp }/resources/uploads/admin/rate/${list.rate }.jpg">
+							<input type="text" value="작성자 : ${list.mbrId }" readonly="readonly" id="writer" class="info" >
+							<input type="text" value="작성일 : ${list.revDate }" readonly="readonly" class="info"><br>
+							<div>
+								${list.review }
+							</div>
+							<input type="text" name="ordNo" value="${list.ordNo }" style="display: none">    
+			                <input type="text" name="itemNo" value="${list.itemNo }" style="display: none"> 
+			               	<c:if test="${list.mbrId == id || role == 'admin' || role == 'admin0'}">
+			                	<br><button id="del" onclick="del()" id="del">삭제</button>
+			             	</c:if> 
+						</form>
+					</fieldset>
 				</c:forEach>
+				<hr color="black" style="margin-bottom: 30px;">
 			</c:when>
 			<c:otherwise>
-				등록된 후기가 없습니다.
+				<p style="margin: 15px 15px;">등록된 후기가 없습니다.</p>
+				<hr color="#707070" style="margin-bottom: 30px;">
 			</c:otherwise>
 		</c:choose>
 	</div>

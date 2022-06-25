@@ -10,13 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.betamall.dao.ItemDao;
-import com.betamall.dao.MemberDao;
 import com.betamall.dao.QnaDao;
 import com.betamall.dto.ItemDto;
-import com.betamall.dto.MemberDto;
 import com.betamall.dto.QnaDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -41,12 +38,6 @@ public class QnaUpdateController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		String Id = (String)session.getAttribute("id");
-		MemberDao mdao = MemberDao.getInstance();
-		MemberDto mdto = mdao.selectById(Id);
-		int mbrNo = mdto.getMbrNo();
-		
 		ServletContext application = req.getServletContext();
 		String saveDir = application.getRealPath("/resources/uploads/admin/board");
 
@@ -75,7 +66,7 @@ public class QnaUpdateController extends HttpServlet{
 			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		}
 		
-		QnaDto dto = new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, saveFileName, secret, null, null, false);
+		QnaDto dto = new QnaDto(qnaNo, 0, itemNo, qnaCat, qnaTitle, qnaCon, saveFileName, secret, null, null, false);
 		QnaDao dao = QnaDao.getInstance();
 		int n=dao.update(dto);
 		

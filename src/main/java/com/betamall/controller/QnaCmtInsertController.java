@@ -22,19 +22,13 @@ public class QnaCmtInsertController extends HttpServlet{
 	
 		QnaCmtDto dto = new QnaCmtDto(0, qnaNo, qnaCmtCon, null, false);
 		QnaCmtDao dao = QnaCmtDao.getInstance();
-
-		System.out.println(dto);
 		
 		int n = dao.insert(dto);
 		if(n>0) {
-			req.setAttribute("code","qnacmtinsert");
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
 		}else {
-			req.setAttribute("code","fail");
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
 		}
-		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
-				
+			
 	}
 }

@@ -29,6 +29,10 @@ public class QnaDetailController extends HttpServlet{
 		QnaDto dto = dao.select(qnaNo);
 		req.setAttribute("dto", dto);
 		
+		MemberDao mbdao=MemberDao.getInstance();
+		String mbrId=mbdao.select(dto.getMbrNo()).getMbrId();
+		req.setAttribute("mbrId", mbrId);
+		
 		int itemNo=Integer.parseInt(req.getParameter("itemNo"));
 		ItemDao iDao=ItemDao.getInstance();
 		ItemDto iDto=iDao.select(itemNo);
