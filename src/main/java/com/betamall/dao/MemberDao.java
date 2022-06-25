@@ -68,14 +68,15 @@ public class MemberDao {
         PreparedStatement pstmt = null;
         try {
             con = JdbcUtil.getCon();
-            String sql = "UPDATE MEMBER SET  MBRPWD=?,MBRTEL=?,MBRADR=?,MBREMAIL=?, MBRID=? WHERE MBRNO=?";
+            String sql = "UPDATE MEMBER SET MBRPWD=?,MBRTEL=?,MBRADR=?,MBREMAIL=?,MBRID=?,TOTAMT=? WHERE MBRNO=?";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mbrDto.getMbrPwd());
             pstmt.setString(2, mbrDto.getMbrTel());
             pstmt.setString(3, mbrDto.getMbrAdr());
             pstmt.setString(4, mbrDto.getMbrEmail());
             pstmt.setString(5, mbrDto.getMbrId());
-            pstmt.setInt(6, mbrDto.getMbrNo());
+            pstmt.setInt(6, mbrDto.getTotAmt());
+            pstmt.setInt(7, mbrDto.getMbrNo());
             return pstmt.executeUpdate();
         } catch (SQLException se) {
             se.printStackTrace();

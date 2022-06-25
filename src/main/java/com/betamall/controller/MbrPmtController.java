@@ -100,10 +100,8 @@ public class MbrPmtController extends HttpServlet{
 		OrderDao ordDao = OrderDao.getInstance();
 		PmtDao pmtDao = PmtDao.getInstance(); 
 		OrdItemDao ordItemDao = OrdItemDao.getInstance();
-		MemberDao mbrDao = MemberDao.getInstance();
 		
 		HttpSession session = req.getSession();
-		String mbrId = (String)session.getAttribute("id");
 		
 		int discAmt = 0;
 		int delFee = 0;
@@ -123,9 +121,6 @@ public class MbrPmtController extends HttpServlet{
 			ordDto.setOrdDate(ordDao.select(ordNo).getOrdDate());
 			ordDao.update(new OrderDto(ordNo, ordDto.getMbrNo(), ordDto.getBrNo(), ordDto.getOrdDate(), "결제완료", recName, recFullAdr, recTel));
 
-			MemberDto mbrDto = mbrDao.selectById(mbrId);
-			mbrDto.setTotAmt(mbrDto.getTotAmt()+ordItemDao.getTotPmt(ordDto.getOrdNo())-discAmt+delFee);
-			mbrDao.update(mbrDto);
 		}
     	
     	session.removeAttribute("cart");

@@ -70,6 +70,7 @@
     	height: 25px;
     	font-size: 16px
     }
+    
     .srchBtn{
     	width: 50px;
     	height: 30px;
@@ -80,7 +81,29 @@
     	height: 30px;
     	font-size: 16px;
     }
-    .pcBtns{
+    
+    .cartBtn {
+		width: 80px;
+		height: 30px;
+		margin: 10px;
+		color: aliceblue;
+		font-size: 15px;
+		background-color: #2C8FED;
+		border: 1px;
+		border-radius: 5px;
+	}
+
+	.pcBtn {
+		width: 80px;
+		height: 30px;
+		margin: 10px;
+		color: black;
+		font-size: 15px;
+		background-color: #4B484B3A;
+		border: 1px;
+		border-radius: 5px;
+	}
+    .apcBtns{
     	width: 100px;
     	height: 25px;
     	padding: 3px;
@@ -155,10 +178,10 @@
 			                <c:choose>
 				                <c:when test="${iDto.stkCnt>0}">
 					                <td>
-					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=pur"
-					                	class="pcBtns" onclick="return addCart()">장바구니</a><br><br>
-					                	<a href = "${cp}/member/addcart?brNo=${iDto.brNo}&itemNo=${iDto.itemNo}&ordCnt=1&status=cart"
-					                	class="pcBtns" onclick="return purchase()">바로구매</a>
+					                	<input type = "button" value="장바구니"
+					                	class="cartBtn" onclick="addCart('${cp}',${not empty id},${IpOrd=='true'},${iDto.brNo},${iDto.itemNo},1,'search')">
+					                	<input type = "button" value="바로구매"
+					                	class="pcBtn" onclick="purchase('${cp}',${not empty id},${IpOrd=='true'},${iDto.brNo},${iDto.itemNo},1)">
 					                </td>
 				                </c:when>
 				                <c:otherwise>
@@ -179,39 +202,6 @@
        </c:choose>
     </div>
 </body>
-<script type="text/javascript">
-
-function addCart(){
-	if(${empty id}){
-		alert('로그인이 필요한 서비스입니다.')
-		return true;
-	}else{
-		if(${IpOrd == 'true'}){
-			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
-			 	location.href="${cp}/member/payment";
-			}
-		}else{
-			alert('장바구니에 성공적으로 담겼습니다.')
-			return true;
-		}
-	}
-	return false;
-}
-
-function purchase(){
-	if(${empty id}){
-		alert('로그인이 필요한 서비스입니다.');
-		return true;
-	}else{
-		if(${IpOrd == 'true'}){
-			if(confirm('결제 대기 상품이 있습니다. 결제창으로 이동하시겠습니까?')){
-			 	location.href="${cp}/member/payment";
-			}
-		}else{
-			return confirm('바로 구매 하시겠습니까?');
-		}
-	}
-	return false;
-}
-</script>
+<script type="text/javascript" src="${cp}/resources/js/addCart.js"></script>
+<script type="text/javascript" src="${cp}/resources/js/purchase.js"></script>
 </html>
