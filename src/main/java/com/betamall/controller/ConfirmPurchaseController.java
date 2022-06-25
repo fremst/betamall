@@ -1,7 +1,11 @@
 package com.betamall.controller;
 
+import com.betamall.dao.MemberDao;
 import com.betamall.dao.OrderDao;
+import com.betamall.dao.PmtDao;
+import com.betamall.dto.MemberDto;
 import com.betamall.dto.OrderDto;
+import com.betamall.dto.PmtDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +23,28 @@ public class ConfirmPurchaseController extends HttpServlet {
         OrderDao ordDao = OrderDao.getInstance();
         OrderDto ordDto = ordDao.select(ordNo);
         String ordSta = req.getParameter("ordSta");
-        ordDto.setOrdSta(ordSta);
-        int n = ordDao.update(ordDto);
+        
+        MemberDao mbrDao = MemberDao.getInstance();
+        MemberDto mbrDto = mbrDao.selectById((String)req.getSession().getAttribute("id"));
+        System.out.println("1:"+mbrDto.getTotAmt());
+        
+        PmtDao pmtDao = PmtDao.getInstance();
+        PmtDto pmtDto = pmtDao.select(ordNo);
 
-        if (n > 0) {
+        ordDto.setOrdSta(ordSta);
+        int n1 = ordDao.update(ordDto);
+        
+        System.out.println("2:"+mbrDto.getTotAmt());
+        
+        mbrDto.setTotAmt(mbrDto.getTotAmt()+pmtDto.getPmtAmt());
+        int n2 = mbrDao.update(mbrDto);
+
+        System.out.println("3:"+mbrDto.getTotAmt());
+        
+        System.out.println("4:"+pmtDto);
+        System.out.println("5:"+mbrDto);
+
+        if (n1*n2 > 0) {
             resp.sendRedirect(req.getContextPath() + "/member/ordList");
         } else {
             req.setAttribute("errMsg", "다시실행해주세요.");
