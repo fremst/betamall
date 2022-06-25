@@ -1,3 +1,6 @@
+<%@ page import="com.betamall.dto.MemberDto" %>
+<%@ page import="com.betamall.dao.MemberDao" %>
+<%@ page import="org.apache.axis.session.Session" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,7 +30,9 @@
             <div id="gradeArea">
                 <div id="gradeArea1">
                     <p>${id}님의 등급</p>
-                    <p id="userGrade">${mbrDto.mbrGrade}</p>
+                    <p id="userGrade">
+                        ${mbrGrade}
+                    </p>
                     <p>결제 누적 금액</p>
                     <p><fmt:formatNumber value="${mbrDto.totAmt}" type="number"/> 원</p>
                 </div>

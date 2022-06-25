@@ -25,7 +25,7 @@
                 <th class="mbrInfo_header">등급</th>
                 <th class="mbrInfo_header">가입일</th>
             </tr>
-            <c:forEach var="m" items="${mbrList }">
+            <c:forEach var="m" items="${mbrList }" varStatus="status">
                 <tr>
                     <td class="mbrInfo">${m.mbrId }</td>
                     <td class="mbrInfo">${m.mbrName }</td>
@@ -33,7 +33,7 @@
                     <td class="mbrInfo">${m.mbrEmail }</td>
                     <td class="mbrInfo">${m.mbrAdr }</td>
                     <td class="mbrInfo">${m.mbrBd }</td>
-                    <td class="mbrInfo">${m.mbrGrade }</td>
+                    <td class="mbrInfo">${gradeList[status.index] }</td>
                     <td class="mbrInfo">${m.mbrRegdate }</td>
                 </tr>
             </c:forEach>

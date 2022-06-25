@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 @WebServlet("/admin/mbrlist")
 @SuppressWarnings("serial")
 public class MbrListController extends HttpServlet {
@@ -29,7 +28,9 @@ public class MbrListController extends HttpServlet {
         int endRow = startRow + 9;
 
         MemberDao mbrDao = MemberDao.getInstance();
+
         ArrayList<MemberDto> mbrList = mbrDao.selectFromTo(startRow, endRow, field, keyword);
+        ArrayList<String> gradeList = mbrDao.getGradeAll();
 
         int pageCount = (int) Math.ceil(mbrDao.getCount(field, keyword) / 10.0);
         int startPage = (pageNum - 1) / 10 * 10 + 1;
@@ -37,6 +38,7 @@ public class MbrListController extends HttpServlet {
         if (endPage > pageCount) {
             endPage = pageCount;
         }
+        req.setAttribute("gradeList", gradeList);
         req.setAttribute("mbrList", mbrList);
         req.setAttribute("pageCount", pageCount);
         req.setAttribute("startPage", startPage);
