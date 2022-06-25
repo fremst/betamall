@@ -48,15 +48,27 @@
 									<c:when test="${dto.secret=='true' }">
 										<c:choose>
 											<c:when test="${dto.mbrId == id || role == 'admin' || role == 'admin0'}">
-												<td class="boardInfo"><a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }" style="color: #979897 ;">🔒비밀글로 설정되었습니다.</a></td>
+												<td class="boardInfo">
+													<a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }" style="color: #979897 ;">
+														🔒${dto.qnaTitle }<span style="color: #2E64FE; font-size: x-small;">[${dto.cmtCount }]</span>
+													</a>
+												</td>
 											</c:when>
 											<c:otherwise>
-												<td class="boardInfo"><a href="" style="color: #979897 ;" onclick="alert('본인글만 확일할 수 있습니다.')">🔒비밀글로 설정되었습니다.</a></td>
+												<td class="boardInfo">
+													<a href="" style="color: #979897 ;" onclick="alert('본인글만 확일할 수 있습니다.')">
+														🔒비밀글로 설정되었습니다.
+													</a>
+												</td>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<td class="boardInfo"><a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }">${dto.qnaTitle }</a></td>
+										<td class="boardInfo">
+											<a href="${cp}/board/qnadetail?qnaNo=${dto.qnaNo}&itemNo=${dto.itemNo }">
+												${dto.qnaTitle }<span style="color: #2E64FE; font-size: x-small; ;">[${dto.cmtCount }]</span>
+											</a>
+										</td>
 									</c:otherwise>
 								</c:choose>
 								<td class="boardInfo">${dto.mbrId }</td>

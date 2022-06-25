@@ -81,4 +81,26 @@ public class QnaCmtDao {
 			JdbcUtil.close(con, pstmt, null);
 		}		
 	}
+	
+	public int getCount(int qnaNo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=JdbcUtil.getCon();
+			String sql="select count(*) from qnacmt where qnaNo=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			JdbcUtil.close(con, pstmt, rs);
+		}		
+	}
 }

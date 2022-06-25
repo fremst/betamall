@@ -57,11 +57,11 @@
 			<div id="cmt">
 				<c:if test="${role == 'admin0' || role == 'admin' || role == 'member' }">
 					<form method="post" action="${cp }/board/qnacmtinsert" name="insertForm">
-						<textarea rows="5" cols="140" name="qnaCmtCon" id="qnaCmtCon" placeholder="댓글을 입력해주세요."></textarea>
+						<textarea rows="5" cols="134" name="qnaCmtCon" id="qnaCmtCon" placeholder="댓글을 입력해주세요."></textarea>
 						<input type="text" name="qnaNo" value="${dto.qnaNo }" style="display: none">
 						<button onclick="checkSpace()">등록</button>
 					</form>
-					<hr style="margin-top: 25px; margin-left: -21px; width: 104%;">
+					<hr style="margin-top: 25px; margin-left: -21px; width: 103%;">
 				</c:if>
 			</div>
 			<div id="reviewMain">

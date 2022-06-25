@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.betamall.dao.QnaCmtDao;
 import com.betamall.dao.QnaDao;
 import com.betamall.dto.QnaDto;
 

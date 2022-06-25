@@ -45,6 +45,9 @@
 			    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
 			       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
 			        <div id = "thumbNailImg">
+			        	<c:if test="${not empty dto.qnaFile}">
+							<img src = "${cp}/resources/uploads/admin/board/${dto.qnaFile}" id="img">
+						</c:if>
 			        </div> 
 			    </div>
 			</div>

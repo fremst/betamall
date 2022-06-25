@@ -70,13 +70,9 @@ public class NoticeInsertController extends HttpServlet{
 		int n = dao.insert(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","noticeinsert");
+			resp.sendRedirect(req.getContextPath() + "/board/list");
 		}else {
-			req.setAttribute("code","fail");
-		}
-
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
+			resp.sendRedirect(req.getContextPath() + "/board/list");
+		}	
 	}
 }

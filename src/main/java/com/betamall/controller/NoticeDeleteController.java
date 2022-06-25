@@ -19,14 +19,9 @@ public class NoticeDeleteController extends HttpServlet{
 		BoardDao dao=BoardDao.getInstance();
 		int n = dao.delete(brdNo);
 		if(n>0) {
-			req.setAttribute("code","noticedelete");
+			resp.sendRedirect(req.getContextPath() + "/board/list");
 		}else {
-			req.setAttribute("code","fail");
+			resp.sendRedirect(req.getContextPath() + "/board/list");
 		}
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 삭제");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
-	
-
 }
