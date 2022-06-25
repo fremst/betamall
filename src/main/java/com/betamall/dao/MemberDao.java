@@ -20,13 +20,12 @@ public class MemberDao {
         return instance;
     }
 
-
     public int insert(MemberDto dto) {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
             con = JdbcUtil.getCon();
-            String sql = "INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL,?,?,?,?,?,?,?,CURRENT_DATE,?,0)";
+            String sql = "INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL,?,?,?,?,?,?,CURRENT_DATE,?,0)";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, dto.getMbrName());
             pstmt.setString(2, dto.getMbrTel());
@@ -35,7 +34,6 @@ public class MemberDao {
             pstmt.setString(5, dto.getMbrId());
             pstmt.setString(6, dto.getMbrPwd());
             pstmt.setDate(7, dto.getMbrBd());
-            pstmt.setString(8, dto.getMbrGrade());
             return pstmt.executeUpdate();
         } catch (SQLException s) {
             s.printStackTrace();
@@ -108,7 +106,6 @@ public class MemberDao {
                         rs.getString("MBRPWD"),
                         rs.getDate("MBRBD"),
                         rs.getDate("REGDATE"),
-                        rs.getString("GRADE"),
                         rs.getInt("TOTAMT"));
                 return mbrDto;
             }
@@ -120,7 +117,6 @@ public class MemberDao {
             JdbcUtil.close(con, pstmt, rs);
         }
     }
-
 
     public MemberDto selectById(String mbrId) {
         Connection con = null;
@@ -144,7 +140,6 @@ public class MemberDao {
                         rs.getString("MBRPWD"),
                         rs.getDate("MBRBD"),
                         rs.getDate("REGDATE"),
-                        rs.getString("GRADE"),
                         rs.getInt("TOTAMT"));
                 return mbrDto;
             }
@@ -163,7 +158,7 @@ public class MemberDao {
         ResultSet rs = null;
         try {
             con = JdbcUtil.getCon();
-            String sql = "SELECT MBRNAME, FROM MEMBER ORDER BY MBRNO";
+            String sql = "SELECT * FROM MEMBER ORDER BY MBRNO";
             pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
             ArrayList<MemberDto> mbrDtos = new ArrayList<>();
@@ -179,7 +174,6 @@ public class MemberDao {
                                 rs.getString("MBRPWD"),
                                 rs.getDate("MBRBD"),
                                 rs.getDate("REGDATE"),
-                                rs.getString("GRADE"),
                                 rs.getInt("TOTAMT")));
             }
             return mbrDtos;
@@ -215,13 +209,13 @@ public class MemberDao {
         }
     }
 
-
     public ArrayList<MemberDto> selectFromTo(int startRow, int endRow, String field, String keyword) {
         String sql = null;
         if (field == null || field.equals("")) {
             sql = "SELECT * FROM (SELECT AA.*, ROWNUM RNUM FROM (SELECT * FROM MEMBER ORDER BY MBRNO) AA ) WHERE RNUM>=? AND RNUM <=?";
         } else {
-            sql = "SELECT * FROM (SELECT AA.*, ROWNUM RNUM FROM (SELECT * FROM MEMBER WHERE " + field + " LIKE '%" + keyword + "%' ORDER BY MBRNO) AA)WHERE RNUM >=? AND RNUM<=?";
+            sql = "SELECT * FROM (SELECT AA.*, ROWNUM RNUM FROM (SELECT * FROM MEMBER WHERE " + field + " LIKE '%"
+                    + keyword + "%' ORDER BY MBRNO) AA)WHERE RNUM >=? AND RNUM<=?";
         }
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -244,10 +238,7 @@ public class MemberDao {
                                 rs.getString("MBRID"),
                                 rs.getDate("MBRBD"),
                                 rs.getDate("REGDATE"),
-                                rs.getString("GRADE"),
-                                rs.getInt("TOTAMT")
-                        )
-                );
+                                rs.getInt("TOTAMT")));
             }
             return mbrInfoList;
         } catch (SQLException e) {
@@ -279,9 +270,8 @@ public class MemberDao {
                 pwd = rs.getString("MBRPWD");
                 Date bd = rs.getDate("MBRBD");
                 Date regdate = rs.getDate("REGDATE");
-                String grade = rs.getString("GRADE");
                 int totamt = rs.getInt("TOTAMT");
-                MemberDto dto = new MemberDto(num, name, tel, addr, email, id, pwd, bd, regdate, grade, totamt);
+                MemberDto dto = new MemberDto(num, name, tel, addr, email, id, pwd, bd, regdate, totamt);
                 return dto;
             }
             return null;
@@ -386,6 +376,61 @@ public class MemberDao {
             JdbcUtil.close(con, pstmt, rs);
         }
         return pwd;
+    }
+
+    public String getGrade(int mbrNo) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = JdbcUtil.getCon();
+            String sql = "SELECT CASE WHEN TOTAMT < 100000 THEN 'BRONZE' " +
+                    "WHEN (TOTAMT >= 100000 AND TOTAMT < 500000) THEN 'SILVER' " +
+                    "ELSE 'GOLD' " +
+                    "END GRADE " +
+                    "FROM MEMBER " +
+                    "WHERE MBRNO = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, mbrNo);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("GRADE");
+            }
+            return "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "";
+        } finally {
+            JdbcUtil.close(con, pstmt, rs);
+        }
+    }
+
+    public ArrayList<String> getGradeAll() {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = JdbcUtil.getCon();
+            String sql = "SELECT CASE WHEN TOTAMT < 100000 THEN 'BRONZE' " +
+                    "WHEN (TOTAMT >= 100000 AND TOTAMT < 500000) THEN 'SILVER' " +
+                    "ELSE 'GOLD' " +
+                    "END GRADE " +
+                    "FROM MEMBER " +
+                    "ORDER BY MBRNO";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            ArrayList<String> gradeDtos = new ArrayList<>();
+            while (rs.next()) {
+                gradeDtos.add(
+                        rs.getString("GRADE"));
+            }
+            return gradeDtos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            JdbcUtil.close(con, pstmt, rs);
+        }
     }
 
 }

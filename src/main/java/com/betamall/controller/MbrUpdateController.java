@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet(urlPatterns = {"/member/mypage", "/member/update"})
+@WebServlet(urlPatterns = { "/member/mypage", "/member/update" })
 @SuppressWarnings("serial")
 public class MbrUpdateController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,13 +36,14 @@ public class MbrUpdateController extends HttpServlet {
         int mbrNo = Integer.parseInt(req.getParameter("mbrNo"));
         String mbrName = req.getParameter("mbrName");
         String mbrTel = req.getParameter("mbrTel");
-        String mbrAdr = req.getParameter("postno") + "/" + req.getParameter("addr") + "/" + req.getParameter("addr1") + "/" + req.getParameter("addr2");
+        String mbrAdr = req.getParameter("postno") + "/" + req.getParameter("addr") + "/" + req.getParameter("addr1")
+                + "/" + req.getParameter("addr2");
         String mbrEmail = req.getParameter("mbrEmail");
         String mbrId = req.getParameter("mbrId");
         String mbrPwd = req.getParameter("mbrPwd");
         Date mbrBd = Date.valueOf(req.getParameter("mbrBd"));
         int totAmt = Integer.parseInt(req.getParameter("totAmt"));
-        MemberDto dto = new MemberDto(mbrNo, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, null, totAmt);
+        MemberDto dto = new MemberDto(mbrNo, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, totAmt);
         MemberDao dao = MemberDao.getInstance();
         int n = dao.update(dto);
         if (n > 0) {
