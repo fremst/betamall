@@ -46,7 +46,7 @@
 		<div class ="quickMenu">
 		<c:choose>
 			<c:when test="${role == 'admin0' || role == 'admin' }">
-				<a href = "${cp}/admin/item/list"><img src = "${cp}/resources/images/adminpage.png" width = "30px"></a>
+				<a href = "${cp}/admin/order/list"><img src = "${cp}/resources/images/adminpage.png" width = "30px"></a>
 			</c:when>
 			<c:otherwise>
 				<a href = "${cp}/member/mypage"><img src = "${cp}/resources/images/mypage.png" width = "30px"></a>
