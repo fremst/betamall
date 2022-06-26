@@ -12,9 +12,9 @@
     <form action="${cp}/login/searchPwd" method="post">
         <fieldset id="loginField">
             <legend>비밀번호 찾기 양식</legend>
-            아이디&nbsp;<input type="text" name="id" id="id"><br><br>
-            이메일&nbsp;<input type="text" name="email" id="email"><br><br>
-            전화번호&nbsp;<input type="text" name="tel" id="pwd"><br><br>
+            아&nbsp;&nbsp;이&nbsp;&nbsp;디&nbsp;&nbsp;<input type="text" name="id" id="id"><br><br>
+            이&nbsp;&nbsp;메&nbsp;&nbsp;일&nbsp;&nbsp;<input type="text" name="email" id="email"><br><br>
+            전화번호&nbsp;&nbsp;<input type="text" name="tel" id="pwd"><br><br>
             <div id="errBox">${pwd}</div>
             <input type="submit" value="비밀번호찾기" id=loginBtn class="btn">
         </fieldset>

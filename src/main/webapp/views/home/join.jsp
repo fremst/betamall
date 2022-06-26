@@ -111,25 +111,25 @@
 <hr>
 <div id="joinWrap">
     <form action="${cp }/join" method="post" name="userInfo" id="userInfo" onsubmit="return checkValue()">
-        <fieldset id=joinField>
+        <fieldset id=joinField style="padding-left:80px">
             <legend>회원 가입양식</legend>
             <div id="errBox">${errMsg}</div>
-            <br>아이디 <input type="text" name="id" id="id" onkeypress="resetCheck()">&nbsp;&nbsp;
+            <br>아&nbsp;&nbsp;이&nbsp;&nbsp;디&nbsp;&nbsp;<input type="text" name="id" id="id" onkeypress="resetCheck()">&nbsp;&nbsp;
             <input type="button" onclick="checkId()" value=중복확인><br>
             <span class="setForm">※4자~12자리 영문자,숫자/특수기호 제외</span><br>
-            비밀번호 <input type="password" name="pwd" id="pwd"><br>
+            비밀번호&nbsp;&nbsp;&nbsp;<input type="password" name="pwd" id="pwd">&nbsp;&nbsp;
+            비밀번호 확인&nbsp;<input type="password" name="pwdCheck" id="pwdCheck"><br>
             <span class="setForm">※영문 대문자, 소문자, 숫자, 특수문자를 3가지 이상 사용하여 8자 20자 이하로 설정하십시오.</span><br>
-            비밀번호 확인 <input type="password" name="pwdCheck" id="pwdCheck"><br>
-            이름 <input type="text" name="name" id="name"><br>
-            생년월일 <input type="date" name="bd" id="bd"><br>
-            전화번호 <input type="text" name="tel" id="tel" placeholder="숫자만입력하세요."><br>
-            이메일 <input type="email" name="email" id="email">&nbsp;&nbsp;
+            이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="name"><br>
+            생년월일&nbsp;&nbsp;<input type="date" name="bd" id="bd" style="width:146.22px;"><br>
+            전화번호&nbsp;&nbsp;&nbsp;<input type="text" name="tel" id="tel" style="width:200px;" placeholder="'-'없이 숫자만 입력해 주세요."><br>
+            이&nbsp;&nbsp;메&nbsp;&nbsp;일&nbsp;&nbsp;<input type="email" name="email" id="email" style="width:200px;">&nbsp;&nbsp;
             <input type="button" value=중복확인 onclick="checkEmail()"><br>
-            주소 <input type="text" id="sample6_postcode" name="postno" placeholder="우편번호">&nbsp;&nbsp;
-            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" name="addr" placeholder="주소" class="adr"><br>
-            <input type="text" id="sample6_detailAddress" name="addr1" placeholder="상세주소" class="adr"><br>
-            <input type="text" id="sample6_extraAddress" name="addr2" placeholder="참고항목" class="adr"><br>
+            주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;<input type="text" id="sample6_postcode" name="postno" placeholder="우편번호">&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="width:100px;"><br>
+            <input type="text" id="sample6_address" name="addr" placeholder="주소" class="adr" style="width:340px;"><br>
+            <input type="text" id="sample6_detailAddress" name="addr1" placeholder="상세주소" class="adr" style="width:340px;"><br>
+            <input type="text" id="sample6_extraAddress" name="addr2" placeholder="참고항목" class="adr" style="width:340px;"><br>
             <div id=btnField>
                 <input type="submit" value="회원가입" id=joinBtn>&nbsp;&nbsp;&nbsp;
                 <input type="submit" value="취소" id="backBtn" onclick="history.back(); return false;">

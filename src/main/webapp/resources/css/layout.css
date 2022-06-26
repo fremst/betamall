@@ -1,7 +1,9 @@
+@charset "UTF-8";
+
 * {
-    list-style: none; /*목록에 점 없애는 기능*/
-    text-decoration: none; /*밑줄 색깔 없애는 기능*/
-    border-collapse: collapse; /*테이블이 선이 다따로 떨어저 있는걸 없애주는 기능*/
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
     margin: 0px;
     padding: 0px;
     color: #707070;
@@ -49,7 +51,7 @@
 
 }
 
-.search_area > form > #search {
+.search_area>form>#search {
     border: none;
     width: 180px;
     height: 30px;
@@ -59,7 +61,7 @@
 
 }
 
-.search_area > form > #search_btn {
+.search_area>form>#search_btn {
     width: 50px;
     color: #707070;
     font-weight: bold;
@@ -77,7 +79,7 @@
     margin-top: 30px;
 }
 
-.nav > li {
+.nav>li {
     margin-left: 15px;
 }
 
@@ -120,12 +122,13 @@
 
 #main_banner_img img {
     width: 1100px;
-    position:relative;
-    
+    position: relative;
+    margin-top: 50px;
+
 }
 
 .slider {
-	width:1280px;
+    width: 1280px;
     height: 400px;
 
 }
@@ -133,7 +136,7 @@
 .slider img {
     width: 1280px;
     height: 400px;
-    margin-top:150px;
+    margin-top: 150px;
     margin-left: -100px;
 }
 
@@ -153,7 +156,7 @@
     top: 420px;
 }
 
-/*인디케이터-레이블 디자인*/
+
 .slider label {
     width: 20px;
     height: 20px;
@@ -164,86 +167,85 @@
     cursor: pointer;
 }
 
-/*input태그 날리기*/
+
 .slider input[type="radio"] {
     display: none;
 }
 
-/*모든 슬라이드 이미지 숨기기*/
+
 .slider ul li {
     display: none;
 }
 
-/*인디케이터 선택시 이미지 보이기*/
-#btn1:checked ~ .slide li:nth-child(1) {
+
+#btn1:checked~.slide li:nth-child(1) {
     display: block;
 }
 
-#btn2:checked ~ .slide li:nth-child(2) {
+#btn2:checked~.slide li:nth-child(2) {
     display: block;
 }
 
-#btn3:checked ~ .slide li:nth-child(3) {
+#btn3:checked~.slide li:nth-child(3) {
     display: block;
 }
 
-#btn4:checked ~ .slide li:nth-child(4) {
+#btn4:checked~.slide li:nth-child(4) {
     display: block;
 }
 
-/*선택된 인디케이터 스타일링*/
-#btn1:checked ~ #in1 {
+
+#btn1:checked~#in1 {
     background-color: white;
 }
 
-#btn2:checked ~ #in2 {
+#btn2:checked~#in2 {
     background-color: white;
 }
 
-#btn3:checked ~ #in3 {
+#btn3:checked~#in3 {
     background-color: white;
 }
 
-#btn4:checked ~ #in4 {
+#btn4:checked~#in4 {
     background-color: white;
 }
 
-/*인디케이터 템플릿 (.wide)*/
-#btn1:checked ~ #in1.wide {
+#btn1:checked~#in1.wide {
     width: 40px;
 }
 
-#btn2:checked ~ #in2.wide {
+#btn2:checked~#in2.wide {
     width: 40px;
 }
 
-#btn3:checked ~ #in3.wide {
+#btn3:checked~#in3.wide {
     width: 40px;
 }
 
-#btn4:checked ~ #in4.wide {
+#btn4:checked~#in4.wide {
     width: 40px;
 }
 
-/*모션*/
+
 .slider label {
     transition: all 0.6s;
 }
 
-#btn1 ~ ul li.fade,
-#btn2 ~ ul li.fade,
-#btn3 ~ ul li.fade,
-#btn4 ~ ul li.fade {
+#btn1~ul li.fade,
+#btn2~ul li.fade,
+#btn3~ul li.fade,
+#btn4~ul li.fade {
     display: block;
     opacity: 0;
     visibility: hidden;
     transition: all 1s;
 }
 
-#btn1:checked ~ ul li.fade:nth-child(1),
-#btn2:checked ~ ul li.fade:nth-child(2),
-#btn3:checked ~ ul li.fade:nth-child(3),
-#btn4:checked ~ ul li.fade:nth-child(4) {
+#btn1:checked~ul li.fade:nth-child(1),
+#btn2:checked~ul li.fade:nth-child(2),
+#btn3:checked~ul li.fade:nth-child(3),
+#btn4:checked~ul li.fade:nth-child(4) {
     opacity: 1;
     visibility: visible;
 }
@@ -257,6 +259,7 @@
 
 .banner {
     height: 400px;
+    margin-top: -50px;
 }
 
 #banner_img {
@@ -304,29 +307,29 @@ h4 {
     align-content: center;
 }
 
-.card > p {
+.card>p {
     text-align: center;
 }
 
 #footerWrap {
     width: 100%;
+    border-top: 1px solid #d7d7d7;
     display: flex;
 }
 
 #footerDiv {
+    width: 100%;
     min-width: 1024px;
     height: 150px;
-    border-top: 1px solid #d7d7d7;
-    width: 100%;
-    display: flex;
+    margin: 10px auto;
 }
 
 .underlogo {
-    margin: 20px;
-    padding-left: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 100%;
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    padding-left: 10%;
+    padding-top: 10px;
 }
 
 #under_logo {
@@ -334,16 +337,20 @@ h4 {
 }
 
 .copyright {
-    width: 600px;
-    margin: 40px;
-    font-size: 15px;
+    float: left;
+    margin-left: 10%;
+    width: 35%;
+    box-sizing: border-box;
+    padding-top: 10px;
 }
 
 .customer_center {
-    width: 300px;
-    height: 120px;
-    padding: 10px;
     border: 2px solid dimgray;
     border-radius: 10px;
     margin-top: 40px;
+    float: right;
+    width: 20%;
+    box-sizing: border-box;
+    padding: 10px 5% 10px 10px;
+    margin-right: 150px;
 }
