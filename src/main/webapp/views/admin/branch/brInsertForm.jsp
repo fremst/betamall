@@ -73,7 +73,7 @@
 		let file = document.getElementById('uploadFile').value;
 		
 		if(!name){
-			alert('지점명 입력해주세요.');
+			alert('지점명을 입력해주세요.');
 			return false;
 		}else if(!addr){
 			alert('지점 주소를 입력해주세요.');

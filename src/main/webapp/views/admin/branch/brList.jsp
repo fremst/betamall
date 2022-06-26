@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 조회/수정/삭제</title>
-	<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel="stylesheet" href="${cp}/resources/css/brMgrList.css">
 	<link rel="stylesheet" href="${cp}/resources/css/brList.css">
 <script type="text/javascript">
 	window.onload = function(){
@@ -70,7 +70,7 @@
 </script>
 </head>
 <body>
-	<h2>지점 관리</h2>
+	<h2 id="brListTitle">지점 관리</h2>
     <div id="mainWrap">
 		<table class = "center">
 			<tbody id = "tbody">
@@ -79,7 +79,7 @@
 					<th class="brInfo_header">지점명</th>
 					<th class="brInfo_header">지점 전화번호</th>
 					<th class="brInfo_header">지점 주소</th>
-					<th class="brInfo_header">지점 등록일</th>
+					<th class="brInfo_header">지점 개업일</th>
 					<th class="brInfo_header">대표 사진</th>
 					<th class="brInfo_header">&nbsp;&nbsp;관리&nbsp;&nbsp;</th>
 				</tr>

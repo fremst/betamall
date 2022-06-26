@@ -74,10 +74,10 @@
             <c:forEach var="i" begin="0" end="${brDtos.size()-1}">
                 <c:if test="${stkDtos[i].stkCnt>0}">
                     <form action="${cp}/member/addcart" method="get" id="purchaseForm">
-                        <h3>${brDtos[i].brName}</h3>
-                        (재고<fmt:formatNumber value="${stkDtos[i].stkCnt}" type="number"/>개) <br>
+                        <h4>${brDtos[i].brName}</h4>
+                        (재고<fmt:formatNumber value="${stkDtos[i].stkCnt}" type="number"/>개)<br>
                         <input type="button" value ="－" class="deltaBtns" onclick="subtractCnt(${i}, ${stkDtos[i].stkCnt})">
-                        <input type="text" id="DOrdCnt${i}" value="1" class="inputText" readonly>
+                        <input type="text" id="DOrdCnt${i}" value="1" class="inputCntText" readonly>
                         <input type="button" value ="＋" class="deltaBtns" onclick="addCnt(${i}, ${stkDtos[i].stkCnt})"><br>
                         상품금액
                         <input type="text" id="DEachAmt${i}" value="<fmt:formatNumber value="${dto.price}" type="number"/>" class="inputText"> 원<br>

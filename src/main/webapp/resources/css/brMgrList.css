@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 #mainWrap{
 	height: 500px;
 }
@@ -40,18 +39,17 @@ p {
 }
 
 #newBtnArea{
-	padding: 0;
 	width: 100px;
-	height: 100px;
 	height: 25px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 #newBtn{
-	width: 100px;
-	margin-left: auto;
-	margin-right: auto;
+	width: 80px;
+	height: 25px;
+	font-size: 15px;
+	margin-left: 7px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }

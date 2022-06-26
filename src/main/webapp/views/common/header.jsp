@@ -14,11 +14,10 @@
                 <input type="hidden" name=field value="itemName">
                 <input type="search" name=keyword placeholder="상품명 입력" id="search">
                 <input type="submit" id="search_btn" value="검색">
-                <%--                <img src="${cp}/resources/images/lens.png" onclick="">--%>
             </form>
         </div>
         <div class="logo">
-            <a href="${cp }/home"><img src="${cp }/resources/images/header_logo.png" style="width: 350px;"></a>
+            <a href="${cp }/home"><img src="${cp }/resources/images/header_logo.png" style="width: 300px;"></a>
         </div>
         <div class="navBox">
             <ul class="nav">
@@ -67,9 +66,8 @@
                 <c:when test="${role == 'admin0'}">
                     <li><a href="${cp}/admin/item/list">상품 관리</a></li>
                     <li><a href="${cp}/admin/sales/list">매출 조회</a></li>
-                    <li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
-                    <li><a href="${cp}/board/qnalist">Q&A</a></li>
-                    <li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
+                    <li><a href="${cp}/board/list">고객센터</a></li>
+                    <li><a href="${cp}/admin/mbrlist">회원 조회</a></li>
                     <li><a href="${cp}/admin/branch/list">지점 관리</a></li>
                     <li><a href="${cp}/admin/manager/list">점장 관리</a></li>
                 </c:when>
@@ -77,9 +75,8 @@
                     <li><a href="${cp}/admin/item/list">등록 상품 조회</a></li>
                     <li><a href="${cp}/admin/order/list">주문 관리</a></li>
                     <li><a href="${cp}/admin/sales/list">매출 조회</a></li>
-                    <li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
-                    <li><a href="${cp}/board/qnalist">Q&A</a></li>
-                    <li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
+                    <li><a href="${cp}/board/list">고객센터</a></li>
+                    <li><a href="${cp}/admin/mbrlist">회원 조회</a></li>
                     <li><a href="${cp}/admin/branch/list">지점 조회</a></li>
                     <li><a href="${cp}/admin/manager/list">점장 조회</a></li>
                 </c:when>

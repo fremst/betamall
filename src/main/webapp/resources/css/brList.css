@@ -1,27 +1,26 @@
 @charset "UTF-8";
 
-#mgrListWrap {
+#brListWrap {
     margin-top: 10px;
     margin-bottom: 15px;
     align-content: center;
 }
 
-#mgrListTitle {
+#brListTitle {
     margin-bottom: 10px;
 }
 
-#mgrList {
+#brList {
     text-align: center;
     height: 350px;
 }
 
-#mgrTable {
-	width: 100%;
+#brTable {
     align-content: center;
     border: none;
 }
 
-.mgrInfo_header {
+.brInfo_header {
     height: 25px;
     border: none;
     border-top: 2px solid gray;
@@ -29,17 +28,14 @@
     font-size: 18px;
 }
 
-
-.mgrInfo {
+.brInfo {
     font-size: 18px;
     border: none;
     margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
     border-bottom: 1px solid gray;
 }
 
-#mgrListNum {
+#brListNum {
     text-align: center;
     align-content: center;
     margin-top: 20px;
@@ -57,7 +53,7 @@
     text-decoration: underline;
 }
 
-#mgrPageNav {
+#brPageNav {
     text-align: center;
     align-content: center;
     margin-bottom: 20px;

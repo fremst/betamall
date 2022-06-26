@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div>
+	    <h2 id = "subtitle">점장 정보 수정/삭제</h2><br>
 		<c:if test="${role == 'master' && relation != 'self'}">
 			<c:set var="isDel" value="true"/>
 		</c:if>
@@ -50,12 +51,12 @@
 		</fieldset>
 		<div id = "btns">
 			<c:if test="${role == 'master' && relation != 'self'}">
-			<input type = "submit" value="삭제" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/manager/delete?mgrNo=${mgrInfoDto.mgrNo}">
+			<input type = "submit" value="삭제" class = "btn" onclick="if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/manager/delete?mgrNo=${mgrInfoDto.mgrNo}">
 			</c:if>
 			<c:if test="${relation == 'self'}">
-			<input type = "submit" value = "수정" formaction="${cp }/admin/manager/update?mgrNo=${mgrInfoDto.mgrNo}" onclick = "return validate()">
+			<input type = "submit" value = "수정" class = "btn" formaction="${cp }/admin/manager/update?mgrNo=${mgrInfoDto.mgrNo}" onclick = "return validate()">
 			</c:if>
-			<input type = "button" value = "취소" onclick = "location.href='${cp }/admin/manager/list'">
+			<input type = "button" value = "취소" class = "btn" onclick = "location.href='${cp }/admin/manager/list'">
 		</div>
 		</form>
     </div>

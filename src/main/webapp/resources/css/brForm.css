@@ -20,15 +20,25 @@ fieldset {
 .fileField{
 	margin-top: 10px;
 }
+
 #btns {
-	width: 100px;
+	width: 180px;
 	margin: auto;
 	padding: 10px;
+	text-align: center;
 }
+
+.btn{
+    width: 50px;
+    height: 25px;
+    font-size: 15px;
+}
+
 .notice {
 	color: gray;
 	font-size: 10pt;
 }
+
 .thumbNailMsg{
 	font-size: 10pt;
 	margin-left: 10px;

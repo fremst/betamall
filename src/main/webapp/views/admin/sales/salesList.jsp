@@ -245,8 +245,8 @@
 		 
 		 const options = {
 		            chart: {
-		                title: '베타몰 매출현황',
-		                subtitle: '매출조회',
+		                title: 'Betamall 매출현황',
+		                subtitle: '월별, 상품 분류별 매출',
 		            }
 		        };
 
