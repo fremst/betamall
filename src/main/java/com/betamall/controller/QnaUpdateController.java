@@ -62,7 +62,7 @@ public class QnaUpdateController extends HttpServlet{
 		if(mr.getFilesystemName("uploadFile")!=null) {
 			systemFileName=mr.getFilesystemName("uploadFile");
 			fileExt = systemFileName.substring(systemFileName.lastIndexOf(".")+1);
-			saveFileName= qnaCat + "+" + qnaTitle + fileExt;
+			saveFileName= qnaCat + "+" + qnaTitle + "+"  + fileExt;
 			new File(saveDir, systemFileName).renameTo(new File(saveDir, saveFileName));
 		}
 		
