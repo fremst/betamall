@@ -26,7 +26,6 @@ public class ConfirmPurchaseController extends HttpServlet {
         
         MemberDao mbrDao = MemberDao.getInstance();
         MemberDto mbrDto = mbrDao.selectById((String)req.getSession().getAttribute("id"));
-        System.out.println("1:"+mbrDto.getTotAmt());
         
         PmtDao pmtDao = PmtDao.getInstance();
         PmtDto pmtDto = pmtDao.select(ordNo);
@@ -34,15 +33,8 @@ public class ConfirmPurchaseController extends HttpServlet {
         ordDto.setOrdSta(ordSta);
         int n1 = ordDao.update(ordDto);
         
-        System.out.println("2:"+mbrDto.getTotAmt());
-        
         mbrDto.setTotAmt(mbrDto.getTotAmt()+pmtDto.getPmtAmt());
         int n2 = mbrDao.update(mbrDto);
-
-        System.out.println("3:"+mbrDto.getTotAmt());
-        
-        System.out.println("4:"+pmtDto);
-        System.out.println("5:"+mbrDto);
 
         if (n1*n2 > 0) {
             resp.sendRedirect(req.getContextPath() + "/member/ordList");

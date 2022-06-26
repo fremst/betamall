@@ -7,7 +7,7 @@ main.main{
 
 div#orderListWrap {
 	width: 1500px;
-	
+	min-height: 768px;
     margin-top: 15px;
     margin-bottom: 15px;
     align-content: center;
