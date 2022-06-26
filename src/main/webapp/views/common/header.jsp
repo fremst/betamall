@@ -68,7 +68,7 @@
 					<li><a href="${cp}/admin/sales/list">매출 조회</a></li>
 					<li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
 					<li><a href="${cp}/board/qnalist">Q&A</a></li>
-					<li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
+					<li><a href="${cp}/admin/mbrlist">회원 조회</a></li>
 					<li><a href="${cp}/admin/branch/list">지점 관리</a></li>
 					<li><a href="${cp}/admin/manager/list">점장 관리</a></li>
 				</c:when>
@@ -78,7 +78,7 @@
 					<li><a href="${cp}/admin/sales/list">매출 조회</a></li>
 					<li><a href="${cp}/board/list">공지/FAQ/이벤트</a></li>
 					<li><a href="${cp}/board/qnalist">Q&A</a></li>
-					<li><a href="${cp}/admin/mbrlist">고객 조회</a></li>
+					<li><a href="${cp}/admin/mbrlist">회원 조회</a></li>
 					<li><a href="${cp}/admin/branch/list">지점 조회</a></li>
 					<li><a href="${cp}/admin/manager/list">점장 조회</a></li>
 				</c:when>

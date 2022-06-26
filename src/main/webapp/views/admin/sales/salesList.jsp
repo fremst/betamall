@@ -198,21 +198,21 @@
             }
         }
         
-        let cat=document.getElementById('cat').value
-        let mcatName=document.getElementById('mcatName').value
-        let scatName=document.getElementById('scatName').value
-        let brName=document.getElementById('brName').value
-		let ordStartDate=document.getElementById('ordStartDate').value
-		let ordEndDate=document.getElementById('ordEndDate').value
-		let pmtStartDate=document.getElementById('pmtStartDate').value
-		let pmtEndDate=document.getElementById('pmtEndDate').value
-		let itemName=document.getElementById('itemName').value
+        let cat=document.getElementById('cat').value;
+        let mcatName=document.getElementById('mcatName').value;
+        let scatName=document.getElementById('scatName').value;
+        let brName=document.getElementById('brName').value;
+		let ordStartDate=document.getElementById('ordStartDate').value;
+		let ordEndDate=document.getElementById('ordEndDate').value;
+		let pmtStartDate=document.getElementById('pmtStartDate').value;
+		let pmtEndDate=document.getElementById('pmtEndDate').value;
+		let itemName=document.getElementById('itemName').value;
 		
-		let catNameChk=document.getElementById('catNameChk').checked
-		let brNameChk=document.getElementById('brNameChk').checked
-		let ordDateChk=document.getElementById('ordDateChk').checked
-		let pmtDateChk=document.getElementById('pmtDateChk').checked
-		let itemNameChk=document.getElementById('itemNameChk').checked
+		let catNameChk=document.getElementById('catNameChk').checked;
+		let brNameChk=document.getElementById('brNameChk').checked;
+		let ordDateChk=document.getElementById('ordDateChk').checked;
+		let pmtDateChk=document.getElementById('pmtDateChk').checked;
+		let itemNameChk=document.getElementById('itemNameChk').checked;
         
         xhr.open('post', '${cp}/admin/sales/list?catNameChk='+catNameChk
         		+'&cat='+cat
