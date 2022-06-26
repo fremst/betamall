@@ -1,32 +1,34 @@
 @charset "UTF-8";
+
 main.main {
 	width: 1450px;
 	height: auto;
-    text-align: left;
+	text-align: left;
 }
 
 #detailWrap {
-    margin-top: 20px;
-    padding-bottom: 5px;
-    width: 100%;
-    height: auto;
+	margin-top: 20px;
+	padding-bottom: 5px;
+	width: 100%;
+	height: auto;
 }
 
 #formSide {
-    width: 20%;
-    height: auto;
-    text-align: left;
-    float: left;
+	width: 20%;
+	height: auto;
+	text-align: left;
+	float: left;
 }
 
 .sidemenu {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 #detailMain {
-    width: 70%;
-    float: left;
-    margin-top: 20px;
+	width: 70%;
+	float: left;
+	margin-top: 20px;
+	text-align: center;
 }
 
 input {
@@ -42,22 +44,24 @@ input {
 
 #con {
 	font-size: medium;
-	margin-top: 10px;
+	margin-top: 15px;
 	margin-left: 15px;
-	margin-right: 15px;
+	border: none;
+	resize: none;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 #img {
-	width: 300px;
-	height: 300px;
-	margin-top: 10px;
-	margin-left: 15px;
+	width: auto;
+	height: auto;
+	margin-top: 20px;
 }
 
 #nav {
 	margin-top: 15px;
 	margin-bottom: 100px;
-	
+
 }
 
 #date {
@@ -71,9 +75,9 @@ input {
 }
 
 #detailHeader {
-    height: 40px;
-    border-top: 3px solid gray;
-    border-bottom: 3px solid gray;
+	height: 40px;
+	border-top: 3px solid gray;
+	border-bottom: 3px solid gray;
 }
 
 #event {
