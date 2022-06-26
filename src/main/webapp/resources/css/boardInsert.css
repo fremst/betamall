@@ -1,0 +1,91 @@
+@charset "UTF-8";
+main.main {
+	width: 1450px;
+	height: auto;
+    text-align: left;
+}
+
+#insertWrap {
+    margin-top: 20px;
+    padding-bottom: 5px;
+    width: 100%;
+    height: auto;
+}
+
+#formSide {
+    width: 20%;
+    height: auto;
+    text-align: left;
+    float: left;
+}
+
+.sidemenu {
+    margin-top: 10px;
+}
+
+#insertMain {
+    width: 70%;
+    float: left;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+img {
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+#nav {
+	margin-top: 15px;
+	margin-bottom: 100px;
+	
+}
+
+#insertHeader {
+    height: 40px;
+    border-top: 3px solid gray;
+    border-bottom: 3px solid gray;
+}
+
+#popUp {
+	float: right;
+	margin-top: 6px;
+	margin-right: 15px;
+}
+
+#eventPeriod {
+	float: right;
+}
+
+.headerInfo {
+	margin-top: 10px;
+}
+
+#brdTitle {
+	width: 47%;
+}
+
+#category {
+	margin-left: 15px;
+}
+
+#brdCon {
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+#qnaCon {
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+.fileField {
+	margin-left: 15px;
+}
+
+#img {
+	width: 300px;
+	height: 300px;
+}
+
+

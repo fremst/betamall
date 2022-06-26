@@ -12,18 +12,31 @@
     <title>main</title>
 </head>
 <script type="text/javascript">
+    function getCookie(name) {
+        const cookie = document.cookie;
+        if (document.cookie != "") {
+            const cookie_array = cookie.split("; ");
+            for (const index in cookie_array) {
+                const cookie_name = cookie_array[index].split("=");
 
-    function windowPopup() {
-        window.open(
-            "${cp}/views/common/popUp.jsp",
-            "popup",
-            "width=650px, height=390px, history=no,resizable=no,status=no,scrollbars=no,menubar=no,location=no,left=500")
+                if (cookie_name[0] == "popupYN") {
+                    return cookie_name[1];
+                }
+            }
+        }
+        return;
     }
 
+    function windowPopup(url) {
+        url = '${cp}/views/common/popUp.jsp';
+        const cookieCheck = getCookie("popupNY");
+        if (cookieCheck != "N") {
+            window.open(url, 'popup', 'width=600px, height=370px, history=no,resizable=no,status=no,scrollbars=no,menubar=no,location=no')
+        }
+    }
 </script>
 <body onload="windowPopup()">
 <main>
-
     <!--이미지 슬라이드-->
     <div class="slider">
         <!--인디케이터-->
@@ -60,7 +73,6 @@
     <div class="banner">
         <div><img src="${cp }/resources/images/banner.png" id="banner_img"></div>
     </div>
-
 
     <!--신상품라인-->
     <div class="comment">

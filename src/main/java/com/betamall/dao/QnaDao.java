@@ -51,6 +51,7 @@ public class QnaDao {
 			rs=pstmt.executeQuery();
 			ArrayList<QnaDto> list=new ArrayList<QnaDto>();
 			MemberDao dao=MemberDao.getInstance();
+			QnaCmtDao cdao=QnaCmtDao.getInstance();
 			while(rs.next()) {
 				int qnaNo=rs.getInt("qnano");
 				int mbrNo=rs.getInt("mbrNo");
@@ -63,7 +64,7 @@ public class QnaDao {
 				Date qnaWdate=rs.getDate("qnawdate");
 				Date qnaMdate=rs.getDate("qnamdate");
 				boolean qnaDel=rs.getBoolean("qnadel");
-				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel, dao.select(mbrNo).getMbrId());
+				QnaDto dto=new QnaDto(qnaNo, mbrNo, itemNo, qnaCat, qnaTitle, qnaCon, qnaFile, secret, qnaWdate, qnaMdate, qnaDel, dao.select(mbrNo).getMbrId(), cdao.getCount(qnaNo));
 				list.add(dto);
 			}
 			return list;

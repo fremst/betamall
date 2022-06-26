@@ -66,13 +66,9 @@ public class FaqInsertController extends HttpServlet{
 		int n = dao.insert(dto);
 		
 		if(n>0) {
-			req.setAttribute("code","faqinsert");
+			resp.sendRedirect(req.getContextPath() + "/board/faqlist");
 		}else {
-			req.setAttribute("code","fail");
+			resp.sendRedirect(req.getContextPath() + "/board/faqlist");;
 		}
-		
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
 	}
 }

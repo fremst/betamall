@@ -19,14 +19,9 @@ public class QnaCmtDeleteController extends HttpServlet{
 		QnaCmtDao dao=QnaCmtDao.getInstance();
 		int n = dao.delete(qnaCmtNo);
 		if(n>0) {
-			req.setAttribute("code","qnacmtdelete");
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
 		}else {
-			req.setAttribute("code","fail");
+			resp.sendRedirect(req.getContextPath() + "/board/qnalist");
 		}
-		req.setAttribute("mainPageTitle", "Betamall - 게시글 삭제");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);
 	}
-	
-
 }

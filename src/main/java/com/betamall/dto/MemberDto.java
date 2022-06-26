@@ -12,17 +12,17 @@ public class MemberDto {
     private String mbrPwd;
     private Date mbrBd;
     private Date mbrRegdate;
-    private String mbrGrade;
     private int totAmt;
 
     @Override
     public String toString() {
         return "MemberDto [mbrNo=" + mbrNo + ", mbrName=" + mbrName + ", mbrTel=" + mbrTel + ", mbrAdr=" + mbrAdr
                 + ", mbrEmail=" + mbrEmail + ", mbrId=" + mbrId + ", mbrPwd=" + mbrPwd + ", mbrBd=" + mbrBd
-                + ", mbrRegdate=" + mbrRegdate + ", mbrGrade=" + mbrGrade + ", totAmt=" + totAmt + "]";
+                + ", mbrRegdate=" + mbrRegdate + ", totAmt=" + totAmt + "]";
     }
 
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
+    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, Date mbrBd,
+            Date mbrRegdate, int totAmt) {
         this.mbrNo = mbrNo;
         this.mbrName = mbrName;
         this.mbrTel = mbrTel;
@@ -31,11 +31,11 @@ public class MemberDto {
         this.mbrId = mbrId;
         this.mbrBd = mbrBd;
         this.mbrRegdate = mbrRegdate;
-        this.mbrGrade = mbrGrade;
         this.totAmt = totAmt;
     }
 
-    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId, String mbrPwd, Date mbrBd, Date mbrRegdate, String mbrGrade, int totAmt) {
+    public MemberDto(int mbrNo, String mbrName, String mbrTel, String mbrAdr, String mbrEmail, String mbrId,
+            String mbrPwd, Date mbrBd, Date mbrRegdate, int totAmt) {
         this.mbrNo = mbrNo;
         this.mbrName = mbrName;
         this.mbrTel = mbrTel;
@@ -45,7 +45,6 @@ public class MemberDto {
         this.mbrPwd = mbrPwd;
         this.mbrBd = mbrBd;
         this.mbrRegdate = mbrRegdate;
-        this.mbrGrade = mbrGrade;
         this.totAmt = totAmt;
     }
 
@@ -119,14 +118,6 @@ public class MemberDto {
 
     public void setMbrRegdate(Date mbrRegdate) {
         this.mbrRegdate = mbrRegdate;
-    }
-
-    public String getMbrGrade() {
-        return mbrGrade;
-    }
-
-    public void setMbrGrade(String mbrGrade) {
-        this.mbrGrade = mbrGrade;
     }
 
     public int getTotAmt() {

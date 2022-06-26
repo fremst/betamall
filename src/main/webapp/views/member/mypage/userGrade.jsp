@@ -1,3 +1,5 @@
+<%@ page import="com.betamall.dto.MemberDto" %>
+<%@ page import="com.betamall.dao.MemberDao" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -17,7 +19,7 @@
         <ul>
             <li class="sidemenu"><a href="${cp }/member/update">- 나의 정보 수정</a></li>
             <li class="sidemenu"><a href="${cp}/member/ordList">- 주문/배송 조회</a></li>
-            <li class="sidemenu"><a href=#>- 내글보기</a></li>
+            <li class="sidemenu"><a href="${cp}/member/myposts">- 내글보기</a></li>
             <li class="sidemenu"><a href="${cp }/member/userGrade">- 등급/쿠폰 조회</a></li>
         </ul>
     </div>
@@ -27,7 +29,9 @@
             <div id="gradeArea">
                 <div id="gradeArea1">
                     <p>${id}님의 등급</p>
-                    <p id="userGrade">${mbrDto.mbrGrade}</p>
+                    <p id="userGrade">
+                        ${mbrGrade}
+                    </p>
                     <p>결제 누적 금액</p>
                     <p><fmt:formatNumber value="${mbrDto.totAmt}" type="number"/> 원</p>
                 </div>

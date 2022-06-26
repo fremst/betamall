@@ -12,7 +12,7 @@
     <form action="${cp}/login" method="post">
         <fieldset id="loginField">
             <legend>로그인 양식</legend>
-            아이디&nbsp;<input type="text" name="id" id="id"><br><br>
+            아이디&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="id" id="id"><br><br>
             비밀번호&nbsp;<input type="password" name="pwd" id="pwd"><br><br>
             <div id="errBox">${errMsg}</div>
             <input type="submit" value="로그인" id=loginBtn class="btn">

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+#mgrListWrap {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    align-content: center;
+}
+
+#mgrListTitle {
+    margin-bottom: 10px;
+}
+
+#mgrList {
+    text-align: center;
+    height: 350px;
+}
+
+#mgrTable {
+    align-content: center;
+    border: none;
+}
+
+.mgrInfo_header {
+    height: 25px;
+    border: none;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    font-size: 18px;
+}
+
+
+.mgrInfo {
+    font-size: 18px;
+    border: none;
+    margin-bottom: 5px;
+    border-bottom: 1px solid gray;
+}
+
+#mgrListNum {
+    text-align: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#rowNum {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+#SrowNum {
+    margin-left: 5px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+#mgrPageNav {
+    text-align: center;
+    align-content: center;
+    margin-bottom: 20px;
+}

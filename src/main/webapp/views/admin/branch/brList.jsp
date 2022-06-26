@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 조회/수정/삭제</title>
-<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel="stylesheet" href="${cp}/resources/css/brList.css">
 <script type="text/javascript">
 	window.onload = function(){
 		getInfo(1);
@@ -36,13 +37,13 @@
 					}
 					for(let i=0; i<brData.length; i++){
 						tbody.innerHTML+=
-							 "<td>"+brData[i].brNo+"</td>"
-							+"<td>"+brData[i].brName+"</td>"
-							+"<td>"+brData[i].brTel+"</td>"
-							+"<td>"+"<a href='tel:brData[i].brAddr'>"+brData[i].brAddr+"</td>"
-							+"<td>"+brData[i].brDate+"</td>"
-							+"<td><img src = '${cp}/resources/uploads/admin/branch/"+brData[i].brImg+"' style='width: 100px; height:100px'></td>"
-							+"<td><a href ='${cp}/admin/branch/update?brNo="+brData[i].brNo+"'>관리</a></td>"
+							 "<td class='brInfo'>"+brData[i].brNo+"</td>"
+							+"<td class='brInfo'>"+brData[i].brName+"</td>"
+							+"<td class='brInfo'>"+brData[i].brTel+"</td>"
+							+"<td class='brInfo'>"+"<a href='tel:brData[i].brAddr'>"+brData[i].brAddr+"</td>"
+							+"<td class='brInfo'>"+brData[i].brDate+"</td>"
+							+"<td class='brInfo'><img src = '${cp}/resources/uploads/admin/branch/"+brData[i].brImg+"' style='width: 100px; height:100px'></td>"
+							+"<td class='brInfo'><a href ='${cp}/admin/branch/update?brNo="+brData[i].brNo+"'>관리</a></td>"
 					}
 					
 					let pageNav = document.getElementById("pageNav");
@@ -74,13 +75,13 @@
 		<table class = "center">
 			<tbody id = "tbody">
 				<tr>
-					<th>지점 번호</th>
-					<th>지점명</th>
-					<th>지점 전화번호</th>
-					<th>지점 주소</th>
-					<th>지점 등록일</th>
-					<th>대표 사진</th>
-					<th>관리</th>
+					<th class="brInfo_header">지점 번호</th>
+					<th class="brInfo_header">지점명</th>
+					<th class="brInfo_header">지점 전화번호</th>
+					<th class="brInfo_header">지점 주소</th>
+					<th class="brInfo_header">지점 등록일</th>
+					<th class="brInfo_header">대표 사진</th>
+					<th class="brInfo_header">&nbsp;&nbsp;관리&nbsp;&nbsp;</th>
 				</tr>
 				<c:forEach var="i" begin="1" end="3">
 					<tr><c:forEach var="j" begin="1" end="9"><td></td></c:forEach></tr>
@@ -89,9 +90,11 @@
 		</table>
 	    <div id="pageNav">
 		</div>
-		<div id = "newBtnArea">
-		<input type="button" value = "새로 등록" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
-		</div>
+		<c:if test="${role == 'admin0'}">
+			<div id = "newBtnArea">
+				<input type="button" value = "등록하기" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
+			</div>
+		</c:if>
     </div>
 </body>
 </html>

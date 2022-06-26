@@ -3,142 +3,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>결제</title>
-	<style type="text/css">
-	
-	.main{
-		width: 1024px;
-		height: auto;
-		margin: auto;
-		margin-bottom: 27px;
-	}
-	
-	#purchaseWrap{
-		width: 700px;
-		margin: auto;
-	}
-	
-	.fieldset{
-		padding-top:10px;
-		padding-right:20px;
-		padding-bottom:10px;
-		padding-left:20px;
-		margin-top: 10px;
-	}
-	
-	.contents{
-		margin: auto;
-	}
-	
-	#purchaseBtn{
-		width: 80px;
-		height: 25px;
-		margin-top: 10px;
-	}
-	
-	.itemThumbNails {
-		width: 100px;
-	}
-	
-	.itemImg{
-		width: 200px;
-	}
-	
-	.itemName{
-		width: 600px;
-		text-align: left;
-	}
-	.itemPrice{
-		width: 100px;
-	}
-	
-	.itemCnt{
-		width: 100px;
-	}
-	
-	.totAmt{
-		width: 100px;
-	}
-	
-	.brName{
-		width: 150px;
-	}
-	
-	.purchase{
-		width: 100px;
-	}
-	
-    .itemThumbNails{
-    
-        width: 150px;
-        height: 150px;
-    }
-    
-	.btns{
-		width: 400px;
-		margin: auto;
-		margin-top: 10px;
-		text-align: center;
-    }
-    
-  	.purchaseBtn{
-		width: 100px;
-		height: 35px;
-		margin: 10px;
-		color: aliceblue;
-		font-size: 15px;
-		background-color: #2C8FED;
-		border: 1px;
-		border-radius: 5px;
-	}
-	
-	.cancelBtn{
-		width: 100px;
-		height: 35px;
-		margin: 10px;
-		color: black;
-		font-size: 15px;
-		background-color: #4B484B3A;
-		border: 1px;
-		border-radius: 5px;
-	}
-    
-    .nothing{
-    	height: 768px;
-    	vertical-align: center;
-    	padding-top: 200px;
-    	text-align: center;
-   	}
-	</style>
+    <link rel="stylesheet" href="${cp}/resources/css/payment.css">
 </head>
 <body>
-	<div id="purchaseWrap">
+	<div id="paymentWrap">
 		<h2>결제</h2><hr>
 		<c:choose>
 			<c:when test="${not empty ordNos}">
 				<form method="post" action="${cp }/member/payment">
 				<div class="contents">
 					<div class="itemList">
-						<fieldset class="fieldset">
-							<legend><h3>주문 목록</h3></legend>
-							<table align="center" style="text-align: center">
-								<tbody id="orderList">
+						<fieldset class="ordListField">
+							<legend><span class="legendText">주문 목록</span></legend>
+							<table id="orderList">
 									<tr>
 										<th>상품명</th>
 										<th>정  가</th>
 										<th>수  량</th>
 										<th>총  액</th>
 										<th>주문지점</th>
-										<th><th>
+										<th></th>
 									</tr>
 									<c:forEach var="orderSheet" items="${orderSheets}">
 										<tr>
 											<td class="itemName">
-												<a href="${cp}/item/detail?itemNo=${orderSheet.itemNo}">${orderSheet.itemName}</a><br><br>
+												<a href="${cp}/item/detail?itemNo=${orderSheet.itemNo}">${orderSheet.itemName}</a>
 											</td>
 											<td class="itemPrice">
 												<fmt:formatNumber value="${orderSheet.price}" type="number"/> 원
@@ -154,33 +45,32 @@
 											</td>
 										</tr>
 									</c:forEach>
-								</tbody>
 							</table>
 						</fieldset>
 					</div>
-						<fieldset class="fieldset">
-							<legend><h3>배송지 정보</h3></legend>
+						<fieldset class="delInfoField">
+							<legend><span class="legendText">배송지 정보</span></legend>
 							받으시는 분<br>
-							<input type="text" id="recName" name="recName" value="${recName}"><br>
+							<input type="text" id="recName" name="recName" value="${recName}" class="inputText"><br>
 							전화 번호<br>
-							<input type="text" id="recTel" name="recTel" value="${recTel}"><br>
+							<input type="text" id="recTel" name="recTel" value="${recTel}" class="inputText"><br>
 							주소<br>
-							<input type="text" id="postcode" name="recpostno" value="${recpostno}" placeholder="우편번호">&nbsp;&nbsp;
-				            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-				            <input type="text" id="address" name = "recAdr" value="${recAdr}" placeholder="주소" class="adr">
-				            <input type="text" id="detailAddress" name="recAdr1" value="${recAdr1}" placeholder="상세주소" class="adr">
-							<input type="text" id="extraAddress" name="recAdr2" value="${recAdr2}" placeholder="참고항목" class="adr">
+							<input type="text" id="postcode" name="recpostno" value="${recpostno}" placeholder="우편번호" class="inputText">
+				            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="postBtn"><br>
+				            <input type="text" id="address" name = "recAdr" value="${recAdr}" placeholder="주소" class="inputText">
+				            <input type="text" id="detailAddress" name="recAdr1" value="${recAdr1}" placeholder="상세주소" class="inputText">
+							<input type="text" id="extraAddress" name="recAdr2" value="${recAdr2}" placeholder="참고항목" class="inputText">
 						</fieldset>
-						<fieldset class="fieldset">
+						<fieldset class="pmtInfoField">
 							<c:forEach var = "i" begin = "0" end = "${ordNos.size()-1}">
 								<input type="hidden" name="ordNos" value="${ordNos[i]}" id = "ordNos">
 							</c:forEach>
-							<legend><h3>결제 금액</h3></legend>
+							<legend><span class="legendText">결제 금액</span></legend>
 							총 주문 금액:
 							<fmt:formatNumber value = "${totAmt}" type = "number"/>원<br>
 							할인 금액:
 							<fmt:formatNumber value = "${discAmt}" type = "number"/>원<br>
-							<input type="text" name = "discAmt" value = "${discAmt}">
+							<input type="hidden" name = "discAmt" value = "${discAmt}">
 							배송비:
 							<fmt:formatNumber value = "${delFee}" type = "number"/>
 							<input type="hidden" name = "delFee" value = "${delFee}" >
@@ -192,7 +82,7 @@
 							<fmt:formatNumber value="${totAmt - discAmt + delFee*ordNos.size()}" type="number"/>원
 						</fieldset>
 						
-						<div class = "btns">
+						<div class = "btnArea">
 							<input type="button" value="결제취소" class="cancelBtn" onclick="location.href='${cp}/cancelPurchase'">
 							<input type="submit" value="결제하기" onclick="return validate()" class="purchaseBtn">
 						</div>

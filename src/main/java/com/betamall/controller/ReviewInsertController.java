@@ -44,15 +44,10 @@ public class ReviewInsertController extends HttpServlet{
 		
 		int n = dao.reviewinsert(dto);
 		
-		// 페이지 연결 후 아래부분 수정
 		if(n>0) {
-			req.setAttribute("code","success");
+			resp.sendRedirect(req.getContextPath() + "/member/ordList");
 		}else {
-			req.setAttribute("code","fail");
-		}
-		
-		req.setAttribute("mainPageTitle", "Betamall - 리뷰 작성 결과");
-		req.setAttribute("mainPage", "/views/board/result.jsp");
-		req.getRequestDispatcher("/views/common/layout.jsp").forward(req, resp);	
+			resp.sendRedirect(req.getContextPath() + "/member/ordList");
+		}	
 	}
 }

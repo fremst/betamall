@@ -2,8 +2,12 @@
 *{
 	margin:0;
 	padding:0;
-	
 }
+
+#purchaseBox {
+	text-align: center;
+}
+
 h1 {
 	text-align: left;
 }

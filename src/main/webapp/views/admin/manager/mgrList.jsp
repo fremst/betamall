@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>점장 관리</title>
-<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel="stylesheet" href="${cp}/resources/css/mgrList.css">
 <script type="text/javascript">
 	window.onlaod = getInfo(1)
 
@@ -31,15 +32,15 @@
 					}
 					for(let i=0; i<mgrData.length; i++){
 						tbody.innerHTML+=
-							 "<td>"+mgrData[i].mgrNo+"</td>"
-							+"<td><img src = ${cp}/resources/uploads/admin/manager/"+mgrData[i].mgrImg+" style='width: 100px; height:100px'></td>"
-							+"<td>"+mgrData[i].brName+"</td>"
-							+"<td>"+mgrData[i].brTel+"</td>"
-							+"<td>"+mgrData[i].brAddr+"</td>"
-							+"<td>"+mgrData[i].mgrName+"</td>"
-							+"<td>"+mgrData[i].mgrTel+"</td>"
-							+"<td>"+mgrData[i].mgrEmail+"</td>"
-							+"<td><a href ='${cp}/admin/manager/update?mgrNo="+mgrData[i].mgrNo+"''>관리</a></td>"
+							 "<td class='mgrInfo'>"+mgrData[i].mgrNo+"</td>"
+							+"<td class='mgrInfo'><img src = ${cp}/resources/uploads/admin/manager/"+mgrData[i].mgrImg+" style='width: 100px; height:100px'></td>"
+							+"<td class='mgrInfo'>"+mgrData[i].brName+"</td>"
+							+"<td class='mgrInfo'>"+mgrData[i].brTel+"</td>"
+							+"<td class='mgrInfo'>"+mgrData[i].brAddr+"</td>"
+							+"<td class='mgrInfo'>"+mgrData[i].mgrName+"</td>"
+							+"<td class='mgrInfo'>"+mgrData[i].mgrTel+"</td>"
+							+"<td class='mgrInfo'>"+mgrData[i].mgrEmail+"</td>"
+							+"<td class='mgrInfo'><a href ='${cp}/admin/manager/update?mgrNo="+mgrData[i].mgrNo+"''>관리</a></td>"
 					}
 					
 					let pageNav = document.getElementById("pageNav");
@@ -68,18 +69,18 @@
 <body>
 	<h2>점장 조회/수정/삭제</h2>
     <div id="mainWrap">
-		<table align="center" style="text-align: center">
+		<table id="mgrTable" align="center" style="text-align: center">
 			<tbody id = "tbody">
 				<tr>
-					<th>점장 번호</th>
-					<th>대표 사진</th>
-					<th>지점명</th>
-					<th>지점 전화번호</th>
-					<th>지점 주소</th>
-					<th>점장명</th>
-					<th>점장 전화번호</th>
-					<th>점장 이메일</th>
-					<th>관리</th>
+					<th class="mgrInfo_header">점장 번호</th>
+					<th class="mgrInfo_header">대표 사진</th>
+					<th class="mgrInfo_header">지점명</th>
+					<th class="mgrInfo_header">지점 전화번호</th>
+					<th class="mgrInfo_header">지점 주소</th>
+					<th class="mgrInfo_header">점장명</th>
+					<th class="mgrInfo_header">점장 전화번호</th>
+					<th class="mgrInfo_header">점장 이메일</th>
+					<th class="mgrInfo_header">&nbsp;&nbsp;관리&nbsp;&nbsp;</th>
 				</tr>
 				<c:forEach var="i" begin="1" end="3">
 					<tr><c:forEach var="j" begin="1" end="9"><td></td></c:forEach></tr>
@@ -88,9 +89,11 @@
 		</table>
 	    <div id="pageNav">
 		</div>
-		<div id = "newBtnArea">
-		<input type="button" value = "새로 등록" id="newBtn" onclick="location.href = '${cp}/admin/branch/insert'">
-		</div>
+		<c:if test="${role == 'admin0'}">
+			<div id = "newBtnArea">
+				<input type="button" value = "등록하기" id="newBtn" onclick="location.href = '${cp}/admin/manager/insert'">
+			</div>
+		</c:if>
     </div>
 </body>
 </html>

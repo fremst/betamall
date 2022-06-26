@@ -15,6 +15,7 @@ public class QnaDto {
 	private Date qnaMdate; 
 	private boolean qnaDel;
 	private String mbrId;
+	private int cmtCount;
 	
 	public QnaDto() {}
 
@@ -49,6 +50,24 @@ public class QnaDto {
 		this.qnaMdate = qnaMdate;
 		this.qnaDel = qnaDel;
 		this.mbrId = mbrId;
+	}
+	
+	public QnaDto(int qnaNo, int mbrNo, Integer itemNo, String qnaCat, String qnaTitle, String qnaCon, String qnaFile,
+			boolean secret, Date qnaWdate, Date qnaMdate, boolean qnaDel, String mbrId, int cmtCount) {
+		super();
+		this.qnaNo = qnaNo;
+		this.mbrNo = mbrNo;
+		this.itemNo = itemNo;
+		this.qnaCat = qnaCat;
+		this.qnaTitle = qnaTitle;
+		this.qnaCon = qnaCon;
+		this.qnaFile = qnaFile;
+		this.secret = secret;
+		this.qnaWdate = qnaWdate;
+		this.qnaMdate = qnaMdate;
+		this.qnaDel = qnaDel;
+		this.mbrId = mbrId;
+		this.cmtCount = cmtCount;
 	}
 	
 	public int getQnaNo() {
@@ -145,6 +164,14 @@ public class QnaDto {
 
 	public void setMbrId(String mbrId) {
 		this.mbrId = mbrId;
+	}
+
+	public int getCmtCount() {
+		return cmtCount;
+	}
+
+	public void setCmtCount(int cmtCount) {
+		this.cmtCount = cmtCount;
 	}
 
 	@Override
