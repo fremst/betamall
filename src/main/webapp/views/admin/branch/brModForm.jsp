@@ -10,7 +10,7 @@
 </head>
 <body>
     <div>
-    	<h2 id = "subtitle">지점 정보 수정/삭제</h2>
+    	<h2 id = "subtitle">지점 정보 수정/삭제</h2><br>
    	    <form method="post" enctype="multipart/form-data">
         	<fieldset id = "fieldset">
         	<div class = "inputTextField">
@@ -33,16 +33,16 @@
 	            <input type = "file" name = "uploadFile" id = "uploadFile" accept="image/jpeg, image/png" onchange="setThumbnail(event)"><br>
 	            <span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
 	            <div id = "thumbNailImg">
-	            <c:if test="${not empty BrDto.mgrImg}">
-		           	<img src = "${cp}/resources/uploads/admin/branch/${brDto.brImg}">
+	            <c:if test="${not empty brDto.brImg}">
+		           	<img src = "${cp}/resources/uploads/admin/branch/${brDto.brImg}" id="brImg">
 	            </c:if>
 	            </div>
             </div>
             </fieldset>
             <div id = "btns">
-		    	<input type = "submit" value = "수정" onclick = "return validate()" formaction = "${cp }/admin/branch/update?brNo=${brDto.brNo}">
-		    	<input type = "button" value = "취소" onclick = "location.href='${cp }/admin/branch/list'">
-		    	<input type = "submit" value = "삭제" onclick = "if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
+		    	<input type = "submit" value = "삭제" class = "btn" onclick = "if(!confirm('한 번 삭제하면 되돌릴 수 없습니다. 삭제할까요?')) {return false;}" formaction="${cp }/admin/branch/delete?brNo=${brDto.brNo}">
+		    	<input type = "submit" value = "수정" class = "btn" onclick = "return validate()" formaction = "${cp }/admin/branch/update?brNo=${brDto.brNo}">
+		    	<input type = "button" value = "취소" class = "btn" onclick = "location.href='${cp }/admin/branch/list'">
            	</div>
         </form>
     </div>
@@ -83,7 +83,7 @@
 		let file = document.getElementById('uploadFile').value;
 		
 		if(!name){
-			alert('지점명 입력해주세요.');
+			alert('지점명을 입력해주세요.');
 			return false;
 		}else if(!addr){
 			alert('지점 주소를 입력해주세요.');

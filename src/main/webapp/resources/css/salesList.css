@@ -38,11 +38,13 @@
 #searchBtn{
 	width: 50px;
 	height: 25px;
+	font-size:15px;
 }
 
 #allBtn{
 	width: 70px;
 	height: 25px;
+	font-size:15px;
 }
 
 #salesTable {

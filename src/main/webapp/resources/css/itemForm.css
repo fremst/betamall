@@ -63,22 +63,43 @@ button{
 }
 
 #purchaseBox{
-	width: 800px;
-	padding: 20px;
+	width: 700px;
+	padding: 5px;
 	margin: auto;
 	text-align:center;
 }
 
 #purchaseForm {
 	width: 200px;
-	margin: 0;
+	margin: 15px;
 	display: inline-block;
-	font-size: 18px;
+	font-size: 12pt;
 }
+
+.btns{
+	width: 80px;
+	height: 30px;
+	margin: 10px;
+	color: aliceblue;
+	font-size: 15px;
+	background-color: #2C8FED;
+	border: 1px;
+	border-radius: 5px;
+}
+
+
 
 .deltaBtns{
 	width: 30px;
 	font-size: 18px;
+}
+
+.inputCntText{
+	width: 50px;
+	text-align:center;
+	font-size: 18px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .inputText{

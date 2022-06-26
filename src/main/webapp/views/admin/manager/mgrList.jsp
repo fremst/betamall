@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>점장 관리</title>
-	<link rel = "stylesheet" href="${cp}/resources/css/brMgrList.css">
+	<link rel="stylesheet" href="${cp}/resources/css/brMgrList.css">
 	<link rel="stylesheet" href="${cp}/resources/css/mgrList.css">
 <script type="text/javascript">
 	window.onlaod = getInfo(1)
@@ -63,11 +63,10 @@
 			xhr.open('post','${cp }/admin/manager/list?pageNum='+pageNum,true);
 			xhr.send();
 	}
-
 </script>
 </head>
 <body>
-	<h2>점장 조회/수정/삭제</h2>
+	<h2 id="mgrListTitle">점장 관리</h2>
     <div id="mainWrap">
 		<table id="mgrTable" align="center" style="text-align: center">
 			<tbody id = "tbody">
