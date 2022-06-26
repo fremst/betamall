@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel = "stylesheet" href="${cp}/resources/css/itemForm.css">
+<link rel = "stylesheet" href="${cp}/resources/css/itemInsert.css">
 </head>
 <body>
 
@@ -22,16 +22,19 @@
 	}
 	System.out.println(scatNames);
 --%>
+<div id="table">
 <c:choose>
 	<c:when test="${role == 'admin0' }">
-	<h2>상품 등록</h2>
+	<h2 id="subtitle">상품 등록</h2>
+
     <form id="form" name="form" method="post" enctype="multipart/form-data" action="${cp }/admin/item/insert">
     	 <!-- 파일업로드를 위해 추가하는 타입 -->
-        <table>
+    	 <fieldset id = "fieldset">
+        <table border = 1 width = "630px">
         	<tr>
 			<td>상품분류</td>
 				<td>
-            	<select name="cats">
+            	<select name="cats" id="cats">
 					<c:forEach var="m" items="${mDtos}">
 						<optgroup label="${m.mcatName}">
 							<c:forEach var = "s" items = "${sDtos}">
@@ -46,41 +49,43 @@
             </tr>
             <tr>
                 <td>상품명</td>
-                <td><input name="itemName" required></td>
+                <td><input name="itemName" required style="width:500px"></td>
             </tr>
             <tr>
                 <td>해쉬태그</td>
-                <td><input name="hash"></td>
+                <td><input name="hash" style="width:500px"></td>
             </tr>
             <tr>
                 <td>가격</td>
-                <td><input name="price" required></td>
+                <td><input name="price" required ></td>
             </tr>
             <tr>
-                <td>썸네일</td>
-                <td><input type="file" id="tImg" name="tImg" accept="image/*" onchange="setThumbnail(event)" required></td>
-            	<td><div id= "thumbNailImg"></div></td>
+                <td height="300px">썸네일</td>
+                <td><input type="file" id="tImg" name="tImg" accept="image/*" onchange="setThumbnail(event)" required>
+                	<div id= "thumbNailImg"></div>
+                </td>
+            	
             </tr>
-            
             <tr>
                 <td>상세이미지</td>
-                <td><input type="file" name="detImg" required></td>
+                <td><input type="file" id="tImg"name="detImg" required></td>
             </tr>
             <tr>
-                <td colspan="2" align="center">
-                <input type="submit" value="등록">
+                <td colspan="2" align="center" height="50px">
+                <input type="submit" id="complete" value="등록">
                    <!-- <input type="button" value="목록"
                     onclick="location.href='${path}/admin/item/regItemList.jsp'"> --> 
                 </td>
             </tr>
         </table>
+	 </fieldset>
     </form>
    </c:when>
    <c:otherwise>
    		<button onclick="location.href='${cp }/home'">홈으로</button>
    </c:otherwise>
 </c:choose>
-
+</div>
 </body>
 <script type="text/javascript">
 

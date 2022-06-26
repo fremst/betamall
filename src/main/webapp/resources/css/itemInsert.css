@@ -1,0 +1,44 @@
+@charset "UTF-8";
+*{
+	border: none;
+	align-content: center;
+}
+#table{
+	align-content: center;
+}
+#cats{
+	border: 1px solid black;
+}
+input{
+	border: 1px solid black;
+}
+#tImg{
+	border: none;
+}
+
+#complete{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 20px;
+	padding-left: 20px;
+	border-radius:5px;
+}
+#form{
+	padding-top: 50px;
+	padding-bottom:200px;
+}
+td{
+	font-size:18px;
+	padding:10px;
+}
+fieldset {
+	width: 620px;
+	margin: auto;
+	padding: 10px;
+	display: flex;
+	border: 2px solid black;
+}
+#thumbNailImg{
+	width:300px;
+	height:300px;
+}

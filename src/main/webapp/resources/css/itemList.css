@@ -1,0 +1,74 @@
+@charset "UTF-8";
+#itemListWrap{
+	margin-top: 10px;
+    margin-bottom: 15px;
+    align-content: center;
+}
+#itemListTitle{
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#itemList{
+	text-align: center;
+    height: 350px;
+}
+#itemTable{
+	width: 1010px;
+    align-content: center;
+    height: 100%;
+}
+.itemInfo_header{
+	height: 25px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    font-size: 18px;
+}
+.itemInfo{
+	font-size: 14px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid gray;
+    text-align:center;
+}
+#itemListNum{
+	text-align: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#rowNum {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+#SrowNum {
+    margin-left: 5px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+#searchItem{
+	margin-bottom: 10px;
+    align-content: center;
+
+}
+#serachItem>select{
+	 width: 100px;
+    font-size: 15px;
+}
+#itemList_search{
+	 width: 200px;
+    font-size: 15px;
+}
+#itemList_search_btn{
+	width: 50px;
+    font-size: 15px;
+}
+#itemPageNav{
+	text-align: center;
+    align-content: center;
+    margin-bottom: 20px;
+}
+#listAll{
+	text-align: center;
+	margin-bottom: 20px;
+}

@@ -34,7 +34,6 @@
             window.open(url, 'popup', 'width=600px, height=370px, history=no,resizable=no,status=no,scrollbars=no,menubar=no,location=no')
         }
     }
-
 </script>
 <body onload="windowPopup()">
 <main>
@@ -74,7 +73,6 @@
     <div class="banner">
         <div><img src="${cp }/resources/images/banner.png" id="banner_img"></div>
     </div>
-
 
     <!--신상품라인-->
     <div class="comment">
