@@ -53,9 +53,9 @@
         <label for="btn4" id="in4" class="wide"></label>
         <!--슬라이드이미지-->
         <ul class="slide">
-            <li class="slide-img1 fade"><a href="${cp}/board/detail?brdNo=302">
+            <li class="slide-img1 fade"><a href="${cp}/board/detail?brdNo=303">
                 <img src="${cp}/resources/images/slider01.jpg"></a></li>
-            <li class="slide-img2 fade"><a href="${cp}/board/detail?brdNo=303"><img
+            <li class="slide-img2 fade"><a href="${cp}/board/detail?brdNo=302"><img
                     src="${cp}/resources/images/slider02.jpg"></a></li>
             <li class="slide-img3 fade"><a href="${cp}/board/detail?brdNo=304"><img
                     src="${cp}/resources/images/slider03.jpg"></a></li>
