@@ -8,34 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel = "stylesheet" href="${cp}/resources/css/itemForm.css">
-<style type="text/css">
 
-#purchaseBox{
-	width: 800px;
-	padding: 20px;
-	margin: auto;
-}
-
-#purchaseForm {
-	width: 200px;
-	margin: 0;
-	display: inline-block;
-}
-
-.deltaBtns{
-	width: 30px;
-}
-
-.inputText{
-	width: 80px;
-}
-
-.btns{
-	width: 80px;
-
-}
-
-</style>
 </head>
 <body>
 	<h1>상품 상세 페이지</h1>
@@ -49,32 +22,32 @@
 			<c:forEach var="mcatDto" items="${mcatList}">
 				<c:if test="${dto.mcatNo == mcatDto.mcatNo}">
 						<label>대분류</label>
-						<input type="text" value="${mcatDto.mcatName}" readonly="readonly"><br>
+						<input type="text" value="${mcatDto.mcatName}" id="content" readonly="readonly"><br>
 					<c:forEach var="scatDto" items="${scatList}">
 					<c:if test="${(dto.mcatNo == scatDto.mcatNo) && (dto.scatNo == scatDto.scatNo)}">
 						<label>소분류</label>
-						<input type="text" value="${scatDto.scatName}" readonly="readonly"><br>
+						<input type="text" value="${scatDto.scatName}" id="content" readonly="readonly"><br>
 					</c:if>
 					</c:forEach>
 				</c:if>
 			</c:forEach>
 			<label>가격</label>
-			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" readonly="readonly"><br>
+			<input type="text" value="<fmt:formatNumber value="${dto.price}" type="number" /> 원" id="content" readonly="readonly"><br>
 			<label>해시태그</label>
-			<input type="text" value="${dto.hash }" readonly="readonly"><br>
+			<input type="text" value="${dto.hash }" id="content" readonly="readonly"><br>
 			
 			<c:choose>
 				<c:when test="${role == 'admin0' }">
 					<label>판매여부</label>
 						<c:choose>
 							<c:when test="${dto.itemDel eq 'false' }">
-							<input type="text" value="판매중" readonly="readonly">
-							<button onclick="deleteItem()">판매중단</button><br>
-							<button onclick="history.back()">목록으로</button>
+							<input type="text" value="판매중" id="content" readonly="readonly">
+							<button onclick="deleteItem()" id="content">판매중단</button><br>
+							<button onclick="history.back()" id="content">목록으로</button>
 							</c:when>
 							<c:otherwise>
-							<input type="text" value="판매중단" readonly="readonly"><br>
-							<button onclick="history.back()">목록으로</button>
+							<input type="text" value="판매중단" id="content" readonly="readonly"><br>
+							<button onclick="history.back()" id="content">목록으로</button>
 							</c:otherwise>
 						</c:choose>
 				</c:when>
@@ -83,11 +56,11 @@
 					<label>판매여부</label>
 						<c:choose>
 							<c:when test="${dto.itemDel eq 'false' }">
-							<input type="text" value="판매중" readonly="readonly"><br>
+							<input type="text" value="판매중" id="content" readonly="readonly"><br>
 							<button onclick="history.back()">목록으로</button>
 							</c:when>
 							<c:otherwise>
-							<input type="text" value="판매중단" readonly="readonly"><br>
+							<input type="text" value="판매중단" id="content" readonly="readonly"><br>
 							<button onclick="history.back()">목록으로</button>
 							</c:otherwise>
 						</c:choose>
@@ -134,7 +107,7 @@
 	</c:choose>
 	
 	<div class="img">
-	<label id="detImg">상세이미지</label><br>
+	<h3 id="detImg">상세이미지</h3><br>
 	<img src="${cp }/resources/uploads/admin/item/${dto.detImg}" width="800px"><br>
 	</div>
 	

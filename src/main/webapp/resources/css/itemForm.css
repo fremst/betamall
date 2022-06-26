@@ -2,7 +2,6 @@
 *{
 	margin:0;
 	padding:0;
-	text-align:center;
 	
 }
 h1 {
@@ -25,9 +24,12 @@ input {
 	outline: none;
   	border: none;
   	width:150px;
-  	font-size:18px;
+  	
 }
-
+#content{
+	font-size:18px;
+	
+}
 .context {
 	display: flex;
 	margin-top: 50px;
@@ -54,4 +56,40 @@ button{
 }
 .quickMenu{
 	margin:right;
+}
+
+#purchaseBox{
+	width: 800px;
+	padding: 20px;
+	margin: auto;
+	text-align:center;
+}
+
+#purchaseForm {
+	width: 200px;
+	margin: 0;
+	display: inline-block;
+	font-size: 18px;
+}
+
+.deltaBtns{
+	width: 30px;
+	font-size: 18px;
+}
+
+.inputText{
+	width: 80px;
+	text-align:center;
+	font-size: 18px;
+}
+
+.btns{
+	width: 80px;
+
+}
+#detImg{
+	text-align: center;
+}
+.img{
+	text-align: center;
 }
