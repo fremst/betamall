@@ -40,7 +40,7 @@
 					<input type="text" value="${dto.itemName }" id="brdTitle" class="headerInfo" style="margin-left: 15px; border: none;">
 				</div>
 				<div>
-					<textarea rows="10" cols="145" name="review" id="brdCon" placeholder="내용"></textarea><br>
+					<textarea cols="138" name="review" id="brdCon" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="내용"></textarea><br>
 					<div class = "fileField">
 						첨부파일<br>
 				    	<label for = "uploadedFile">첨부파일</label>
@@ -82,5 +82,10 @@
 	        };
 	        reader.readAsDataURL(event.target.files[0]);
 	      }
+		
+		function resize(obj) {
+			  obj.style.height = "200px";
+			  obj.style.height = (obj.scrollHeight)+"px";
+			}
 	</script>
 </html>

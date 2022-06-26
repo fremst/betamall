@@ -34,9 +34,7 @@
 				<c:if test="${not empty dto.brdSdate }">
 					<input type="text" value="이벤트 기간 : ${dto.brdSdate } ~ ${dto.brdFdate }" readonly="readonly" id="event"><br>
 				</c:if>
-				<div id="con">
-					${dto.brdCon }
-				</div>
+				<textarea rows="10" cols="120" id="con" readonly="readonly">${dto.brdCon }</textarea>
 			</div>
 			<hr style="margin-top: 5px;">
 			<div id="nav">
@@ -57,5 +55,21 @@
 			return false;
 		}
 	}
+	
+	function resize() {
+        let textarea = document.getElementById("con");
+ 
+        textarea.style.height = "0px";
+ 
+        let scrollHeight = textarea.scrollHeight;
+        let style = window.getComputedStyle(textarea);
+        let borderTop = parseInt(style.borderTop);
+        let borderBottom = parseInt(style.borderBottom);
+ 
+        textarea.style.height = (scrollHeight + borderTop + borderBottom)+"px";
+    }
+
+    window.onload = resize;
+    window.onresize = resize;
 </script>
 </html>
