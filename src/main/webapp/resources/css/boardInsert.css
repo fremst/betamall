@@ -72,11 +72,19 @@ img {
 #brdCon {
 	margin-left: 15px;
 	margin-top: 15px;
+	resize: none;
+	box-sizing: border-box;
+	overflow: hidden;
+	height: 200px;
 }
 
 #qnaCon {
 	margin-left: 15px;
 	margin-top: 15px;
+	resize: none;
+	box-sizing: border-box;
+	overflow: hidden;
+	height: 200px;
 }
 
 .fileField {

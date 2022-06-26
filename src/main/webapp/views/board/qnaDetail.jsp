@@ -41,9 +41,7 @@
 							<img src="${cp}/resources/uploads/admin/board/${dto.qnaFile }" id="img"><br>
 						</c:otherwise>
 					</c:choose>
-					<div id="con">
-						${dto.qnaCon }
-					</div>
+					<textarea rows="10" cols="120" id="con" readonly="readonly">${dto.qnaCon }</textarea>
 				</div>
 				<hr style="margin-top: 5px;">
 				<div id="nav">
@@ -105,5 +103,21 @@
 			document.insertForm.submit();
 		}
 	}
+	
+	function resize() {
+        let textarea = document.getElementById("con");
+ 
+        textarea.style.height = "0px";
+ 
+        let scrollHeight = textarea.scrollHeight;
+        let style = window.getComputedStyle(textarea);
+        let borderTop = parseInt(style.borderTop);
+        let borderBottom = parseInt(style.borderBottom);
+ 
+        textarea.style.height = (scrollHeight + borderTop + borderBottom)+"px";
+    }
+
+    window.onload = resize;
+    window.onresize = resize;
 </script>
 </html>

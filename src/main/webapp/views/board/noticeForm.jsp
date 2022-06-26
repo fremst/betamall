@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div>
-					<textarea rows="10" cols="145" name="brdCon" id="brdCon" placeholder="내용"></textarea><br>
+					<textarea cols="138" name="brdCon" id="brdCon" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="내용"></textarea><br>
 					<div class = "fileField">
 						첨부파일<br>
 				    	<label for = "uploadedFile">첨부파일</label>
@@ -98,5 +98,10 @@
 	        };
 	        reader.readAsDataURL(event.target.files[0]);
 	      }
+		
+		function resize(obj) {
+			  obj.style.height = "200px";
+			  obj.style.height = (obj.scrollHeight)+"px";
+			}
 	</script>
 </html>
