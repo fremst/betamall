@@ -12,8 +12,8 @@
     <form action="${cp}/login/searchId" method="post">
         <fieldset id="loginField">
             <legend>아이디 찾기 양식</legend>
-            이메일&nbsp;<input type="text" name="email" id="id"><br><br>
-            전화번호&nbsp;<input type="text" name="tel" id="pwd"><br><br>
+            이&nbsp;&nbsp;메&nbsp;&nbsp;일&nbsp;&nbsp;<input type="text" name="email" id="id"><br><br>
+            전화번호&nbsp;&nbsp;<input type="text" name="tel" id="pwd"><br><br>
             <div id="errBox">${id}</div>
             <input type="submit" value="아이디찾기" id=loginBtn class="btn">
         </fieldset>
