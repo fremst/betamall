@@ -29,9 +29,10 @@ public class JoinController extends HttpServlet {
         String mbrName = req.getParameter("name");
         Date mbrBd = Date.valueOf(req.getParameter("bd"));
         String mbrTel = req.getParameter("tel");
-        String mbrAdr = req.getParameter("postno") + "/" + req.getParameter("addr") + "/" + req.getParameter("addr1") + "/" + req.getParameter("addr2");
+        String mbrAdr = req.getParameter("postno") + "/" + req.getParameter("addr") + "/" + req.getParameter("addr1")
+                + "/" + req.getParameter("addr2");
         String mbrEmail = req.getParameter("email");
-        MemberDto dto = new MemberDto(0, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, "BRONZE", 0);
+        MemberDto dto = new MemberDto(0, mbrName, mbrTel, mbrAdr, mbrEmail, mbrId, mbrPwd, mbrBd, null, 0);
         MemberDao dao = MemberDao.getInstance();
         int n = dao.insert(dto);
         if (n > 0) {
