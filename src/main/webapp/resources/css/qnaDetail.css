@@ -31,6 +31,7 @@ main.main {
 
 input {
 	border: none;
+	outline: none;
 }
 
 #title {

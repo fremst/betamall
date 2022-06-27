@@ -38,10 +38,12 @@
 						<c:when test="${dto.qnaFile==null }">
 						</c:when>
 						<c:otherwise>
-							<img src="${cp}/resources/uploads/admin/board/${dto.qnaFile }" id="img"><br>
+							<div style="text-align: center;">
+								<img src="${cp}/resources/uploads/admin/board/${dto.qnaFile }" id="img"><br>
+							</div>
 						</c:otherwise>
 					</c:choose>
-					<textarea rows="10" cols="120" id="con" readonly="readonly">${dto.qnaCon }</textarea>
+					<textarea rows="10" cols="120" id="con" readonly="readonly" style="outline: none;">${dto.qnaCon }</textarea>
 				</div>
 				<hr style="margin-top: 5px;">
 				<div id="nav">
@@ -55,7 +57,7 @@
 			<div id="cmt">
 				<c:if test="${role == 'admin0' || role == 'admin' || role == 'member' }">
 					<form method="post" action="${cp }/board/qnacmtinsert" name="insertForm">
-						<textarea rows="5" cols="134" name="qnaCmtCon" id="qnaCmtCon" placeholder="댓글을 입력해주세요."></textarea>
+						<textarea rows="5" cols="134" name="qnaCmtCon" id="qnaCmtCon" placeholder="댓글을 입력해주세요." style="resize: none;"></textarea>
 						<input type="text" name="qnaNo" value="${dto.qnaNo }" style="display: none">
 						<button onclick="checkSpace()">등록</button>
 					</form>

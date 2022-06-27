@@ -28,10 +28,12 @@
 					<c:when test="${dto.brdImg==null }">
 					</c:when>
 					<c:otherwise>
-						<img src="${cp}/resources/uploads/admin/board/${dto.brdImg }" id="img"><br>
+						<div style="text-align: center;">
+							<img src="${cp}/resources/uploads/admin/board/${dto.brdImg }" id="img"><br>
+						</div>
 					</c:otherwise>
 				</c:choose>
-				<textarea rows="10" cols="120" id="con" readonly="readonly">${dto.brdCon }</textarea>
+				<textarea rows="10" cols="120" id="con" readonly="readonly" style="outline: none;">${dto.brdCon }</textarea>
 			</div>
 			<hr style="margin-top: 5px;">
 			<div id="nav">

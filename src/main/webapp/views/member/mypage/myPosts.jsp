@@ -55,7 +55,7 @@
 			<div id="boardMain">
 				<c:choose>
 					<c:when test="${not empty list }">
-						<table id="bodarList">
+						<table id="bodarList" style="width: 1010px;">
 							<tr >
 								<th class="boardInfo_header">글번호</th>
 								<th class="boardInfo_header">카테고리</th>
@@ -99,8 +99,9 @@
 						</table>
 					</c:when>
 					<c:otherwise>
-						<div class = "nothing">
-							<h3>검색 항목이 없습니다.</h3>
+						<div class = "nothing" style="width: 1015px;">
+							<hr style="height: 2px; background-color: #707070">
+							<h4 style="text-align: center; margin-top: 15px; margin-bottom: 15px;">작성한 글이 없습니다.</h4>
 						</div>
 					</c:otherwise>
 				</c:choose>
