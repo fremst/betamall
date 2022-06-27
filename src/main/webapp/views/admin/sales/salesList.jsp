@@ -125,17 +125,16 @@
                 let scatList = data.scatList;
                 let branchList = data.branchList;
 
+                console.log(salesList);
+                
             	// 차트 그리기
-            	 
-                let catArr = [];
-                let dataArr = [];
+                let catArr = []; // 대분류 배열
+                let dataArr = []; // 데이터 배열
                 
             	for (let i = 0; i < mcatList.length; i++) {
                     catArr.push(mcatList[i].mcatName);
                 } 
             	catArr.unshift('');
-            	
-            	let salesListDiffLength = salesList.length;
             
                 for (let i=0; i<salesList.length; i++){
                 	if(i==0 || salesList[i].ordDate.substr(0,7) != salesList[i-1].ordDate.substr(0,7)){
@@ -160,7 +159,6 @@
                 drawChart(catArr, dataArr);
                 
                 // 조회 결과 추가
-                
         		let tbody = document.getElementById('tbody');
         		
         		let sales = tbody.childNodes;
@@ -249,7 +247,9 @@
 		                subtitle: '월별, 상품 분류별 매출',
 		            }
 		        };
-
+		
+		console.log(data);
+		
         const chart = new google.charts.Bar(document.getElementById('columnchart_material'));
         chart.draw(data, google.charts.Bar.convertOptions(options));
 

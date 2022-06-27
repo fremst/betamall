@@ -42,6 +42,7 @@ public class BrUpdateController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		BranchDao brDao = BranchDao.getInstance();
 		int selectedBrNo = Integer.parseInt(req.getParameter("brNo"));
 		

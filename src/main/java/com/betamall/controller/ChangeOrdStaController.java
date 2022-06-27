@@ -27,18 +27,15 @@ public class ChangeOrdStaController extends HttpServlet{
 		  	String ordSta = URLDecoder.decode(req.getParameter("ordSta"), "UTF-8");
 		  	int n = ChangeOrder.changeOrdSta(ordNo, ordSta);
 	  	
-	  	if(n>0) {
-	    	JSONObject data = new JSONObject();
-	        data.put("ordSta", ordSta);
-	        resp.setContentType("text/plain;charset=utf-8");
-	        PrintWriter pw = resp.getWriter();
-	        pw.print(data);
-	        pw.close();
-	  		//resp.sendRedirect(req.getContextPath() + "/admin/order/list");
-	  	}
-		}else {
-			//resp.sendRedirect(req.getContextPath() + "/admin/order/list");
+		  	if(n>0) {
+		    	JSONObject data = new JSONObject();
+		        data.put("ordSta", ordSta);
+		        resp.setContentType("text/plain;charset=utf-8");
+		        PrintWriter pw = resp.getWriter();
+		        pw.print(data);
+		        pw.close();
+		  	}
+	  	
 		}
 	}
-	
 }
