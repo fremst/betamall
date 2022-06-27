@@ -26,7 +26,7 @@
 						<option value="배송">배송</option>
 						<option value="상품">상품</option>
 					</select>
-					<input type="text" name="qnaTitle" id="qnaTitle" class="headerInfo" placeholder="제목">
+					<input type="text" name="qnaTitle" id="qnaTitle" class="headerInfo" placeholder="제목" style="width: 55%;">
 					<div id="popUp">
 						비밀글 <input type="checkbox" name="secret" id="secret" class="headerInfo">
 					</div>

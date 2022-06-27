@@ -27,7 +27,7 @@
 					<option value="배송">배송</option>
 					<option value="상품">상품</option>
 				</select>
-				<input type="text" name="qnaTitle" id="qnaTitle" class="headerInfo" value="${dto.qnaTitle }">
+				<input type="text" name="qnaTitle" id="qnaTitle" class="headerInfo" value="${dto.qnaTitle }" style="width: 55%;">
 				<div id="popUp">
 					비밀글 <input type="checkbox" name="secret" id="secret" class="headerInfo">
 				</div>
@@ -38,7 +38,7 @@
 						<option value="${idto.itemNo }" >${idto.itemName }</option>
 					</c:forEach>
 				</select>
-				<textarea rows="10" cols="145" name="qnaCon" id="qnaCon">${dto.qnaCon }</textarea><br>
+				<textarea rows="10" cols="138" name="qnaCon" id="qnaCon">${dto.qnaCon }</textarea><br>
 				<div class = "fileField">
 					첨부파일<br>
 			    	<label for = "uploadedFile">첨부파일</label>

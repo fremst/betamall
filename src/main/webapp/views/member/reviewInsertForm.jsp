@@ -41,14 +41,6 @@
 				</div>
 				<div>
 					<textarea cols="138" name="review" id="brdCon" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="내용"></textarea><br>
-					<div class = "fileField">
-						첨부파일<br>
-				    	<label for = "uploadedFile">첨부파일</label>
-				    	<input type = "file" name = "uploadFile" id = "uploadFile" onchange="setThumbnail(event)"><br>
-				       	<span class = "notice">※ 파일 업로드 최대 용량 5MB 이하<br>(최대 사이즈 150px * 150px)</span>
-				        <div id = "thumbNailImg">
-				        </div> 
-				    </div>
 				</div>
 				<hr style="margin-top: 15px;">
 				<div id="nav">

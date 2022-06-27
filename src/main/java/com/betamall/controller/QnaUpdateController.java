@@ -50,7 +50,7 @@ public class QnaUpdateController extends HttpServlet{
 		);
 		
 		int qnaNo = Integer.parseInt(mr.getParameter("qnaNo"));
-		int itemNo = (mr.getParameter("itemNo") == null) ? null : Integer.parseInt(mr.getParameter("itemNo"));
+		Integer itemNo = (mr.getParameter("itemNo") == null) ? null : Integer.parseInt(mr.getParameter("itemNo"));
 		String qnaCat = mr.getParameter("qnaCat");
 		String qnaTitle = mr.getParameter("qnaTitle");
 		String qnaCon = mr.getParameter("qnaCon");

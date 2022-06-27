@@ -43,8 +43,9 @@
 						</table>
 					</c:when>
 					<c:otherwise>
-						<div class = "nothing">
-							<h3>검색 항목이 없습니다.</h3>
+						<div class = "nothing" style="width: 1010px;">
+							<hr style="height: 2px; background-color: #707070">
+							<h4 style="text-align: center; margin-top: 15px;">검색 항목이 없습니다.</h4>
 						</div>
 					</c:otherwise>
 				</c:choose>
