@@ -96,7 +96,6 @@ public class MgrUpdateController extends HttpServlet{
 							)
 						);
 		if(n>0) {
-//			resp.sendRedirect(req.getContextPath() + "/admin/manager/list?&res=success");
 			resp.sendRedirect(req.getContextPath() + "/admin/manager/update?mgrNo="+selectedMgrNo+"&res=success");
 		}else{
 			resp.sendRedirect(req.getContextPath() + "/admin/manager/update?mgrNo="+selectedMgrNo+"&res=fail");

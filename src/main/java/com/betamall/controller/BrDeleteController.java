@@ -18,7 +18,7 @@ import com.betamall.dto.BranchDto;
 public class BrDeleteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		String res = req.getParameter("res");
 		if(res != null) {
 			req.setAttribute("res", res);
@@ -30,6 +30,7 @@ public class BrDeleteController extends HttpServlet{
 		BranchDto selectedBrDto = brDao.select(selectedBrNo);
 		
 		int n = brDao.delete(selectedBrNo);
+		
 		if(n>0) {
 			ServletContext application = req.getServletContext();
 			String saveDir = application.getRealPath("/resources/uploads/admin/branch");
@@ -38,5 +39,6 @@ public class BrDeleteController extends HttpServlet{
 		}else {
 			resp.sendRedirect(req.getContextPath() + "/admin/branch/delete?brNo="+selectedBrNo+"&res=fail");
 		}
+		
 	}
 }

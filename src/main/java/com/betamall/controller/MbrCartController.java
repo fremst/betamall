@@ -40,7 +40,7 @@ public class MbrCartController extends HttpServlet {
     	}else{
     		
 	    	@SuppressWarnings("unchecked")
-	    	TreeMap<ArrayList<Integer>, Integer> cart = (TreeMap<ArrayList<Integer>, Integer>) session.getAttribute("cart");
+	    	TreeMap<ArrayList<Integer>, Integer> cart =(TreeMap<ArrayList<Integer>, Integer>) session.getAttribute("cart");
 	    	//cart - Key : (brNo, itemNo) value : ordCnt
 	    	
 	    	ArrayList<ItemDto> ordItemList = new ArrayList<ItemDto>();
@@ -51,7 +51,7 @@ public class MbrCartController extends HttpServlet {
 	    	StockDao stkDao = StockDao.getInstance();
 	    	
 	    	if(cart != null) {
-
+	    		// 세션에 장바구니가 저장되어 있으면
 	    		cart.forEach((brNoNitemNo, ordCnt) -> {
 	    			
 	    			int brNo = brNoNitemNo.get(0);
@@ -59,11 +59,13 @@ public class MbrCartController extends HttpServlet {
     				int stkCnt = stkDao.select(itemNo, brNo).getStkCnt();
     				
     				if(stkCnt < ordCnt) {
+    					// 재고 수량보다 주문 수량이 많으면
     					ordCnt = stkCnt;
     					cart.replace(brNoNitemNo, ordCnt);
     				}
     				
 	    			if(ordCnt > 0) {
+	    				// 재고 수량보다 주문 수량이 적으면
 	    				BranchDto brDto = brDao.select(brNo);
 	    				ItemDto itemDto = itemDao.select(itemNo);
 	    				
